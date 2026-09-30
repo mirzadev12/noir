@@ -17,7 +17,9 @@ The film is 2 min 52 s at 1080p, with the AI voiceover and the subtitles burned 
 
 ## Title
 
-NOIR: which exchange do I write to? Attributing unknown crypto wallets to the nearest VASP, both directions
+NOIR: Attributing Unknown Crypto Wallets to the Nearest VASP | SIH 2026 (SIH26182)
+
+(82 characters; YouTube allows 100. Drop the last part if you would rather not name the event in the title.)
 
 ## Description
 
