@@ -9,6 +9,7 @@
  */
 
 import { groupByCase, vaspResponse, type CaseRow, type VaspResponse } from "./analytics";
+import { loadClosures } from "./case-store";
 import { groupByVasp, vaspKey } from "./desk";
 import { loadDesk } from "./desk-store";
 import type { Ask, DeskEntry, DeskView, RequestLetter, VaspRequest, VaspRow } from "./desk-types";
@@ -98,7 +99,7 @@ export function readRegister(): Promise<Read<RegisterPage>> {
 
 /** Every case reference on the desk with its wallets, the VASPs they reach and its requests. */
 export function readCases(): Promise<Read<CaseRow[]>> {
-  return guard(async () => groupByCase(await loadDesk()));
+  return guard(async () => groupByCase(await loadDesk(), await loadClosures()));
 }
 
 export interface WalletPage {

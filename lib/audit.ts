@@ -28,6 +28,8 @@ export type AuditAction =
   | "trace"
   | "case.saved"
   | "case.removed"
+  | "case.closed"
+  | "case.reopened"
   | "alerts.on"
   | "alerts.off"
   | "desk.filed"
@@ -68,6 +70,8 @@ const ACTIONS: readonly string[] = [
   "trace",
   "case.saved",
   "case.removed",
+  "case.closed",
+  "case.reopened",
   "alerts.on",
   "alerts.off",
   "desk.filed",

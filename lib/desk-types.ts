@@ -190,6 +190,21 @@ export interface DeskFile {
   requests: VaspRequest[];
 }
 
+/**
+ * A case reference the unit has closed. Closing files nothing and removes
+ * nothing: the wallets, their attributions and the requests stay as they are.
+ * While a case is closed a filing that names it is refused, and it can be
+ * reopened. Kept beside the desk (`lib/case-store.ts`), not in it.
+ */
+export interface CaseClosure {
+  caseRef: string;
+  /** When it was recorded: ISO, UTC. */
+  closedAt: string;
+  by: Actor;
+  /** Why, in the officer's words; at most 500 characters. */
+  note: string | null;
+}
+
 /** One wallet as it sits under a VASP row. A wallet can sit under a VASP in both directions. */
 export interface RoutedWallet {
   entryId: string;

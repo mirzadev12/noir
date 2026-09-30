@@ -12,7 +12,7 @@
  */
 
 import { vaspKey } from "./desk";
-import type { DeskFile, EntryChain, EntryStatus, RequestStatus, VaspRequest } from "./desk-types";
+import type { CaseClosure, DeskFile, EntryChain, EntryStatus, RequestStatus, VaspRequest } from "./desk-types";
 
 export interface CaseRow {
   /** Null gathers the wallets filed without a case reference. */
@@ -23,6 +23,8 @@ export interface CaseRow {
   requests: { id: string; vasp: string; status: RequestStatus }[];
   firstFiled: string;
   lastFiled: string;
+  /** The closure when the unit has closed this case; null while it is open. The wallets with no case reference are never closed. */
+  closed: CaseClosure | null;
 }
 
 export interface VaspResponse {
@@ -42,14 +44,15 @@ export interface VaspResponse {
 const ANSWERS: ReadonlySet<RequestStatus> = new Set(["acknowledged", "data-received", "frozen", "refused"]);
 const status = (r: VaspRequest) => r.history[r.history.length - 1].status;
 
-export function groupByCase(file: DeskFile): CaseRow[] {
+export function groupByCase(file: DeskFile, closures: CaseClosure[] = []): CaseRow[] {
   const cases = new Map<string, CaseRow>();
   for (const entry of file.entries) {
     for (const filing of entry.filings) {
       const key = filing.caseRef ?? "\u0000none";
       let row = cases.get(key);
       if (!row) {
-        row = { caseRef: filing.caseRef, wallets: [], vasps: [], requests: [], firstFiled: filing.at, lastFiled: filing.at };
+        const closed = filing.caseRef === null ? null : (closures.find((c) => c.caseRef === filing.caseRef) ?? null);
+        row = { caseRef: filing.caseRef, wallets: [], vasps: [], requests: [], firstFiled: filing.at, lastFiled: filing.at, closed };
         cases.set(key, row);
       }
       if (filing.at < row.firstFiled) row.firstFiled = filing.at;

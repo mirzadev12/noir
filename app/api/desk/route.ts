@@ -1,7 +1,9 @@
+import { loadClosures } from "@/lib/case-store";
 import { fileWallets, groupByVasp, newEntryId, removeEntry } from "@/lib/desk";
 import { auditEntry, body, failed, json } from "@/lib/desk-http";
-import { parseIntake } from "@/lib/desk-intake";
+import { parseIntake, refuseClosedCases } from "@/lib/desk-intake";
 import { changeDesk, loadDesk } from "@/lib/desk-store";
+import type { IntakeLine } from "@/lib/desk-types";
 import { kickDesk } from "@/lib/desk-worker";
 import { actorOf, cleanName } from "@/lib/identity";
 
@@ -13,6 +15,7 @@ import { actorOf, cleanName } from "@/lib/identity";
  *   POST    { text, caseRef? } — file wallets: a pasted list or a CSV. Every
  *           line is checked before any chain read; accepted wallets are filed
  *           as pending and the server's worker attributes them one at a time.
+ *           A line that names a closed case is refused like any other bad line.
  *           → { added, merged, rejected }
  *   DELETE  { id } — take a wallet off the desk.
  *
@@ -50,7 +53,14 @@ export async function POST(request: Request) {
   if (typeof b.text !== "string" || !b.text.trim()) {
     return json({ error: "Expected { text, caseRef? } — wallets, one per line or as CSV." }, 400);
   }
-  const lines = parseIntake(b.text, cleanName(typeof b.caseRef === "string" ? b.caseRef : null));
+  const checked = parseIntake(b.text, cleanName(typeof b.caseRef === "string" ? b.caseRef : null));
+  let lines: IntakeLine[];
+  try {
+    // A closed case takes no new filings: the line is refused, with when it was closed.
+    lines = refuseClosedCases(checked, await loadClosures());
+  } catch (err) {
+    return failed(err);
+  }
   const accepted = lines.filter((l) => l.ok);
   const rejected = lines.filter((l) => !l.ok);
   if (!accepted.length) return json({ added: [], merged: [], rejected }, 422);

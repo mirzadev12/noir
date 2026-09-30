@@ -20,7 +20,8 @@
 
 import { checkAddress } from "./address";
 import { identifyChain } from "./chains";
-import type { EntryChain, IntakeLine } from "./desk-types";
+import type { CaseClosure, EntryChain, IntakeLine } from "./desk-types";
+import { utcDay } from "./noir-format";
 
 export const MAX_INTAKE_LINES = 500;
 
@@ -192,4 +193,19 @@ export function parseIntake(text: string, batchCaseRef: string | null = null): I
     out.push(accepted);
   }
   return out;
+}
+
+/**
+ * A closed case takes no new filings. Every accepted line that names one is
+ * refused, at its own line number, with the day the case was closed; the other
+ * lines stand. A line with no case reference is never refused here.
+ */
+export function refuseClosedCases(lines: IntakeLine[], closures: CaseClosure[]): IntakeLine[] {
+  if (closures.length === 0) return lines;
+  return lines.map((l) => {
+    if (!l.ok || l.caseRef === null) return l;
+    const closed = closures.find((c) => c.caseRef === l.caseRef);
+    if (!closed) return l;
+    return { line: l.line, ok: false, raw: l.wallet, reason: `Case '${l.caseRef}' was closed on ${utcDay(closed.closedAt)}; reopen it to file under it.` };
+  });
 }
