@@ -149,7 +149,7 @@ export default async function WalletPage(props: PageProps<"/wallet/[address]">) 
           ) : null}
           {r.outbound.txHashes.length > 0 ? (
             <p className="mt-2 text-small text-ink-soft">
-              {r.outbound.txHashes.length === 1 ? "The transaction into the account is" : `The ${r.outbound.txHashes.length} transactions into the account are`} listed on the{" "}
+              {r.outbound.txHashes.length} {r.outbound.txHashes.length === 1 ? "transaction into the account is" : "transactions into the account are"} listed on the{" "}
               <RouteLink href={vaspHref(r.outbound.vasp)}>{r.outbound.vasp} page</RouteLink>.
             </p>
           ) : null}

@@ -35,7 +35,7 @@ export function Table({
 }) {
   // A table wider than its column scrolls inside this frame; the page never scrolls sideways.
   return (
-    <div className="min-w-0 overflow-x-auto rounded-control border border-rule-strong bg-paper-2 px-4 md:px-5">
+    <div className="min-w-0 overflow-x-auto">
       <table className="noir-table">
         {caption ? <caption className="sr-only">{caption}</caption> : null}
         <thead>

@@ -136,16 +136,6 @@ export function changeStatus(
   if (on.value !== null && !isCalendarDay(on.value)) {
     return { ok: false, error: "The date must be a calendar day written YYYY-MM-DD." };
   }
-  // The record keeps a possible order of events: a step cannot be dated before
-  // the step it follows, nor after today.
-  if (on.value !== null) {
-    const prev = request.history[request.history.length - 1];
-    const prevDay = prev.on ?? prev.at.slice(0, 10);
-    if (on.value < prevDay) {
-      return { ok: false, error: `That date is before the request was ${prev.status === "drafted" ? "drafted" : `recorded as ${prev.status}`} (${prevDay}).` };
-    }
-    if (on.value > now.slice(0, 10)) return { ok: false, error: "That date is in the future." };
-  }
   const reference = optionalText(change.reference, MAX_REFERENCE, "reference");
   if ("error" in reference) return { ok: false, error: reference.error };
   const note = optionalText(change.note, MAX_NOTE, "note");

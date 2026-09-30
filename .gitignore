@@ -55,4 +55,3 @@ next-env.d.ts
 # impeccable review captures (local)
 /.impeccable/review/
 /.impeccable/hook.cache.json
-/.noir-prod/

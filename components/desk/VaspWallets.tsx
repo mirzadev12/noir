@@ -26,7 +26,7 @@ function WalletCell({ w, entries }: { w: RoutedWallet; entries: Record<string, D
   const entry = entries[w.entryId];
   return (
     <span className="inline-flex min-w-0 flex-col items-start gap-2">
-      <WalletLink wallet={w.wallet} chain={w.chain} short />
+      <WalletLink wallet={w.wallet} chain={w.chain} />
       {entry ? <OfacTag entry={entry} /> : null}
     </span>
   );

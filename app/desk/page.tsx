@@ -5,6 +5,7 @@ import { FollowUps } from "@/components/desk/FollowUps";
 import { IntakeBox } from "@/components/desk/IntakeBox";
 import { Refresher } from "@/components/desk/Refresher";
 import { VaspBoard } from "@/components/desk/VaspBoard";
+import { Lanes } from "@/components/landing/Lanes";
 import { ButtonLink, Page, PageHead, RouteLink, Section, Sign } from "@/components/noir";
 import { readDeskView } from "@/lib/desk-read";
 import { amount, count, vaspHref } from "@/lib/noir-format";
@@ -110,7 +111,12 @@ export default async function DeskPage() {
               flush={flagged.length === 0}
               note="One row per VASP, every case together. Open a row to see its wallets and draft the one request."
             >
-              <VaspBoard rows={board} />
+              <div className="relative">
+                <Lanes />
+                <div className="relative">
+                  <VaspBoard rows={board} />
+                </div>
+              </div>
             </Section>
           ) : null}
           {view.rows.length > 0 ? (

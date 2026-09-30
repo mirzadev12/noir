@@ -42,5 +42,6 @@ known, a freeze — and tracks what the VASP did with it.
 ## Brand commitments
 
 - Name: NOIR (placeholder).
-- Look: a dark, precise console with a departures-board desk; see DESIGN.md. NOIR is its
-  own product and is never presented alongside or compared with any other.
+- Look: wayfinding signage, very clean and minimalist — white, black type, one yellow
+  destination sign per screen. NOIR is its own product and is never presented alongside
+  or compared with any other.

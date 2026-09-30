@@ -104,16 +104,6 @@ function routeTo(trace: TraceResult, target: string): RouteStop[] {
   return route;
 }
 
-/**
- * A typology states what was observed, never what it was for: the tracer's
- * reason strings (and the recorded cases that carry them) sometimes append an
- * interpretation after an em dash or a "suggests", and that part is dropped.
- */
-export function observedOnly(reason: string): string {
-  const cut = reason.split(" — ")[0].split(/ suggests /)[0].trim().replace(/[.;,]+$/, "");
-  return `${cut}.`;
-}
-
 /** The strongest label that credits `entity` among the payers — the evidence behind an inbound row. */
 function strongest(entity: string, payers: TracedPayer[]): Label | null {
   const key = entity.toLowerCase();
@@ -210,7 +200,7 @@ export async function attributeWallet(
     inbound: inb.inbound,
     inboundLeads: inb.leads,
     inboundRead: payers ? (payers.readable ? "read" : "unreadable") : "not-run",
-    typologies: trace.riskFlags.map((f) => ({ code: f.code, reason: observedOnly(f.reason), at: f.atAddress })),
+    typologies: trace.riskFlags.map((f) => ({ code: f.code, reason: f.reason, at: f.atAddress })),
     provenance: {
       generatedAt: trace.provenance.generatedAt,
       basis: recorded ? "recorded" : "live",

@@ -70,7 +70,7 @@ export function StatusForm({ requestId, current }: { requestId: string; current:
         </Select>
       </Field>
       <div className="grid min-w-0 gap-4 sm:grid-cols-2">
-        <Field label="Date it happened" htmlFor={`on-${requestId}`} hint="Leave blank for today. Stored as a UTC calendar day, e.g. 29 Sep 2026.">
+        <Field label="Date it happened" htmlFor={`on-${requestId}`} hint="Leave blank to record it now, in UTC.">
           <TextInput id={`on-${requestId}`} type="date" value={on} onChange={(e) => setOn(e.target.value)} />
         </Field>
         <Field label="Reference" htmlFor={`ref-${requestId}`} hint="The VASP’s or SAHYOG’s number, as written.">

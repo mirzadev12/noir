@@ -143,7 +143,7 @@ export function Letter({ letter, draftedBy }: { letter: RequestLetter; draftedBy
                     <ul className="flex flex-col gap-1">
                       {w.txHashes.map((h) => (
                         <li key={h}>
-                          <Mono whole className="sm:whitespace-nowrap">
+                          <Mono whole className="print:whitespace-nowrap lg:whitespace-nowrap">
                             {h}
                           </Mono>
                         </li>

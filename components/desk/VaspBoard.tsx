@@ -59,7 +59,7 @@ export function VaspBoard({ rows }: { rows: BoardRow[] }) {
 
   return (
     <div className="min-w-0">
-      <div className="flex min-w-0 flex-col gap-3">
+      <div className="flex min-w-0 flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div
           role="group"
           aria-label="Show VASPs by request"
@@ -76,8 +76,8 @@ export function VaspBoard({ rows }: { rows: BoardRow[] }) {
                   onClick={() => setFilter(f.id)}
                   className={`type-label inline-flex min-h-9 cursor-pointer items-center gap-2 px-3 transition-colors ${
                     on
-                      ? "rounded-full border border-ink bg-ink text-on-light"
-                      : "rounded-full hair-box bg-transparent text-ink-soft hover:text-ink"
+                      ? "rule-box bg-navy text-on-ink"
+                      : "hair-box bg-paper text-ink-soft hover:text-ink"
                   }`}
                 >
                   {f.label}
@@ -87,7 +87,7 @@ export function VaspBoard({ rows }: { rows: BoardRow[] }) {
             },
           )}
         </div>
-        <label className="flex min-w-0 items-center gap-2 sm:max-w-sm">
+        <label className="flex min-w-0 items-center gap-2 lg:w-80">
           <span className="sr-only">Find a VASP or a wallet</span>
           <TextInput
             type="search"

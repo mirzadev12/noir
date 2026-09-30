@@ -28,8 +28,9 @@ const ROUTES = [
 
 function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
   return (
-    <Link href="/" onClick={onNavigate} className="type-sign-black text-title leading-none text-signal no-underline hover:no-underline" aria-label="NOIR, home">
-      NOIR
+    <Link href="/" onClick={onNavigate} className="type-sign-black inline-flex items-center text-title leading-none no-underline hover:no-underline" aria-label="NOIR, home">
+      <span aria-hidden="true" className="rounded-control bg-signal px-2 py-1.5 text-on-light">NO</span>
+      <span aria-hidden="true" className="pl-0.5 text-signal">IR</span>
     </Link>
   );
 }

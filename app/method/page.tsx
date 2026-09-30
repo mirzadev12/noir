@@ -1,4 +1,4 @@
-import { Heading, Icon, Notice, Page, PageHead, RouteLink, Section, Table, Tag, Text, type TableRow } from "@/components/noir";
+import { Board, Heading, Icon, Notice, Page, PageHead, RouteLink, Section, Table, Tag, Text, type TableRow } from "@/components/noir";
 import { COVERAGE, coverageCounts, type CoverageStatus } from "@/lib/coverage";
 import { count } from "@/lib/noir-format";
 import { TIER_LINE } from "@/lib/noir-view";

@@ -17,7 +17,7 @@ const HORIZON_DAYS = 14;
 
 interface Item {
   vasp: string;
-  tone: "prohibit" | "wait" | "plain";
+  tone: "prohibit" | "wait";
   label: string;
   line: string;
   source?: string;
@@ -30,23 +30,14 @@ function items(row: VaspRow, f: FollowUp, today: string): Item[] {
       vasp: row.vasp,
       tone: "prohibit",
       label: "Overdue",
-      line: `Sent ${f.waitingDays} day${f.waitingDays === 1 ? "" : "s"} ago; an answer was due by ${utcDay(f.dueOn)}. Follow up through the channel you used.${f.dueBasis === "vasp" ? "" : ` ${row.vasp} publishes no answer time, so NOIR allows ${DEFAULT_WAIT_DAYS} days.`}`,
-      source: f.dueBasis === "vasp" ? f.timing.sources.answerHours : undefined,
-    });
-  } else if (f.waitingDays !== null && f.dueOn) {
-    out.push({
-      vasp: row.vasp,
-      tone: "plain",
-      label: `Answer due ${utcDay(f.dueOn)}`,
-      line: `Sent ${f.waitingDays === 0 ? "today" : `${f.waitingDays} day${f.waitingDays === 1 ? "" : "s"} ago`}; no answer recorded yet.${f.dueBasis === "vasp" ? "" : ` ${row.vasp} publishes no answer time, so NOIR allows ${DEFAULT_WAIT_DAYS} days.`}`,
-      source: f.dueBasis === "vasp" ? f.timing.sources.answerHours : undefined,
+      line: `Sent ${f.waitingDays} day${f.waitingDays === 1 ? "" : "s"} ago; an answer was due by ${utcDay(f.dueOn)}. Follow up through the channel you used.`,
+      source: f.dueBasis === "vasp" ? f.timing.sources.answerHours : `NOIR's default wait of ${DEFAULT_WAIT_DAYS} days; ${row.vasp} publishes no answer time.`,
     });
   }
-  // A freeze with a stated maximum is on the clock from the day it is recorded.
-  if (f.freezeLapsesOn && f.freezeDaysLeft !== null) {
+  if (f.freezeLapsesOn && f.freezeDaysLeft !== null && f.freezeDaysLeft <= HORIZON_DAYS) {
     out.push({
       vasp: row.vasp,
-      tone: f.freezeDaysLeft <= 3 ? "prohibit" : f.freezeDaysLeft <= HORIZON_DAYS ? "wait" : "plain",
+      tone: f.freezeDaysLeft <= 3 ? "prohibit" : "wait",
       label: f.freezeDaysLeft < 0 ? "Freeze may have lapsed" : `Freeze lapses in ${f.freezeDaysLeft} day${f.freezeDaysLeft === 1 ? "" : "s"}`,
       line: `Unless the freezing order stated a duration, ${row.vasp} lifts the freeze on ${utcDay(f.freezeLapsesOn)}. Send an extension or a court order before then.`,
       source: f.timing.sources.freezeMaxDays,
@@ -70,10 +61,7 @@ function items(row: VaspRow, f: FollowUp, today: string): Item[] {
 /** What is due across these rows, in the order the desk shows it. */
 export function followUpItems(rows: VaspRow[], now: string): Item[] {
   const today = now.slice(0, 10);
-  const rank = { prohibit: 0, wait: 1, plain: 2 } as const;
-  return rows
-    .flatMap((row) => (row.request ? items(row, followUp(row.request, row.le, now), today) : []))
-    .sort((a, b) => rank[a.tone] - rank[b.tone]);
+  return rows.flatMap((row) => (row.request ? items(row, followUp(row.request, row.le, now), today) : []));
 }
 
 /** The lines alone, for a page that has its own heading (the VASP page). */
@@ -107,8 +95,8 @@ export function FollowUps({ rows, now }: { rows: VaspRow[]; now: string }) {
     <Section
       flush
       title="Follow up"
-      count={`${list.length} on the clock`}
-      note="Answers due, freezes that lapse and preserved records about to be released, most urgent first. Dates come from each exchange's own published law-enforcement page, quoted beneath each line, or from NOIR's stated default."
+      count={`${list.length} to chase`}
+      note="Requests past their expected answer, freezes about to lapse and preserved records about to be released. Dates come from each exchange's own published law-enforcement page, quoted beneath each line."
     >
       <FollowUpList list={list} />
     </Section>
