@@ -206,7 +206,7 @@ export interface EvidenceLedger {
 | Item | State |
 | --- | --- |
 | L1 contract | this file |
-| L2 bulk actions | to build |
+| L2 bulk actions | built (`tests/bulk.test.mjs`). A VASP is matched by each wallet's last record, so wallets already waiting to be read again are found and listed in `skipped` |
 | L3 case close-out | to build |
 | L4 filing validation | to build |
 | L5 retry and backoff | to build |

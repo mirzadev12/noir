@@ -4,7 +4,7 @@ import { appendAudit } from "@/lib/audit-store";
 import { changeDesk, loadDesk } from "@/lib/desk-store";
 import { ASKS, REQUEST_STATUSES, type Ask, type RequestStatus } from "@/lib/desk-types";
 import { actorOf } from "@/lib/identity";
-import { changeStatus, draftRequest } from "@/lib/requests";
+import { changeStatus, changeStatuses, draftRequest } from "@/lib/requests";
 
 /**
  * /api/desk/requests — one consolidated request per VASP, and what it became.
@@ -14,7 +14,9 @@ import { changeStatus, draftRequest } from "@/lib/requests";
  *          that VASP. No statute is added; the officer writes the legal basis.
  *   PATCH  { id, status, on?, reference?, note? } — record what happened:
  *          sent, then acknowledged / data-received / frozen / refused /
- *          no-response.
+ *          no-response. With { ids, … } instead of { id }, the same status is
+ *          recorded on several requests, each judged by its own rules:
+ *          → { changed, refused } (200 when any changed, 422 when none did).
  *
  * Both are written to the audit log with who did them. Sending itself happens
  * outside NOIR (SAHYOG or the VASP's own channel); NOIR records it.
@@ -53,14 +55,42 @@ export async function POST(request: Request) {
   }
 }
 
+/** Most requests one call may change: more VASPs than a desk holds at once. */
+const MAX_BULK = 100;
+
 export async function PATCH(request: Request) {
-  const b = await body<{ id: unknown; status: unknown; on: unknown; reference: unknown; note: unknown }>(request);
+  const b = await body<{ id: unknown; ids: unknown; status: unknown; on: unknown; reference: unknown; note: unknown }>(request);
   const status = REQUEST_STATUSES.find((s) => s === b.status) as RequestStatus | undefined;
+  const text = (v: unknown) => (typeof v === "string" ? v : null);
+  const actor = actorOf(request.headers);
+
+  // Several requests in one call: each is judged by its own rules.
+  if (b.ids !== undefined) {
+    const ids = b.ids;
+    if (b.id !== undefined || !status || !Array.isArray(ids) || ids.length === 0 || ids.length > MAX_BULK || !ids.every((x): x is string => typeof x === "string" && x !== "")) {
+      return json({ error: `Expected { ids, status } with 1 to ${MAX_BULK} request ids (and no id), and status from: ${REQUEST_STATUSES.join(", ")}.` }, 400);
+    }
+    try {
+      const result = await changeDesk((file) => changeStatuses(file, ids, { status, on: text(b.on), reference: text(b.reference), note: text(b.note) }, actor, new Date().toISOString()));
+      for (const changed of result.changed) {
+        const last = changed.history.at(-1);
+        await appendAudit({
+          action: "request.status",
+          actor,
+          chain: null,
+          address: null,
+          detail: { requestId: changed.id, vasp: changed.vasp, status, on: last?.on ?? null, reference: last?.reference ?? null, bulk: true },
+        });
+      }
+      return json(result, result.changed.length > 0 ? 200 : 422);
+    } catch (err) {
+      return failed(err);
+    }
+  }
+
   if (typeof b.id !== "string" || !status) {
     return json({ error: `Expected { id, status } with status from: ${REQUEST_STATUSES.join(", ")}.` }, 400);
   }
-  const text = (v: unknown) => (typeof v === "string" ? v : null);
-  const actor = actorOf(request.headers);
   try {
     const result = await changeDesk((file) => {
       const found = file.requests.find((r) => r.id === b.id);

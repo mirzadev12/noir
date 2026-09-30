@@ -164,6 +164,34 @@ export function changeStatus(
 }
 
 /**
+ * Record one status on several requests. Each request is judged by its own
+ * rules, exactly as `changeStatus` judges it alone: the ones that pass are
+ * changed, the rest are left as they were and listed with the reason. An id
+ * named twice is changed once. Mutates the requests it changes.
+ */
+export function changeStatuses(
+  file: DeskFile,
+  ids: string[],
+  change: { status: RequestStatus; on?: string | null; reference?: string | null; note?: string | null },
+  by: Actor,
+  now: string,
+): { changed: VaspRequest[]; refused: { id: string; error: string }[] } {
+  const changed: VaspRequest[] = [];
+  const refused: { id: string; error: string }[] = [];
+  for (const id of new Set(ids)) {
+    const request = file.requests.find((r) => r.id === id);
+    if (!request) {
+      refused.push({ id, error: "No request with that id." });
+      continue;
+    }
+    const result = changeStatus(request, change, by, now);
+    if (result.ok) changed.push(request);
+    else refused.push({ id, error: result.error });
+  }
+  return { changed, refused };
+}
+
+/**
  * The request as a document. With a request, it prints what that request
  * asked and the wallets it covered; without one, a draft of everything that
  * may be asked about every wallet in the row. The legal basis is blank.

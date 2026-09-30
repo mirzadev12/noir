@@ -132,6 +132,66 @@ export function markPending(file: DeskFile, id: string): DeskEntry | null {
   return entry;
 }
 
+/** Which wallets to read again: one, a list, every wallet under a VASP, or every wallet filed under a case. */
+export type ReadAgainSelector =
+  | { id: string }
+  | { ids: string[] }
+  | { vasp: string }
+  /** `null` names the wallets filed with no case reference. */
+  | { caseRef: string | null };
+
+export interface ReadAgainResult {
+  queued: DeskEntry[];
+  /** Named but not queued, each with why: already being read, or not on the desk. */
+  skipped: { id: string; wallet: string; reason: string }[];
+  /** How many wallets on the desk the selector named. 0 means it named nothing. */
+  matched: number;
+}
+
+/**
+ * Queue every wallet a selector names to be read again. A wallet already
+ * waiting for the worker is skipped, never queued twice; an id that is not on
+ * the desk is reported, not ignored. Each wallet's last record stays until the
+ * new one is written. Mutates `file`.
+ */
+export function markPendingWhere(file: DeskFile, select: ReadAgainSelector): ReadAgainResult {
+  const skipped: ReadAgainResult["skipped"] = [];
+  let matched: DeskEntry[];
+  if ("id" in select) {
+    matched = file.entries.filter((e) => e.id === select.id);
+  } else if ("ids" in select) {
+    matched = [];
+    for (const id of new Set(select.ids)) {
+      const entry = file.entries.find((e) => e.id === id);
+      if (entry) matched.push(entry);
+      else skipped.push({ id, wallet: "", reason: "No wallet with that id is on the desk." });
+    }
+  } else if ("vasp" in select) {
+    // By each wallet's last record, not by the grouped view: a wallet waiting to
+    // be read again has left its row, but it is still a wallet of that VASP.
+    const key = vaspKey(select.vasp);
+    matched = file.entries.filter((e) => {
+      const r = e.record;
+      if (!r || !r.readable || !r.traced) return false;
+      return (r.outbound !== null && vaspKey(r.outbound.vasp) === key) || r.inbound.some((i) => vaspKey(i.vasp) === key);
+    });
+  } else {
+    matched = file.entries.filter((e) => e.filings.some((f) => f.caseRef === select.caseRef));
+  }
+
+  const queued: DeskEntry[] = [];
+  for (const entry of matched) {
+    if (entry.status === "pending") {
+      skipped.push({ id: entry.id, wallet: entry.wallet, reason: "Already being read." });
+      continue;
+    }
+    entry.status = "pending";
+    entry.error = null;
+    queued.push(entry);
+  }
+  return { queued, skipped, matched: matched.length };
+}
+
 const round2 = (x: number) => Math.round(x * 100) / 100;
 
 /** Distinct non-null case references across an entry's filings, oldest first. */
