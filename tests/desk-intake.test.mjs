@@ -40,10 +40,11 @@ test("bad lines are refused with a reason and a line number", () => {
   assert.equal(out[1].raw, "hello");
 });
 
-test("duplicates within one paste collapse to the first line", () => {
-  const out = parseIntake(`${TRON_A},,C-1\n${TRON_A},,C-2`);
-  assert.equal(out.length, 1);
-  assert.equal(out[0].caseRef, "C-1");
+test("a wallet repeated within one paste is filed once per case, and a plain repeat is refused by line", () => {
+  const out = parseIntake(`${TRON_A},,C-1\n${TRON_A},,C-2\n${TRON_A},,C-1`);
+  assert.deepEqual(out.filter((l) => l.ok).map((l) => l.caseRef), ["C-1", "C-2"]);
+  assert.equal(out[2].ok, false);
+  assert.match(out[2].reason, /same wallet as line 1/);
 });
 
 test("polygon asked for a TRON address is refused", () => {

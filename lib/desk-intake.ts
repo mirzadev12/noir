@@ -15,7 +15,12 @@
  * TRON, Ethereum and Polygon addresses are traced; Polygon only when the chain
  * column says so, because a `0x` address alone does not name its chain. Other
  * formats `lib/chains.ts` recognises are accepted as screened-only. Anything
- * else is refused with the reason. Nothing here reads a chain.
+ * else is refused at its own line with the reason: a wrong length or checksum
+ * says which, and a transaction hash, a link or a name is called what it is.
+ *
+ * A wallet repeated on the same chain is filed once. The repeat is refused,
+ * naming the line it repeats, unless it names a different case: a wallet two
+ * cases share is filed under both. Nothing here reads a chain.
  */
 
 import { checkAddress } from "./address";
@@ -128,18 +133,35 @@ function checkLine(rawAddress: string, rawChain: string): Checked {
   return { ok: false, reason: `Chain '${rawChain.trim()}' is not one NOIR reads.` };
 }
 
+/**
+ * What a refused address cell plainly is, when it is plainly something else:
+ * the most common wrong pastes, each said in its own words. Null when the
+ * address check's own reason (length, checksum, prefix) is the better answer.
+ */
+function misfiled(rawAddress: string): string | null {
+  const s = rawAddress.trim();
+  if (/^https?:\/\//i.test(s)) return "This is a link, not an address. Paste the address itself.";
+  if (/^(0x)?[0-9a-fA-F]{64}$/.test(s)) return "This is a transaction hash, not a wallet address. File the wallet that sent or received it.";
+  if (/\s/.test(s)) return "An address has no spaces in it. Separate columns with a comma, a tab or a semicolon.";
+  if (/^[a-z0-9-]+(\.[a-z0-9-]+)*\.(eth|sol|bnb|crypto|x)$/i.test(s)) return "This is a name, not an address. Paste the 0x address it resolves to.";
+  return null;
+}
+
 const dedupeKey = (wallet: string, chain: EntryChain) =>
   `${chain}:${/^0x/i.test(wallet) ? wallet.toLowerCase() : wallet}`;
 
 /**
  * Every line of `text` that is not blank or a comment, checked. Valid lines
  * carry the canonical address; refused lines carry the text as typed and the
- * reason. A wallet repeated on the same chain is kept once, at its first line.
+ * reason. A wallet repeated on the same chain is kept once, at its first line,
+ * and each repeat is refused naming that line; a repeat under a different case
+ * is kept, so the wallet is filed under both.
  */
 export function parseIntake(text: string, batchCaseRef: string | null = null): IntakeLine[] {
   const batchRef = cleanCaseRef(batchCaseRef);
   const out: IntakeLine[] = [];
-  const seen = new Map<string, Extract<IntakeLine, { ok: true }>>();
+  // Every accepted line of a wallet: its first, and one more for each further case it is listed under.
+  const seen = new Map<string, Extract<IntakeLine, { ok: true }>[]>();
   let columns: Record<Column, number> | null = null;
   let first = true;
   let counted = 0;
@@ -169,7 +191,7 @@ export function parseIntake(text: string, batchCaseRef: string | null = null): I
     const cell = (c: Column) => (at[c] >= 0 ? (cells[at[c]] ?? "") : "");
     const checked = checkLine(cell("address"), cell("chain"));
     if (!checked.ok) {
-      out.push({ line, ok: false, raw, reason: checked.reason });
+      out.push({ line, ok: false, raw, reason: misfiled(cell("address")) ?? checked.reason });
       continue;
     }
 
@@ -177,9 +199,20 @@ export function parseIntake(text: string, batchCaseRef: string | null = null): I
     const key = dedupeKey(checked.wallet, checked.chain);
     const earlier = seen.get(key);
     if (earlier) {
-      // The first line stands; a case ref it lacked is taken from a later one.
-      if (earlier.caseRef === null) earlier.caseRef = caseRef;
-      continue;
+      const first = earlier[0];
+      const same = earlier.find((e) => e.caseRef === caseRef);
+      if (caseRef !== null && first.caseRef === null) {
+        // The first line stands; the case reference it lacked is taken from this one.
+        first.caseRef = caseRef;
+        out.push({ line, ok: false, raw, reason: `The same wallet as line ${first.line}; it is filed once, under the case reference given here.` });
+        continue;
+      }
+      if (caseRef === null || same) {
+        const under = same && caseRef !== null ? ", under the same case" : "";
+        out.push({ line, ok: false, raw, reason: `The same wallet as line ${(same ?? first).line}${under}; it is filed once.` });
+        continue;
+      }
+      // The same wallet under another case: two cases share it, and it is filed under both.
     }
     const accepted: Extract<IntakeLine, { ok: true }> = {
       line,
@@ -189,7 +222,8 @@ export function parseIntake(text: string, batchCaseRef: string | null = null): I
       traced: checked.traced,
       caseRef,
     };
-    seen.set(key, accepted);
+    if (earlier) earlier.push(accepted);
+    else seen.set(key, [accepted]);
     out.push(accepted);
   }
   return out;

@@ -208,7 +208,7 @@ export interface EvidenceLedger {
 | L1 contract | this file |
 | L2 bulk actions | built (`tests/bulk.test.mjs`). A VASP is matched by each wallet's last record, so wallets already waiting to be read again are found and listed in `skipped` |
 | L3 case close-out | built (`tests/case-close.test.mjs`). The closures are kept beside the desk in `case-closures.json`; `lib/desk-read.ts` `readCases()` now returns rows with `closed` |
-| L4 filing validation | to build |
+| L4 filing validation | built (`tests/intake-validation.test.mjs`) |
 | L5 retry and backoff | to build |
 | L6 rate limits and size guards | to build |
 | L7 backup and restore scripts | to build |
