@@ -1,0 +1,602 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   NOIR — the design tokens. Every visual value in the product is set here and
+   nowhere else: colour, type, spacing, rule weights, radius, icon stroke,
+   motion, sidebar width. Pages and components carry no hex, font name or pixel
+   value; they are built from the primitives in components/noir/, which read
+   these tokens through Tailwind. To restyle NOIR, edit this file first —
+   docs/ui-tokens.md says which token controls what.
+
+   The world: a dark, precise console. Near-black ground, raised panels one
+   step lighter, white type in a geometric sans, one electric-blue accent (the
+   arrows, the route's terminus, a gradient on the lead headline, a soft glow
+   on the product board), links in light blue, a disciplined status set
+   (answered green, waiting amber, sanctions and refusals red), hairline
+   borders, rounded controls. The request letter is always a white paper sheet.
+   ========================================================================== */
+
+/* ------------------------------------------------------------- 1. tokens */
+@theme {
+  /* Drop Tailwind's own palette, scale and effects so nothing off-token can be
+     reached by accident: a class that is not defined here simply does not exist. */
+  --color-*: initial;
+  --text-*: initial;
+  --font-*: initial;
+  --font-weight-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --blur-*: initial;
+  --ease-*: initial;
+
+  /* ----------------------------------------------------------- colour */
+  --color-paper: #07080b; /* the ground: every screen (the letter sheet stays white, see .letter-sheet) */
+  --color-paper-2: #0e1015; /* raised panels: the sidebar, bands, table heads, the product board */
+  --color-paper-3: #151821; /* hover and selected rows, inputs */
+  --color-ink: #f4f5f7; /* primary type; 18.4:1 on paper */
+  --color-ink-soft: #a1a8b3; /* secondary type; 8.4:1 on paper */
+  --color-ink-faint: #7d8592; /* captions and meta; 5.4:1 on paper, 5.1:1 on panels */
+  --color-navy: #0e1015; /* fields: the sidebar, the top band, the destination sign */
+  --color-signal: #3b82f6; /* the accent: arrows, the route terminus, the pill dot, glows; 5.5:1 on paper */
+  --color-signal-2: #2563eb; /* the deep end of the accent gradient */
+  --color-route: #60a5fa; /* links and actions; 7.9:1 on paper */
+  --color-rule: #20242d; /* hairlines: table rows, dividers */
+  --color-rule-strong: #313745; /* boxed controls, table heads, section rules */
+  --color-ok: #34d399; /* answered, frozen, data received; 10.4:1 */
+  --color-wait: #fbbf24; /* sent and awaiting, no request yet; 12:1 */
+  --color-prohibit: #f87171; /* sanctions, refusals, errors; 7.2:1 */
+  --color-on-ink: #f4f5f7; /* type on a raised panel */
+  --color-on-ink-soft: #a1a8b3; /* secondary type on a raised panel */
+  --color-on-light: #07080b; /* type on a white control (the primary button) */
+
+  /* ------------------------------------------------------------- type */
+  /* Two families: Manrope for words (loaded in app/layout.tsx),
+     JetBrains Mono for addresses, hashes and figures. */
+  --font-sans: var(--font-manrope), var(--font-devanagari), "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --font-weight-normal: 400; /* body */
+  --font-weight-medium: 500; /* emphasis in body */
+  --font-weight-bold: 700; /* signs, headings, buttons */
+  --font-weight-black: 800; /* the wordmark and the destination sign */
+
+  /* The scale. Rank is carried by size alone, so the steps are far apart.
+     Nothing in the product is set below --text-micro (12px). The working
+     screens use fixed rem sizes that step at breakpoints (--size-* in :root),
+     never with the viewport; only the landing headline (--text-display) is fluid. */
+  --text-micro: 0.8125rem;
+  --text-micro--line-height: 1.35;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-body: 1rem;
+  --text-body--line-height: 1.55;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.4;
+  --text-title: var(--size-title);
+  --text-title--line-height: 1.05;
+  --text-sign: var(--size-sign);
+  --text-sign--line-height: 0.95;
+  --text-figure: var(--size-figure);
+  --text-figure--line-height: 1.05;
+  --text-display: var(--size-display); /* the landing page's headline only: the one fluid size */
+  --text-display--line-height: 0.92;
+
+  /* ------------------------------------------------- space and shape */
+  --spacing: 0.25rem; /* the unit every gap, padding and margin is a multiple of */
+  --spacing-sidebar: 15rem; /* the black route list, from the md breakpoint up */
+  --spacing-bar: 3.5rem; /* the black strip that replaces it on a phone */
+  --spacing-gutter: var(--gutter); /* page side padding; set in :root below */
+  --spacing-control: 3rem; /* height of a button or a field: a comfortable target */
+  --spacing-rail: 22rem; /* the intake rail beside the desk, from the lg breakpoint up */
+  --container-page: 76rem; /* widest a screen's content runs */
+  --container-prose: 42rem; /* widest a paragraph runs */
+  --container-letter: 56rem; /* the request letter's measure on screen */
+
+  --radius-control: 0.75rem; /* one number rounds every control, panel and sign */
+}
+
+/* Values that change at a breakpoint, and values no utility reads directly. */
+:root {
+  --gutter: 1rem; /* 16px at phone width */
+
+  /* Working-screen sizes: fixed, stepping at the md and lg breakpoints. */
+  --size-title: 1.5rem;
+  --size-sign: 3rem; /* a VASP's name on its destination sign: 48px on a phone */
+  --size-figure: 1.5rem;
+  --size-display: min(4.75rem, 8.6cqi); /* the landing headline only: sized to its own column (an @container), so each line fits whole */
+  --rule-heavy: 1px; /* the strong hairline: table heads, section rules, boxed controls */
+  --rule-hair: 1px; /* the grey rule: table rows, dividers */
+  --rule-focus: 3px; /* the focus ring */
+  --icon-stroke: 2px; /* every icon's line, at every size (non-scaling stroke) */
+  --route-weight: 4px; /* the route line between stations */
+  --facts-label: 11rem; /* width of the label column in a Facts list, from sm up */
+  --stretch-sign: 100%; /* normal width; kept so a condensed face could be swapped in */
+  --tracking-sign: -0.03em;
+  --tracking-label: 0.08em;
+  --print-margin: 16mm; /* A4 page margin for the request letter */
+  --print-size: 10.5pt; /* body type on paper */
+
+  /* Motion: the route line draws once; state changes take 150–250 ms. */
+  --motion-fast: 150ms;
+  --motion-base: 250ms;
+  --motion-draw: 900ms;
+  --motion-stagger: 220ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --default-transition-duration: var(--motion-fast);
+  --default-transition-timing-function: var(--ease);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --gutter: 2.5rem;
+    --size-title: 1.75rem;
+    --size-sign: 4.5rem;
+    --size-figure: 1.875rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --size-title: 2rem;
+    --size-sign: 5.5rem; /* 88px: a VASP's name on its destination sign */
+    --size-figure: 2.25rem;
+  }
+}
+
+/* People who ask for less motion get none: every duration above goes to zero. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-base: 0ms;
+    --motion-draw: 0ms;
+    --motion-stagger: 0ms;
+  }
+}
+
+/* ------------------------------------------------------------ 2. base */
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    color-scheme: dark; /* form controls, scrollbars and dialogs draw dark */
+    font-family: var(--font-sans);
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    caret-color: var(--color-route); /* the caret is an action's colour */
+    accent-color: var(--color-signal); /* native checkboxes draw in the accent */
+    scrollbar-color: var(--color-rule-strong) var(--color-paper);
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    min-height: 100vh;
+    overflow-wrap: break-word;
+  }
+
+  a {
+    color: var(--color-route);
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--rule-hair);
+    text-underline-offset: 0.2em;
+  }
+  a:hover {
+    text-decoration-thickness: var(--rule-heavy);
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-signal) 35%, var(--color-paper));
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: var(--rule-focus) solid var(--color-route);
+    outline-offset: 2px;
+  }
+
+  /* On a black field the focus ring, caret and scrollbar are the ones that read on black. */
+  .on-ink {
+    caret-color: var(--color-signal);
+    scrollbar-color: var(--color-on-ink-soft) var(--color-ink);
+  }
+  .on-ink :focus-visible {
+    outline-color: var(--color-signal);
+  }
+  .on-ink a {
+    color: var(--color-on-ink);
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+    border-radius: var(--radius-control);
+  }
+
+  ::placeholder {
+    color: var(--color-ink-soft);
+    opacity: 1;
+  }
+
+  summary {
+    cursor: pointer;
+  }
+}
+
+/* -------------------------------------------------- 3. typographic roles */
+/* A role is a bundle of type properties, named for its job. Primitives apply
+   them; a restyle changes the bundle here, not each use. */
+
+/* Heavy condensed grotesque: signs, headings, buttons. */
+@utility type-sign {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-bold);
+  font-stretch: var(--stretch-sign);
+  letter-spacing: var(--tracking-sign);
+}
+
+/* The heaviest cut, for the destination sign and the wordmark. */
+@utility type-sign-black {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-black);
+  font-stretch: var(--stretch-sign);
+  letter-spacing: var(--tracking-sign);
+}
+
+/* Small capitals that name a thing in a form or a table head: "OUTBOUND". */
+@utility type-label {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-micro);
+  line-height: var(--text-micro--line-height);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Addresses, hashes, figures: monospaced, tabular, never hyphenated. */
+@utility type-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "zero" 1;
+  hyphens: none;
+}
+
+/* ------------------------------------------------------------- 4. rules */
+@utility rule-t {
+  border-top: var(--rule-heavy) solid var(--color-rule-strong);
+}
+@utility rule-b {
+  border-bottom: var(--rule-heavy) solid var(--color-rule-strong);
+}
+@utility rule-l {
+  border-left: var(--rule-heavy) solid var(--color-rule-strong);
+}
+@utility rule-r {
+  border-right: var(--rule-heavy) solid var(--color-rule-strong);
+}
+@utility rule-box {
+  border: var(--rule-heavy) solid var(--color-rule-strong);
+}
+@utility rule-box-dashed {
+  border: var(--rule-heavy) dashed var(--color-ink-soft);
+}
+@utility rule-box-prohibit {
+  border: var(--rule-heavy) solid var(--color-prohibit);
+}
+@utility rule-box-on-ink {
+  border: var(--rule-heavy) solid var(--color-on-ink-soft);
+}
+@utility hair-t {
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+@utility hair-b {
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+@utility hair-box {
+  border: var(--rule-hair) solid var(--color-rule);
+}
+@utility hair-t-on-ink {
+  border-top: var(--rule-hair) solid var(--color-on-ink-soft);
+}
+/* The line an officer writes on, on paper. */
+@utility write-line {
+  border-bottom: var(--rule-hair) solid var(--color-ink);
+}
+/* The route line: a bar between two stations, vertical or horizontal. */
+@utility route-bar-y {
+  width: var(--route-weight);
+  background: var(--color-signal);
+}
+@utility route-bar-x {
+  height: var(--route-weight);
+  background: var(--color-signal);
+}
+
+/* The lead headline's accent line: the one gradient, on the one headline. */
+@utility text-gradient {
+  background-image: linear-gradient(95deg, var(--color-route), var(--color-signal) 55%, var(--color-signal-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* The product board's soft light: a hairline in the accent and a wide, low glow. */
+@utility glow {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-signal) 35%, transparent),
+    0 40px 90px -40px color-mix(in srgb, var(--color-signal) 55%, transparent);
+}
+
+/* The request letter is paper: a white sheet on the dark screen and in print.
+   Its tokens are the light set, scoped to the sheet. */
+.letter-sheet {
+  --color-paper: #ffffff;
+  --color-paper-2: #f4f5f7;
+  --color-paper-3: #eceef2;
+  --color-ink: #0e1b2c;
+  --color-ink-soft: #44526a;
+  --color-ink-faint: #5e6b80;
+  --color-rule: #d6dbe3;
+  --color-rule-strong: #0e1b2c;
+  --color-route: #1b5fd1;
+  --color-signal: #1b5fd1;
+  --color-on-light: #ffffff; /* type on the sheet's dark primary button */
+  background: #ffffff;
+  color: #0e1b2c;
+  color-scheme: light;
+}
+
+/* --------------------------------------------------------------- 5. motion */
+/* The one animation: a route line draws from its origin to its terminus, each
+   segment after the one before (`--stop` is the segment's index). Its stops fade
+   in as the line reaches them. Both are one-shot and go instant under
+   prefers-reduced-motion, because the durations above become 0ms. */
+@keyframes route-draw-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes route-draw-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes route-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@utility route-draw-x {
+  transform-origin: left center;
+  animation: route-draw-x var(--motion-draw) var(--ease) both;
+  animation-delay: calc(var(--stop, 0) * var(--motion-stagger));
+}
+@utility route-draw-y {
+  transform-origin: center top;
+  animation: route-draw-y var(--motion-draw) var(--ease) both;
+  animation-delay: calc(var(--stop, 0) * var(--motion-stagger));
+}
+/* The departures board: each name flips in like a split-flap sign, the status
+   light breathes, and a dashed route flows toward its destination. All of it
+   is decoration over content that is already visible, and all of it stops
+   under prefers-reduced-motion (the durations above become 0ms). */
+@keyframes flap-in {
+  from {
+    opacity: 0;
+    transform: perspective(400px) rotateX(-90deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes breathe {
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -48;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* A pulse of light travelling a lane, left to right, toward the board. */
+@keyframes lane-run {
+  from {
+    transform: translate(-12rem, -50%);
+  }
+  to {
+    transform: translate(110vw, -50%);
+  }
+}
+@utility lane-pulse {
+  background: linear-gradient(90deg, transparent, var(--color-signal), var(--color-route));
+  animation: lane-run 8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lane-pulse {
+    display: none;
+  }
+  /* Their delays are not motion tokens, so without this the content would wait
+     hidden for its delay: under reduced motion it is simply there. */
+  .flap-in,
+  .rise,
+  .route-arrive,
+  .breathe {
+    animation: none;
+  }
+}
+
+@utility flap-in {
+  display: inline-block;
+  transform-origin: 50% 0;
+  animation: flap-in var(--motion-base) var(--ease) both;
+  animation-delay: calc(var(--flap, 0) * 45ms + var(--row, 0) * 180ms + 250ms);
+}
+@utility breathe {
+  animation: breathe calc(var(--motion-draw) * 2.2) ease-in-out infinite;
+}
+@utility flow {
+  stroke-dasharray: 6 10;
+  animation: flow calc(var(--motion-draw) * 1.6) linear infinite;
+}
+@utility rise {
+  animation: rise calc(var(--motion-base) * 2.4) var(--ease) both;
+  animation-delay: calc(var(--rise, 0) * 90ms);
+}
+
+@utility route-arrive {
+  animation: route-arrive var(--motion-base) var(--ease) both;
+  animation-delay: calc(var(--stop, 0) * var(--motion-stagger));
+}
+
+/* -------------------------------------------------------------- 6. tables */
+/* One table pattern. From the lg breakpoint up it is a real table with a heavy
+   head rule and hairline rows. Below it each row stacks, and every cell prints
+   its column name from `data-label`, so a narrow screen never scrolls sideways. */
+@layer components {
+  .noir-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  .noir-table th {
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-micro);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4) calc(var(--spacing) * 2) 0;
+    border-bottom: var(--rule-heavy) solid var(--color-rule-strong);
+    background: var(--color-paper-2);
+    padding-left: calc(var(--spacing) * 3);
+    vertical-align: bottom;
+  }
+  .noir-table td:first-child {
+    padding-left: calc(var(--spacing) * 3);
+  }
+  .noir-table td {
+    padding: calc(var(--spacing) * 4) calc(var(--spacing) * 4) calc(var(--spacing) * 4) 0;
+    border-bottom: var(--rule-hair) solid var(--color-rule);
+    vertical-align: top;
+    min-width: 0;
+  }
+  .noir-table th:last-child,
+  .noir-table td:last-child {
+    padding-right: 0;
+  }
+  .noir-table [data-align="end"] {
+    text-align: right;
+  }
+
+  /* The sidebar takes 15rem from the md breakpoint, so the content column is narrow
+     until lg: stack below lg. Screen only; paper keeps the real table. */
+  @media screen and (max-width: 63.999rem) {
+    .noir-table,
+    .noir-table tbody,
+    .noir-table tr,
+    .noir-table td {
+      display: block;
+      width: 100%;
+    }
+    .noir-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    .noir-table tr {
+      border-bottom: var(--rule-hair) solid var(--color-rule);
+      padding: calc(var(--spacing) * 4) 0;
+    }
+    .noir-table td {
+      border: 0;
+      padding: calc(var(--spacing) * 1) 0;
+      text-align: left !important;
+    }
+    .noir-table td[data-label]:not([data-label=""])::before {
+      content: attr(data-label);
+      display: block;
+      font-family: var(--font-sans);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--text-micro);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-ink-soft);
+    }
+  }
+}
+
+/* -------------------------------------------------------------- 7. print */
+/* The request letter: A4, black on white, no sidebar, nothing interactive. */
+@page {
+  size: A4;
+  margin: var(--print-margin);
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: var(--font-sans);
+    font-size: var(--text-micro);
+  }
+}
+
+@media print {
+  :root {
+    --color-paper: #ffffff;
+    --color-paper-2: #ffffff;
+    --color-ink: #000000;
+    --color-ink-soft: #333333;
+    --color-ink-faint: #555555;
+    --color-rule: #bbbbbb;
+    --color-rule-strong: #000000;
+  }
+  html,
+  body {
+    background: var(--color-paper) !important;
+    color: var(--color-ink) !important;
+    font-size: var(--print-size);
+  }
+  a {
+    color: var(--color-ink) !important;
+    text-decoration: none !important;
+  }
+  .letter-sheet {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .keep-together {
+    break-inside: avoid;
+  }
+  .noir-table th,
+  .noir-table td {
+    padding-top: calc(var(--spacing) * 1.5);
+    padding-bottom: calc(var(--spacing) * 1.5);
+  }
+}

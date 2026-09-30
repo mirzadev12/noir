@@ -1,0 +1,167 @@
+/**
+ * Presentation helpers.
+ *
+ * Everything here is deterministic and timezone-independent — timestamps are
+ * rendered in UTC so the server-rendered HTML and the client hydration always
+ * agree, and so two investigators reading the same packet see the same time.
+ */
+
+const MONTHS = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+const pad = (n: number) => String(n).padStart(2, "0");
+
+/** "29 Aug 2026, 09:21 UTC" */
+export function formatDateTime(iso: string | null | undefined): string {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return (
+    `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}, ` +
+    `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())} UTC`
+  );
+}
+
+/** "29 Aug 2026" */
+export function formatDate(iso: string | null | undefined): string {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+}
+
+/** "2026-08-29" — for <input type="date"> values. */
+export function toDateInputValue(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`;
+}
+
+/** "51,200.00 USDT" — USDT carries 6 decimals on TRON; we show 2. */
+export function formatUsdt(value: number, opts: { symbol?: boolean } = {}): string {
+  const withSymbol = opts.symbol !== false;
+  const n = Number.isFinite(value) ? value : 0;
+  const s = n.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  return withSymbol ? `${s} USDT` : s;
+}
+
+/** "51.2K" / "1.24M" — for tiles and graph nodes where space is tight. */
+export function formatUsdtCompact(value: number): string {
+  const n = Number.isFinite(value) ? value : 0;
+  const abs = Math.abs(n);
+  if (abs >= 1_000_000) return `${(n / 1_000_000).toFixed(2)}M`;
+  if (abs >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
+  return n.toFixed(0);
+}
+
+/** "0.87" → "87%" */
+export function formatPercent(fraction: number, digits = 0): string {
+  const n = Number.isFinite(fraction) ? fraction : 0;
+  return `${(n * 100).toFixed(digits)}%`;
+}
+
+/** 1 → "1 hop", 3 → "3 hops"; `many` for irregular plurals ("1 hash", "2 hashes"). */
+export function count(n: number, one: string, many = `${one}s`): string {
+  return `${n.toLocaleString("en-US")} ${n === 1 ? one : many}`;
+}
+
+/** "A", "A and B", "A, B and C" — for a list counted from data rather than typed. */
+export function andList(items: string[]): string {
+  if (items.length < 2) return items.join("");
+  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
+}
+
+/** "TS27ff…Giw2S" */
+export function shortAddress(address: string, head = 6, tail = 5): string {
+  if (!address) return "—";
+  if (address.length <= head + tail + 1) return address;
+  return `${address.slice(0, head)}…${address.slice(-tail)}`;
+}
+
+/** 420 → "7 min", 5400 → "1 h 30 min", null → "—" */
+export function formatDwell(seconds: number | null | undefined): string {
+  if (seconds === null || seconds === undefined || !Number.isFinite(seconds)) return "—";
+  const s = Math.max(0, Math.round(seconds));
+  if (s < 60) return `${s} sec`;
+  const m = Math.round(s / 60);
+  if (m < 60) return `${m} min`;
+  const h = Math.floor(m / 60);
+  const rem = m % 60;
+  if (h < 48) return rem === 0 ? `${h} h` : `${h} h ${rem} min`;
+  // Past two days, hours stop being readable: "9044 h 46 min" is 376 days.
+  const d = Math.floor(h / 24);
+  const hrs = h % 24;
+  return hrs === 0 ? `${d} d` : `${d} d ${hrs} h`;
+}
+
+/** Elapsed time between two ISO timestamps, as a dwell-style string. */
+export function elapsedBetween(fromIso: string, toIso: string): string {
+  const a = new Date(fromIso).getTime();
+  const b = new Date(toIso).getTime();
+  if (Number.isNaN(a) || Number.isNaN(b)) return "—";
+  return formatDwell((b - a) / 1000);
+}
+
+/**
+ * The public explorer page for an address or a transaction, on its own chain.
+ * The form decides TRON against EVM: an EVM address or hash starts `0x`, a
+ * TRON address starts `T`, and a TRON transaction hash is bare hex. Which EVM
+ * chain is never in the form — Polygon is said by the caller, or it is
+ * Ethereum.
+ */
+export function explorerAddressUrl(address: string, chain?: string): string {
+  const a = address.trim();
+  if (!/^0x/i.test(a)) return `https://tronscan.org/#/address/${encodeURIComponent(a)}`;
+  return chain === "polygon"
+    ? `https://polygonscan.com/address/${encodeURIComponent(a)}`
+    : `https://etherscan.io/address/${encodeURIComponent(a)}`;
+}
+
+export function explorerTxUrl(txHash: string, chain?: string): string {
+  const h = txHash.trim();
+  if (!/^0x/i.test(h)) return `https://tronscan.org/#/transaction/${encodeURIComponent(h)}`;
+  return chain === "polygon"
+    ? `https://polygonscan.com/tx/${encodeURIComponent(h)}`
+    : `https://etherscan.io/tx/${encodeURIComponent(h)}`;
+}
+
+/** A wallet card, on the chain it belongs to. Polygon is said in the link; Ethereum and TRON need nothing. */
+export function walletHref(address: string, chain?: string): string {
+  return `/wallet/${encodeURIComponent(address.trim())}${chain === "polygon" ? "?chain=polygon" : ""}`;
+}
+
+/**
+ * Reads ?amount= and ?since= from a page URL: the two values that pin a shared
+ * trace link to one run. Anything malformed is dropped rather than trusted, and
+ * the trace falls back to automatic settings.
+ */
+export function readPinned(
+  sp: Record<string, string | string[] | undefined>,
+): { amount?: number; since?: string; asOf?: string; ack?: string; chain?: "polygon" } {
+  const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
+  const amount = Number(one(sp.amount));
+  const moment = (raw: string | undefined) =>
+    raw && !Number.isNaN(new Date(raw).getTime()) ? raw : undefined;
+  const since = moment(one(sp.since));
+  // The moment the run was read. Checked for shape only: whether it is in the
+  // past is the route's to decide, since render must not read the clock.
+  const asOf = moment(one(sp.asof));
+  // The complaint's acknowledgement number, carried from a complaint sheet so
+  // the packet and the freeze request name the complaint they belong to.
+  // Shape only; anything else is dropped rather than printed on a document.
+  const ackRaw = one(sp.ack)?.trim() ?? "";
+  const ack = /^[A-Za-z0-9][A-Za-z0-9/_.-]{0,39}$/.test(ackRaw) ? ackRaw : undefined;
+  return {
+    ...(Number.isFinite(amount) && amount > 0 ? { amount } : {}),
+    ...(since ? { since } : {}),
+    ...(asOf ? { asOf } : {}),
+    ...(ack ? { ack } : {}),
+    // Only Polygon is ever said; anything else leaves the address's own form to decide.
+    ...(one(sp.chain) === "polygon" ? { chain: "polygon" as const } : {}),
+  };
+}

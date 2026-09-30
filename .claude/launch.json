@@ -1,0 +1,58 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "noir",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "autoPort": true,
+      "port": 3000
+    },
+    {
+      "name": "noir-demo",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "-p",
+        "3031"
+      ],
+      "env": {
+        "DEMO_MODE": "true"
+      },
+      "port": 3031
+    },
+    {
+      "name": "noir-prod",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "next",
+        "start",
+        "-p",
+        "3032"
+      ],
+      "env": {
+        "DEMO_MODE": "true"
+      },
+      "port": 3032
+    },
+    {
+      "name": "noir-live",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "next",
+        "start",
+        "-p",
+        "3034"
+      ],
+      "env": {
+        "DEMO_MODE": "false"
+      },
+      "port": 3034
+    }
+  ]
+}

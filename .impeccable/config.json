@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "app/globals.css"
+        ],
+        "createdAt": "2026-09-29T17:41:40.619Z",
+        "reason": "user confirmed: asked to adopt the reference's text style (gradient accent on the lead headline's second line); utility used on that one headline only"
+      }
+    ]
+  }
+}

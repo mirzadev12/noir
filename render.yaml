@@ -1,0 +1,42 @@
+# Render Blueprint for NOIR.
+#
+# Deploy: in the Render dashboard choose New > Blueprint, connect this
+# repository and pick the branch; Render reads this file and creates one web
+# service named "noir".
+#
+# A Render web service is a long-running Node process, which matters here: the
+# desk attributes wallets in the background and a live read can take close to a
+# minute, which a serverless function timeout would cut off.
+#
+# The desk, the audit log and the alert watch are JSON files in NOIR_STATE_DIR
+# (default .noir/ in the working directory). On the free plan the disk is not
+# kept across restarts, so the desk starts empty after each deploy or sleep.
+# Attach a persistent disk and set NOIR_STATE_DIR to its mount path to keep it.
+
+services:
+  - type: web
+    name: noir
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    # `next start` binds 0.0.0.0 and reads Render's PORT variable itself.
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      # "true": the recorded cases in data/ answer instantly from their files
+      # (stamped Recorded); every other wallet is still read live from the chain.
+      # Read at runtime, so it can be switched in the dashboard without a rebuild.
+      - key: DEMO_MODE
+        value: "true"
+      # Recommended for live reads. Without a key the public TRON endpoint
+      # rate-limits Render's shared IP, and a wallet NOIR could not read is
+      # reported as unreadable, never as empty. Free key: https://www.trongrid.io
+      - key: TRONGRID_API_KEY
+        sync: false
+      # Optional: a Blockscout Pro key for faster Ethereum and Polygon reads.
+      - key: BLOCKSCOUT_API_KEY
+        sync: false

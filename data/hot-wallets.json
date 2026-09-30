@@ -1,0 +1,96 @@
+[
+  {
+    "address": "TDqSquXBgUCLYvYC4XZgrprLK589dkhSCf",
+    "exchange": "Binance",
+    "tag": "Binance-Hot 7",
+    "source_url": "https://tronscan.org/#/address/TDqSquXBgUCLYvYC4XZgrprLK589dkhSCf"
+  },
+  {
+    "address": "TJDENsfBJs4RFETt1X1W8wMDc8M5XnJhCe",
+    "exchange": "Binance",
+    "tag": "Binance-Hot 6",
+    "source_url": "https://tronscan.org/#/address/TJDENsfBJs4RFETt1X1W8wMDc8M5XnJhCe"
+  },
+  {
+    "address": "TJqwA7SoZnERE4zW5uDEiPkbz4B66h9TFj",
+    "exchange": "Binance",
+    "tag": "Binance-Hot 11",
+    "source_url": "https://tronscan.org/#/address/TJqwA7SoZnERE4zW5uDEiPkbz4B66h9TFj"
+  },
+  {
+    "address": "TYASr5UV6HEcXatwdFQfmLVUqQQQMUxHLS",
+    "exchange": "Binance",
+    "tag": "Binance-Hot 3",
+    "source_url": "https://tronscan.org/#/address/TYASr5UV6HEcXatwdFQfmLVUqQQQMUxHLS"
+  },
+  {
+    "address": "TLaGjwhvA8XQYSxFAcAXy7Dvuue9eGYitv",
+    "exchange": "OKX",
+    "tag": "OKX Hot Wallet 8",
+    "source_url": "https://tronscan.org/#/address/TLaGjwhvA8XQYSxFAcAXy7Dvuue9eGYitv"
+  },
+  {
+    "address": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
+    "exchange": "Bybit",
+    "tag": "Bybit",
+    "source_url": "https://tronscan.org/#/address/TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa"
+  },
+  {
+    "address": "TG2CMGxnTPgQ6V58kiKd7wbyN8ewtAmY76",
+    "exchange": "Kraken",
+    "tag": "Kraken: Hot Wallet",
+    "source_url": "https://tronscan.org/#/address/TG2CMGxnTPgQ6V58kiKd7wbyN8ewtAmY76"
+  },
+  {
+    "address": "TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9",
+    "exchange": "KuCoin",
+    "tag": "Kucoin 4",
+    "source_url": "https://tronscan.org/#/address/TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9"
+  },
+  {
+    "address": "TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt",
+    "exchange": "Gate.io",
+    "tag": "Gate",
+    "source_url": "https://tronscan.org/#/address/TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt"
+  },
+  {
+    "address": "TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn",
+    "exchange": "MEXC",
+    "tag": "MXC",
+    "source_url": "https://tronscan.org/#/address/TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn"
+  },
+  {
+    "address": "TJ7hhYhVhaxNx6BPyq7yFpqZrQULL3JSdb",
+    "exchange": "Bitget",
+    "tag": "Bitget 9",
+    "source_url": "https://tronscan.org/#/address/TJ7hhYhVhaxNx6BPyq7yFpqZrQULL3JSdb"
+  },
+  {
+    "address": "TA6SbszfFYC7NYt48viCM9LMD5F5E1Gbi8",
+    "exchange": "Flipster",
+    "tag": "Flipster Exchange Hot Wallet",
+    "source_url": "https://tronscan.org/#/address/TA6SbszfFYC7NYt48viCM9LMD5F5E1Gbi8",
+    "note": "Explorer-tagged exchange hot wallet, re-verified live 14 Sep 2026 (50 distinct payers in the first 200 transfers). Whether this operator holds KYC records, and therefore whether it can action a restraint request, is NOT verified from a citable source."
+  },
+  {
+    "address": "TDoXUNZ6PajKuiUkcYg3EDSV9bnqGqsbcf",
+    "exchange": "FixedFloat",
+    "tag": "FixedFloat Exchange Hot Wallet",
+    "source_url": "https://tronscan.org/#/address/TDoXUNZ6PajKuiUkcYg3EDSV9bnqGqsbcf",
+    "note": "Explorer-tagged exchange hot wallet, re-verified live 14 Sep 2026 (93 distinct payers in the first 200 transfers). Widely described as an instant swap service; its KYC posture is NOT verified from a citable source, so a freeze request naming a cluster here may have no account behind it."
+  },
+  {
+    "address": "TL9ihHWHkqXd11HFdCtyTx2r6qmVH7cfJg",
+    "exchange": "Swapster",
+    "tag": "Swapster Wallet",
+    "source_url": "https://tronscan.org/#/address/TL9ihHWHkqXd11HFdCtyTx2r6qmVH7cfJg",
+    "note": "Explorer-tagged wallet, re-verified live 14 Sep 2026 (62 distinct payers in the first 200 transfers). The tag does not say \"exchange\" and the operator is not identified from a citable source; treat attribution here as the weakest of the seed set."
+  },
+  {
+    "address": "TWQZEUfSPuMYjm4oHvmsktYcjD6rc5yyWq",
+    "exchange": "UEEx",
+    "tag": "UEEx Hot Wallet 19",
+    "source_url": "https://tronscan.org/#/address/TWQZEUfSPuMYjm4oHvmsktYcjD6rc5yyWq",
+    "note": "Explorer-tagged exchange hot wallet, re-verified live 14 Sep 2026 (36 distinct payers in the first 200 transfers). As with the other smaller seeds, the tag establishes whose wallet it is and not whether the operator holds KYC records, so it does not establish that a restraint request naming a cluster here has an account behind it."
+  }
+]
