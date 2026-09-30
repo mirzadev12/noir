@@ -1,0 +1,166 @@
+{
+ "voice": "af_heart",
+ "lang": "en-us",
+ "speed": 1.0,
+ "scenes": [
+  {
+   "id": "hook",
+   "lines": [
+    {
+     "show": "A cyber-fraud complaint comes in. The money has already moved, through wallets nobody can name.",
+     "say": "A cyber fraud complaint comes in. The money has already moved, through wallets nobody can name."
+    },
+    {
+     "show": "The investigator has an address, and one question: which exchange do I write to?",
+     "say": "The investigator has an address, and one question: which exchange do I write to?"
+    }
+   ]
+  },
+  {
+   "id": "trace",
+   "lines": [
+    {
+     "show": "NOIR answers it. It follows each wallet both ways.",
+     "say": "Noir answers it. It follows each wallet both ways."
+    },
+    {
+     "show": "Back, to the exchange that funded it. Forward, to the exchange account that received its money.",
+     "say": "Back, to the exchange that funded it. Forward, to the exchange account that received its money."
+    },
+    {
+     "show": "This is a real wallet, from a recorded read of the TRON chain. MEXC funded one of its payers.",
+     "say": "This is a real wallet, from a recorded read of the Tron chain. Mex C funded one of its payers."
+    },
+    {
+     "show": "Its money passed through one hop and reached Binance's own wallet.",
+     "say": "Its money passed through one hop, and reached Bynance's own wallet."
+    },
+    {
+     "show": "And part of it reached an address on the OFAC sanctions list.",
+     "say": "And part of it reached an address on the O-fack sanctions list."
+    }
+   ]
+  },
+  {
+   "id": "counted",
+   "lines": [
+    {
+     "show": "Attribution is a deterministic lookup, not a guess. No language model decides it.",
+     "say": "Attribution is a deterministic lookup, not a guess. No language model decides it."
+    },
+    {
+     "show": "NOIR can name seventeen exchanges across TRON, Ethereum and Polygon, and screens every wallet against more than a thousand sanctioned addresses.",
+     "say": "Noir can name seventeen exchanges, across Tron, Ethereum and Polygon, and screens every wallet against more than a thousand sanctioned addresses."
+    }
+   ]
+  },
+  {
+   "id": "intake",
+   "lines": [
+    {
+     "show": "Filing is one step. Paste one address, or five hundred, from one case or many.",
+     "say": "Filing is one step. Paste one address, or five hundred, from one case or many."
+    },
+    {
+     "show": "Each line is checked before a single chain is read.",
+     "say": "Each line is checked, before a single chain is read."
+    }
+   ]
+  },
+  {
+   "id": "desk",
+   "lines": [
+    {
+     "show": "Every wallet lands on one shared desk, under the exchange it leads to.",
+     "say": "Every wallet lands on one shared desk, under the exchange it leads to."
+    },
+    {
+     "show": "At the top, NOIR names the exchange to write to next, and what needs following up.",
+     "say": "At the top, Noir names the exchange to write to next, and what needs following up."
+    },
+    {
+     "show": "Wallets that touch a sanctioned address are flagged before any request is sent.",
+     "say": "Wallets that touch a sanctioned address are flagged, before any request is sent."
+    },
+    {
+     "show": "Below is a departures board: each exchange, the wallets waiting on it, the money that moved, whether it is registered with FIU-IND, and whether its request has gone.",
+     "say": "Below is a departures board: each exchange, the wallets waiting on it, the money that moved, whether it is registered with F I U India, and whether its request has gone."
+    }
+   ]
+  },
+  {
+   "id": "vasp",
+   "lines": [
+    {
+     "show": "Open an exchange, and every wallet that leads there is on one page, from every case, in both directions.",
+     "say": "Open an exchange, and every wallet that leads there is on one page, from every case, in both directions."
+    },
+    {
+     "show": "NOIR records how the exchange receives a law-enforcement request, copied from the exchange's own page.",
+     "say": "Noir records how the exchange receives a law enforcement request, copied from the exchange's own page."
+    },
+    {
+     "show": "Each wallet states how much evidence was seen, in words. Never a percentage.",
+     "say": "Each wallet states how much evidence was seen, in words. Never a percentage."
+    }
+   ]
+  },
+  {
+   "id": "request",
+   "lines": [
+    {
+     "show": "Then one click drafts one consolidated request: KYC, access logs, transaction history, preservation, and a freeze where the account is known.",
+     "say": "Then one click drafts one consolidated request: K Y C, access logs, transaction history, preservation, and a freeze, where the account is known."
+    },
+    {
+     "show": "It prints as a letter. The legal basis is left blank, for the officer to supply.",
+     "say": "It prints as a letter. The legal basis is left blank, for the officer to supply."
+    }
+   ]
+  },
+  {
+   "id": "register",
+   "lines": [
+    {
+     "show": "NOIR records what each exchange did with it: acknowledged, sent the data, froze the account, refused, or did not answer. And it warns when a reply is late.",
+     "say": "Noir records what each exchange did with it: acknowledged, sent the data, froze the account, refused, or did not answer. And it warns when a reply is late."
+    }
+   ]
+  },
+  {
+   "id": "wallet",
+   "lines": [
+    {
+     "show": "Every wallet keeps its own file: the trace, the route, the patterns observed, and a hash of every chain response it was read from.",
+     "say": "Every wallet keeps its own file: the trace, the route, the patterns observed, and a hash of every chain response it was read from."
+    },
+    {
+     "show": "So an attribution can be checked again, by anyone.",
+     "say": "So an attribution can be checked again, by anyone."
+    }
+   ]
+  },
+  {
+   "id": "method",
+   "lines": [
+    {
+     "show": "NOIR also says what it cannot do. Its method page lists what is built, what is partial, and what is not.",
+     "say": "Noir also says what it cannot do. Its method page lists what is built, what is partial, and what is not."
+    },
+    {
+     "show": "An unreadable wallet is never reported as empty. And confidence is how much evidence was seen, never a chance of being right.",
+     "say": "An unreadable wallet is never reported as empty. And confidence is how much evidence was seen, never a chance of being right."
+    }
+   ]
+  },
+  {
+   "id": "close",
+   "lines": [
+    {
+     "show": "NOIR. Every unknown wallet has a destination.",
+     "say": "Noir. Every unknown wallet has a destination."
+    }
+   ]
+  }
+ ]
+}

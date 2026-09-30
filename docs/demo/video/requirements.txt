@@ -1,0 +1,6 @@
+kokoro-onnx
+soundfile
+numpy
+fonttools
+brotli
+imageio-ffmpeg

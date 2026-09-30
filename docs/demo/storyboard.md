@@ -1,72 +1,57 @@
-# Demo video — storyboard
+# Demo film
 
-A one-minute film of NOIR. The product shots are a screen recording of the production build in
-recorded mode (`DEMO_MODE=true`), so every name, address and figure on screen is what NOIR shows:
-nothing in them is drawn for the film. Generated clips are used only to open and close it, and each
-starts from a real frame in [`frames/`](frames/).
+A 2 min 52 s film of NOIR for the submission slides and for YouTube. It is a screen recording of the
+production build in recorded mode (`DEMO_MODE=true`), so every name, address and figure on screen is what
+NOIR shows and nothing is drawn for the film. The narration is an AI voice (Kokoro, open weights, run on the
+CPU of the machine that made the film) and the subtitles are burned in.
 
-## What exists
+## Files
 
 | File | What it is |
 | --- | --- |
-| `frames/01-hall.png` … `frames/10-wallet-trace.png` | Ten key frames, 1920×1080, captured from the production build on 30 Sep 2026 with motion at rest |
-| `noir-walkthrough.webm` (not in the repository: 21 MB) | The recorded walkthrough, 56 s, 1920×1080, motion on. Re-record it with the steps under "Recording it again" |
+| `noir-demo.srt` | The 39 subtitle cues, the same words as the burned-in ones, for YouTube's caption upload |
+| `youtube.md` | Title, description, chapters and the upload and slide steps |
+| `video/` | The scripts that make the film, and `narration.json`, its script. `video/README.md` says how to run them |
+| `frames/` | Ten key frames at 1920x1080, made for the generated clips this film first planned; usable as thumbnails |
 
-## Shots
+The film itself (`noir-demo.mp4`, 1080p, 38 MB; `noir-demo-720p.mp4`, 14 MB, for slides and phones) is not in
+the repository: it is in `Videos\NOIR-demo\` on the machine that made it, and `video/README.md` rebuilds it.
 
-| # | Seconds | Source | On screen | Line to say |
-| --- | --- | --- | --- | --- |
-| 1 | 0–5 | generated from `frames/01-hall.png` | The hall: the claim, the trace panel below it | "An investigator has a wallet and no idea which exchange to write to." |
-| 2 | 5–13 | walkthrough 0:03–0:11 | The trace draws: MEXC funded it, the wallet, a hop, Binance's own wallet; a branch to an address on the OFAC list | "NOIR follows it both ways: back to the exchange that funded it, forward to the exchange account that received its money." |
-| 3 | 13–21 | walkthrough 0:11–0:19 | The counted figures, then the desk as a departures board | "Every figure here is counted from the repository. Every traced wallet is filed under the exchange it leads to." |
-| 4 | 21–25 | walkthrough 0:20–0:24 | Many cases meeting at one exchange | "Many cases, one exchange, one request." |
-| 5 | 25–33 | walkthrough 0:24–0:32 | The desk: the sign naming the next exchange to write to, the board | "The desk says who to write to next, and what is overdue." |
-| 6 | 33–44 | walkthrough 0:32–0:43 | One exchange's page, then its request as an A4 letter | "One consolidated request per exchange. The legal basis is left blank for the officer." |
-| 7 | 44–52 | walkthrough 0:43–0:52 | One wallet's page: its own trace, drawn from its own record | "Each attribution states how much evidence was seen, and carries the hash of every chain response it read." |
-| 8 | 52–57 | generated from `frames/02-trace.png`, or walkthrough 0:54–0:56 | The hall again | "NOIR. Every unknown wallet has a destination." |
+## Script, by scene
 
-Lines that must not be said: that attribution is "accurate" to a percentage (confidence is how much
-evidence was seen), that SAHYOG integration is live (it is designed), that any statute is printed on
-a request, or any amount in rupees.
+| From | On screen | Narration (these words are also the subtitles) |
+| --- | --- | --- |
+| 0:00 | The hall: the claim, then the trace panel scrolls into view | A cyber-fraud complaint comes in. The money has already moved, through wallets nobody can name. The investigator has an address, and one question: which exchange do I write to? |
+| 0:12 | One recorded wallet traced both ways; each node is picked out as it is named | NOIR answers it. It follows each wallet both ways. Back, to the exchange that funded it. Forward, to the exchange account that received its money. This is a real wallet, from a recorded read of the TRON chain. MEXC funded one of its payers. Its money passed through one hop and reached Binance's own wallet. And part of it reached an address on the OFAC sanctions list. |
+| 0:35 | The counted figures: 17 exchanges, 1,043 listed addresses | Attribution is a deterministic lookup, not a guess. No language model decides it. NOIR can name seventeen exchanges across TRON, Ethereum and Polygon, and screens every wallet against more than a thousand sanctioned addresses. |
+| 0:50 | Three wallets pasted, a case reference typed, filed to the desk | Filing is one step. Paste one address, or five hundred, from one case or many. Each line is checked before a single chain is read. |
+| 1:00 | The desk: the next exchange to write to, follow-ups, OFAC flags, the departures board | Every wallet lands on one shared desk, under the exchange it leads to. At the top, NOIR names the exchange to write to next, and what needs following up. Wallets that touch a sanctioned address are flagged before any request is sent. Below is a departures board: each exchange, the wallets waiting on it, the money that moved, whether it is registered with FIU-IND, and whether its request has gone. |
+| 1:27 | One exchange's page: how to reach it, the wallets that lead there, evidence in words | Open an exchange, and every wallet that leads there is on one page, from every case, in both directions. NOIR records how the exchange receives a law-enforcement request, copied from the exchange's own page. Each wallet states how much evidence was seen, in words. Never a percentage. |
+| 1:45 | The asks, one click, and the letter with its blank legal-basis line | Then one click drafts one consolidated request: KYC, access logs, transaction history, preservation, and a freeze where the account is known. It prints as a letter. The legal basis is left blank, for the officer to supply. |
+| 2:03 | The register of requests and what each exchange did | NOIR records what each exchange did with it: acknowledged, sent the data, froze the account, refused, or did not answer. And it warns when a reply is late. |
+| 2:15 | One wallet's own file: its trace, route, patterns and the hash of every chain response | Every wallet keeps its own file: the trace, the route, the patterns observed, and a hash of every chain response it was read from. So an attribution can be checked again, by anyone. |
+| 2:28 | The Method page: what is built, what is partial, what NOIR does not say | NOIR also says what it cannot do. Its method page lists what is built, what is partial, and what is not. An unreadable wallet is never reported as empty. And confidence is how much evidence was seen, never a chance of being right. |
+| 2:45 | The hall again, then the end card | NOIR. Every unknown wallet has a destination. |
 
-## Generated clips
+Nothing in the narration says that attribution is accurate to a percentage (confidence is how much evidence
+was seen), that SAHYOG integration is live (it is designed), that a statute is printed on a request, or
+any amount in rupees. The wallet in the trace is a recorded read of a real wallet, and the narration says so.
 
-Model: Seedance 2.5, image-to-video from a real frame, 16:9. A video model redraws what it is
-given, so small type can come out wrong: keep the clips short, keep the camera moving slowly, and
-cut to the recording before anyone reads a figure. Discard a clip in which a name, an address or a
-number has changed.
+## Why a recording, and where Higgsfield stands
 
-Shot 1, five seconds:
+The plan was to open and close the film with Seedance 2.5 clips generated from key frames in `frames/`. Two
+things ruled that out on 30 Sep 2026. The account the Higgsfield CLI is signed in to is on the free plan with
+0 credits, so no generation can run. And a video model redraws what it is given, which is wrong for a film
+whose value is that the figures on screen are the site's own. So the picture is the site itself, driven by
+`video/record.cjs`, and the voice is generated locally instead of with `seed_audio`.
 
-```bash
-higgsfield generate create seedance_2_5 --mode omni_reference --start-image docs/demo/frames/01-hall.png --duration 5 --resolution 1080p --aspect_ratio 16:9 --prompt "Slow, steady push-in on a dark software console on a near-black ground. Keep every word, letter and number exactly as in the image; add no text and no new interface elements. Thin electric-blue route lines glow softly and a faint light travels along them left to right. No camera shake, no people, no logos." --wait
-```
+If credits are added, both can be swapped in without changing anything else:
 
-Shot 8, five seconds:
-
-```bash
-higgsfield generate create seedance_2_5 --mode omni_reference --start-image docs/demo/frames/02-trace.png --duration 5 --resolution 1080p --aspect_ratio 16:9 --prompt "Slow, steady pull-back from a dark software console showing a flow diagram of connected boxes. Keep every word, letter and number exactly as in the image; add no text and no new interface elements. A soft electric-blue light travels along the connecting lines in the direction of the arrows. No camera shake, no people, no logos." --wait
-```
-
-What they cost, as quoted by the CLI on 30 Sep 2026: 12 credits a second at 1080p (five seconds is
-60 credits, so the two clips are 120), or 56 credits for eight seconds at 720p. Ask again before
-spending:
-
-```bash
-higgsfield generate cost seedance_2_5 --mode omni_reference --start-image docs/demo/frames/01-hall.png --duration 5 --resolution 1080p --aspect_ratio 16:9
-```
-
-The account the CLI is signed in to held 0 credits on 30 Sep 2026, so nothing has been generated.
-Without the generated clips the film is complete as the walkthrough alone: shots 1 and 8 become the
-first three and the last two seconds of the recording.
-
-## Recording it again
-
-1. `npm run build`, then `DEMO_MODE=true npx next start -p 3032` with a desk that holds the recorded
-   cases (on an empty desk, **Load the recorded cases**).
-2. Record a 1920×1080 browser window, motion on, in this order: `/` (hold three seconds, scroll to
-   the trace and hold five, then the counted figures, the board, the many-cases diagram), `/desk`
-   (the sign, then the board), `/vasp/MEXC` (then its wallets), `/vasp/MEXC/request`,
-   `/wallet/TTQd8Bo1nhKEVgkKJVP3SRYZ1nDNStckvj?chain=tron` (scroll to the trace and hold five),
-   `/cases`, `/`.
-3. The trace draws once when its page opens; open the page, then start the scroll.
+- Voice: `higgsfield generate create seed_audio --prompt "<line>" --voice_type preset --voice_id <id> --wait`
+  is quoted at 0.3 credits a take, so the 26 takes are about 8 credits. Save each take as
+  `work/audio/NN.wav` (24 kHz mono) and run `assemble.py` again; timings are read from the takes.
+- Opening and closing clips: `higgsfield generate create seedance_2_5 --mode omni_reference --start-image
+  docs/demo/frames/01-hall.png --duration 5 --resolution 1080p --aspect_ratio 16:9 --prompt "<prompt>" --wait`
+  is 12 credits a second at 1080p (60 for five seconds). Keep the prompt to slow camera movement and light
+  along the lines, say that every word and number must stay as in the image, and discard a clip in which any
+  name, address or figure has changed.

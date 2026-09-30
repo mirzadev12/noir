@@ -1,0 +1,155 @@
+1
+00:00:00,857 --> 00:00:02,887
+A cyber-fraud complaint comes in.
+
+2
+00:00:03,137 --> 00:00:06,875
+The money has already moved, through wallets nobody can name.
+
+3
+00:00:06,922 --> 00:00:11,952
+The investigator has an address, and one question: which exchange do I write to?
+
+4
+00:00:11,996 --> 00:00:15,490
+NOIR answers it. It follows each wallet both ways.
+
+5
+00:00:15,544 --> 00:00:17,524
+Back, to the exchange that funded it.
+
+6
+00:00:17,884 --> 00:00:21,314
+Forward, to the exchange account that received its money.
+
+7
+00:00:21,357 --> 00:00:25,037
+This is a real wallet, from a recorded read of the TRON chain.
+
+8
+00:00:25,307 --> 00:00:27,520
+MEXC funded one of its payers.
+
+9
+00:00:27,561 --> 00:00:31,579
+Its money passed through one hop and reached Binance's own wallet.
+
+10
+00:00:31,619 --> 00:00:35,275
+And part of it reached an address on the OFAC sanctions list.
+
+11
+00:00:35,318 --> 00:00:40,856
+Attribution is a deterministic lookup, not a guess. No language model decides it.
+
+12
+00:00:40,903 --> 00:00:46,043
+NOIR can name seventeen exchanges across TRON, Ethereum and Polygon,
+
+13
+00:00:46,233 --> 00:00:50,532
+and screens every wallet against more than a thousand sanctioned addresses.
+
+14
+00:00:50,580 --> 00:00:55,745
+Filing is one step. Paste one address, or five hundred, from one case or many.
+
+15
+00:00:55,792 --> 00:00:59,085
+Each line is checked before a single chain is read.
+
+16
+00:01:00,195 --> 00:01:04,623
+Every wallet lands on one shared desk, under the exchange it leads to.
+
+17
+00:01:04,675 --> 00:01:09,649
+At the top, NOIR names the exchange to write to next, and what needs following up.
+
+18
+00:01:09,703 --> 00:01:14,432
+Wallets that touch a sanctioned address are flagged before any request is sent.
+
+19
+00:01:14,478 --> 00:01:19,118
+Below is a departures board: each exchange, the wallets waiting on it,
+
+20
+00:01:19,218 --> 00:01:23,328
+the money that moved, whether it is registered with FIU-IND,
+
+21
+00:01:23,368 --> 00:01:25,281
+and whether its request has gone.
+
+22
+00:01:26,978 --> 00:01:31,048
+Open an exchange, and every wallet that leads there is on one page,
+
+23
+00:01:31,128 --> 00:01:33,523
+from every case, in both directions.
+
+24
+00:01:33,575 --> 00:01:37,735
+NOIR records how the exchange receives a law-enforcement request,
+
+25
+00:01:37,895 --> 00:01:40,500
+copied from the exchange's own page.
+
+26
+00:01:40,545 --> 00:01:45,423
+Each wallet states how much evidence was seen, in words. Never a percentage.
+
+27
+00:01:45,468 --> 00:01:49,858
+Then one click drafts one consolidated request: KYC, access logs,
+
+28
+00:01:49,878 --> 00:01:55,708
+transaction history, preservation, and a freeze where the account is known.
+
+29
+00:01:56,494 --> 00:02:01,746
+It prints as a letter. The legal basis is left blank, for the officer to supply.
+
+30
+00:02:03,446 --> 00:02:08,176
+NOIR records what each exchange did with it: acknowledged, sent the data,
+
+31
+00:02:08,236 --> 00:02:13,949
+froze the account, refused, or did not answer. And it warns when a reply is late.
+
+32
+00:02:15,902 --> 00:02:20,752
+Every wallet keeps its own file: the trace, the route, the patterns observed,
+
+33
+00:02:20,882 --> 00:02:23,970
+and a hash of every chain response it was read from.
+
+34
+00:02:24,024 --> 00:02:27,063
+So an attribution can be checked again, by anyone.
+
+35
+00:02:28,468 --> 00:02:30,618
+NOIR also says what it cannot do.
+
+36
+00:02:30,898 --> 00:02:35,289
+Its method page lists what is built, what is partial, and what is not.
+
+37
+00:02:35,330 --> 00:02:38,450
+An unreadable wallet is never reported as empty.
+
+38
+00:02:38,780 --> 00:02:43,529
+And confidence is how much evidence was seen, never a chance of being right.
+
+39
+00:02:44,965 --> 00:02:48,181
+NOIR. Every unknown wallet has a destination.

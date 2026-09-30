@@ -39,6 +39,9 @@ A search box on every screen opens a wallet address or a VASP by name.
 
 Screenshots are in [`docs/screens/`](docs/screens/).
 
+A 2 min 52 s demo film, recorded from the running site with an AI voiceover and burned-in subtitles, is described in
+[`docs/demo/`](docs/demo/storyboard.md); the scripts that make it, and the YouTube copy for it, are there too.
+
 ## Run it
 
 ```bash
