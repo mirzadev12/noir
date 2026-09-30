@@ -217,4 +217,4 @@ export interface EvidenceLedger {
 | L6 rate limits and size guards | built (`tests/write-guard.test.mjs`): `lib/write-guard.ts` wraps every write handler. `NOIR_WRITE_LIMIT` sets the writes a minute (0 turns it off) |
 | L7 backup and restore scripts | built (`tests/backup.test.mjs`): `scripts/backup-state.mjs`, `scripts/restore-state.mjs`, both standalone. No route |
 | L8 health | built (`tests/health.test.mjs`): `lib/health.ts` |
-| L9 evidence ledger | to build |
+| L9 evidence ledger | built (`tests/evidence.test.mjs`): `lib/evidence.ts`, `GET /api/registry`. No row was added; `docs/review/backend-asks.md` says what needs the live network |
