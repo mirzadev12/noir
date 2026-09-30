@@ -107,3 +107,12 @@ from `data/`.
 - 29 Sep 2026 — runtime identifiers renamed to NOIR's own: `x-noir-officer` / `x-noir-unit` /
   `x-noir-provenance` headers, `NOIR_*` environment variables, `.noir/` state directory,
   fingerprint scheme `noir-findings-v1`. The UI half moved to a cloud session (`cloud/ui`).
+- 30 Sep 2026 — movement since read: the desk and each wallet page ask `POST /api/watch` whether the
+  wallets NOIR has read have sent USDT since (`lib/movement.ts`: every attributed, traced, readable
+  wallet, most traced money first, at most 25 a check). Three answers, never two: moved, not moved,
+  not checked. A destination is named only from NOIR's own table. The answer is kept per browser tab
+  for ten minutes. The coverage item "High-risk wallet flags" is built; nothing is sent when the
+  desk is closed, and the item says so.
+- 30 Sep 2026 — an empty desk in demo mode offers the recorded cases in one step
+  (`lib/recorded-cases.ts`): the same paste through the same intake, under case references that say
+  they are samples, because no case file came with the recordings.

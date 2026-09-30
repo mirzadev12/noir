@@ -144,9 +144,9 @@ export const COVERAGE: CoverageItem[] = [
     id: "alerting",
     name: "High-risk wallet flags",
     ps: ["alerting for high-risk wallets"],
-    status: "partial",
-    answer: "A filed wallet on the OFAC list, or whose trail reaches one, is flagged on the desk the moment it is attributed.",
-    gap: "Alerts on later movement exist in the engine's watch but are not surfaced on the desk yet.",
+    status: "built",
+    answer: "A filed wallet on the OFAC list, or whose trail reaches one, is flagged on the desk the moment it is attributed. Each time the desk opens it also asks the chains whether any filed wallet has sent USDT since it was read, and says how much and where. The flags appear on the desk; nothing is sent to the officer when it is closed.",
+    see: "/desk",
   },
   {
     id: "dashboard",

@@ -13,6 +13,7 @@ import { groupByVasp, vaspKey } from "./desk";
 import { loadDesk } from "./desk-store";
 import type { Ask, DeskEntry, DeskView, RequestLetter, VaspRequest, VaspRow } from "./desk-types";
 import { kickDesk } from "./desk-worker";
+import { watchList, type WatchAsk } from "./movement";
 import { isSanctioned } from "./noir-view";
 import { allowedAsks, buildLetter } from "./requests";
 
@@ -32,6 +33,10 @@ export interface DeskPage {
   view: DeskView;
   /** Filed wallets that are OFAC-listed, or whose trail ended at a listed address, wherever they sit on the desk. */
   flagged: DeskEntry[];
+  /** The wallets the desk has read, to ask the chains whether they have sent USDT since. */
+  watch: WatchAsk[];
+  /** How many wallets could be asked about; more than `watch` holds when the desk is over the cap. */
+  watchable: number;
 }
 
 /** The desk grouped by VASP. Wakes the worker when wallets are waiting, as the API does. */
@@ -39,7 +44,7 @@ export function readDeskView(): Promise<Read<DeskPage>> {
   return guard(async () => {
     const file = await loadDesk();
     if (file.entries.some((e) => e.status === "pending")) kickDesk();
-    return { view: groupByVasp(file), flagged: file.entries.filter(isSanctioned) };
+    return { view: groupByVasp(file), flagged: file.entries.filter(isSanctioned), watch: watchList(file.entries), watchable: watchList(file.entries, Infinity).length };
   });
 }
 

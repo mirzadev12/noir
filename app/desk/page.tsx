@@ -3,13 +3,17 @@ import { CaseLinks } from "@/components/desk/CaseLinks";
 import { DeskUnavailable } from "@/components/desk/DeskUnavailable";
 import { FollowUps } from "@/components/desk/FollowUps";
 import { IntakeBox } from "@/components/desk/IntakeBox";
+import { LoadRecorded } from "@/components/desk/LoadRecorded";
+import { Movement } from "@/components/desk/Movement";
 import { Refresher } from "@/components/desk/Refresher";
 import { VaspBoard } from "@/components/desk/VaspBoard";
 import { ButtonLink, Page, PageHead, RouteLink, Section, Sign } from "@/components/noir";
+import { DEMO_MODE } from "@/lib/demo";
 import { readDeskView } from "@/lib/desk-read";
 import { amount, count, vaspHref } from "@/lib/noir-format";
 import { boardCounts, boardRows } from "@/lib/desk-board";
 import { deskTotals, nextVasp } from "@/lib/noir-view";
+import { recordedIntake } from "@/lib/recorded-cases";
 
 export const metadata = { title: "Desk" };
 export const dynamic = "force-dynamic";
@@ -19,7 +23,7 @@ const plural = (n: number, one: string, many = `${one}s`) => `${count(n)} ${n ==
 export default async function DeskPage() {
   const read = await readDeskView();
   if (!read.ok) return <DeskUnavailable reason={read.reason} />;
-  const { view, flagged } = read.value;
+  const { view, flagged, watch, watchable } = read.value;
   const totals = deskTotals(view);
   const next = nextVasp(view.rows);
   const filedAnything = totals.wallets > 0;
@@ -116,8 +120,12 @@ export default async function DeskPage() {
           {view.rows.length > 0 ? (
             <CaseLinks rows={view.rows} />
           ) : !filedAnything ? (
-            <DeskEmpty />
+            <>
+              <DeskEmpty />
+              {DEMO_MODE ? <LoadRecorded {...recordedIntake()} /> : null}
+            </>
           ) : null}
+          {view.pending.length === 0 ? <Movement asks={watch} of={watchable} /> : null}
 
           <PendingList entries={view.pending} />
           <UnreadableList entries={view.unreadable} />

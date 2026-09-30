@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { DeskUnavailable } from "@/components/desk/DeskUnavailable";
+import { WalletMovement } from "@/components/desk/Movement";
 import { ReadAgain } from "@/components/desk/ReadAgain";
 import { Refresher } from "@/components/desk/Refresher";
 import { RemoveWallet } from "@/components/desk/RemoveWallet";
@@ -9,6 +10,7 @@ import { StatusTag } from "@/components/desk/StatusTag";
 import { ChainBadge, Facts, Mono, Notice, Page, PageHead, RouteLink, Section, SectionNav, Table, Tag, Text, type TableRow } from "@/components/noir";
 import { readWallet } from "@/lib/desk-read";
 import { actorBasis, actorName } from "@/lib/identity";
+import { watchList } from "@/lib/movement";
 import { amount, evidenceWord, shortAddress, tierName, utc, vaspHref } from "@/lib/noir-format";
 import { statusOf, TYPOLOGY_NAME } from "@/lib/noir-view";
 import { requestHref } from "@/lib/noir-view";
@@ -29,6 +31,8 @@ export default async function WalletPage(props: PageProps<"/wallet/[address]">) 
   const { entry, siblings, requests } = read.value;
   const r = entry.record;
   const pending = entry.status === "pending";
+  // Only a wallet NOIR has read can be asked whether it has moved since.
+  const ask = watchList([entry])[0];
 
   const typologyRows: TableRow[] = (r?.typologies ?? []).map((t, i) => ({
     key: `${t.code}-${i}`,
@@ -92,6 +96,7 @@ export default async function WalletPage(props: PageProps<"/wallet/[address]">) 
             ...(r?.outbound ? [{ href: "#route", label: "Route" }] : []),
             ...(r && r.traced && r.readable ? [{ href: "#typologies", label: "Typologies" }] : []),
             ...(r && r.inbound.length > 0 ? [{ href: "#funders", label: "Funders" }] : []),
+            ...(ask ? [{ href: "#since", label: "Since it was read" }] : []),
             { href: "#provenance", label: "Provenance" },
             { href: "#actions", label: "Actions" },
           ]}
@@ -218,6 +223,8 @@ export default async function WalletPage(props: PageProps<"/wallet/[address]">) 
           </ul>
         </Section>
       ) : null}
+
+      {ask ? <WalletMovement ask={ask} recorded={r?.provenance.basis === "recorded"} /> : null}
 
       <Section id="provenance" title="Provenance">
         <Facts
