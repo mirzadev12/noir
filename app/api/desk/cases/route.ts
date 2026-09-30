@@ -6,6 +6,7 @@ import { body, failed, json } from "@/lib/desk-http";
 import { loadDesk } from "@/lib/desk-store";
 import type { CaseClosure } from "@/lib/desk-types";
 import { actorOf } from "@/lib/identity";
+import { guarded } from "@/lib/write-guard";
 
 /**
  * /api/desk/cases — the desk by case reference, and closing a case.
@@ -33,7 +34,7 @@ export async function GET() {
 
 const NOTHING_OPEN: StillOpen = { pendingWallets: 0, requestsAwaiting: 0, requestsNotSent: 0 };
 
-export async function POST(request: Request) {
+export const POST = guarded(async function POST(request: Request) {
   const b = await body<{ caseRef: unknown; action: unknown; note: unknown }>(request);
   if (typeof b.caseRef !== "string" || !b.caseRef.trim() || (b.action !== "close" && b.action !== "reopen")) {
     return json({ error: 'Expected { caseRef, action } with a case reference and action "close" or "reopen".' }, 400);
@@ -70,4 +71,4 @@ export async function POST(request: Request) {
   } catch (err) {
     return failed(err);
   }
-}
+});

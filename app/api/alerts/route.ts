@@ -4,6 +4,7 @@ import { loadState, mutate, vapidKeys } from "@/lib/alert-store";
 import { CHECK_EVERY_MINUTES, readSync, removeSubscription, upsert } from "@/lib/alerts";
 import { appendAudit } from "@/lib/audit-store";
 import { actorOf } from "@/lib/identity";
+import { guarded } from "@/lib/write-guard";
 
 /**
  * /api/alerts — alerts when the desk is closed.
@@ -52,7 +53,7 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+export const POST = guarded(async function POST(request: Request) {
   let body: unknown;
   try {
     body = await request.json();
@@ -87,9 +88,9 @@ export async function POST(request: Request) {
   // The first answer for a new list comes within seconds, not at the next round.
   if (sync.items.length) checkSoon();
   return NextResponse.json({ ok: true, watching: sync.items.length }, { headers: NO_STORE });
-}
+});
 
-export async function DELETE(request: Request) {
+export const DELETE = guarded(async function DELETE(request: Request) {
   let endpoint: unknown;
   try {
     endpoint = ((await request.json()) as { endpoint?: unknown })?.endpoint;
@@ -114,4 +115,4 @@ export async function DELETE(request: Request) {
   } catch (err) {
     return cannot(err);
   }
-}
+});

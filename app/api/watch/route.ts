@@ -5,6 +5,7 @@ import { lookupOn } from "@/lib/labels";
 import { TronGrid } from "@/lib/trongrid";
 import type { WatchResult } from "@/lib/watch";
 import { entityPhrase } from "@/lib/voice";
+import { guarded } from "@/lib/write-guard";
 
 /**
  * POST /api/watch — has any of these wallets sent USDT since a given moment?
@@ -22,7 +23,7 @@ export const dynamic = "force-dynamic";
 /** A desk full of CRITICAL cases, not a scanner. Keeps one request bounded. */
 const MAX_ITEMS = 25;
 
-export async function POST(request: Request) {
+export const POST = guarded(async function POST(request: Request) {
   let body: unknown;
   try {
     body = await request.json();
@@ -116,4 +117,4 @@ export async function POST(request: Request) {
     apiCalls: tron.apiCalls + eth.apiCalls + polygonClient.apiCalls,
     results,
   });
-}
+});

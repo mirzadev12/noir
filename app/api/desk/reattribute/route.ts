@@ -4,6 +4,7 @@ import { changeDesk } from "@/lib/desk-store";
 import type { DeskEntry } from "@/lib/desk-types";
 import { kickDesk } from "@/lib/desk-worker";
 import { actorOf } from "@/lib/identity";
+import { guarded } from "@/lib/write-guard";
 
 /**
  * POST /api/desk/reattribute — read filed wallets again, one or many.
@@ -72,7 +73,7 @@ function spelling(queued: DeskEntry[], asked: string): string {
   return asked;
 }
 
-export async function POST(request: Request) {
+export const POST = guarded(async function POST(request: Request) {
   const chosen = selectorOf((await body<Record<string, unknown>>(request)) as Record<string, unknown>);
   if ("error" in chosen) return json({ error: chosen.error }, 400);
   const { select, kind } = chosen;
@@ -94,4 +95,4 @@ export async function POST(request: Request) {
   } catch (err) {
     return failed(err);
   }
-}
+});

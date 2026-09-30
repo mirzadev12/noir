@@ -4,6 +4,7 @@ import { appendAudit, findTrace } from "@/lib/audit-store";
 import { addCase, caseFromEntry } from "@/lib/case-file";
 import { changeCases, loadCases } from "@/lib/case-store";
 import { actorOf } from "@/lib/identity";
+import { guarded } from "@/lib/write-guard";
 
 /**
  * /api/cases — the shared case file. AGENTS.md §5 names `GET /api/cases` →
@@ -38,7 +39,7 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+export const POST = guarded(async function POST(request: Request) {
   type Body = { address?: unknown; fingerprint?: unknown } | null;
   let body: Body;
   try {
@@ -86,9 +87,9 @@ export async function POST(request: Request) {
   } catch (err) {
     return failed(err);
   }
-}
+});
 
-export async function DELETE(request: Request) {
+export const DELETE = guarded(async function DELETE(request: Request) {
   let id: unknown;
   try {
     id = ((await request.json()) as { id?: unknown })?.id;
@@ -116,4 +117,4 @@ export async function DELETE(request: Request) {
   } catch (err) {
     return failed(err);
   }
-}
+});

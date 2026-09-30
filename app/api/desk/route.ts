@@ -6,6 +6,7 @@ import { changeDesk, loadDesk } from "@/lib/desk-store";
 import type { IntakeLine } from "@/lib/desk-types";
 import { kickDesk } from "@/lib/desk-worker";
 import { actorOf, cleanName } from "@/lib/identity";
+import { guarded, MAX_FILING_BYTES } from "@/lib/write-guard";
 
 /**
  * /api/desk — the unit's shared dispatch desk.
@@ -19,7 +20,9 @@ import { actorOf, cleanName } from "@/lib/identity";
  *           → { added, merged, rejected }
  *   DELETE  { id } — take a wallet off the desk.
  *
- * Filing and removal are written to the audit log with who did them.
+ * Filing and removal are written to the audit log with who did them. Both
+ * stand behind the write guard (`lib/write-guard.ts`): a filing over 64 KB is a
+ * 413, and too many writes from one client in a minute a 429.
  */
 export const dynamic = "force-dynamic";
 
@@ -34,18 +37,10 @@ export async function GET() {
   }
 }
 
-/** 500 lines of the longest addresses with a case column fit well inside this. */
-const MAX_BODY_BYTES = 64 * 1024;
-
-export async function POST(request: Request) {
-  const declared = Number(request.headers.get("content-length") ?? 0);
-  const raw = declared > MAX_BODY_BYTES ? null : await request.text();
-  if (raw === null || raw.length > MAX_BODY_BYTES) {
-    return json({ error: "That filing is too large: send at most 500 wallets (64 KB) at a time." }, 413);
-  }
+export const POST = guarded(async function POST(request: Request) {
   let parsed: unknown = null;
   try {
-    parsed = JSON.parse(raw);
+    parsed = JSON.parse(await request.text());
   } catch {
     parsed = null;
   }
@@ -77,9 +72,9 @@ export async function POST(request: Request) {
   } catch (err) {
     return failed(err);
   }
-}
+}, MAX_FILING_BYTES, "That filing is too large: send at most 500 wallets (64 KB) at a time.");
 
-export async function DELETE(request: Request) {
+export const DELETE = guarded(async function DELETE(request: Request) {
   const { id } = await body<{ id: unknown }>(request);
   if (typeof id !== "string" || !id) return json({ error: "Expected { id }." }, 400);
   try {
@@ -90,5 +85,5 @@ export async function DELETE(request: Request) {
   } catch (err) {
     return failed(err);
   }
-}
+});
 

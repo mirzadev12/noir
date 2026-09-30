@@ -210,7 +210,7 @@ export interface EvidenceLedger {
 | L3 case close-out | built (`tests/case-close.test.mjs`). The closures are kept beside the desk in `case-closures.json`; `lib/desk-read.ts` `readCases()` now returns rows with `closed` |
 | L4 filing validation | built (`tests/intake-validation.test.mjs`) |
 | L5 retry and backoff | built (`tests/worker-retry.test.mjs`). A desk with a retry waiting wakes the worker when anyone reads it, so a restart loses no retry |
-| L6 rate limits and size guards | to build |
+| L6 rate limits and size guards | built (`tests/write-guard.test.mjs`): `lib/write-guard.ts` wraps every write handler. `NOIR_WRITE_LIMIT` sets the writes a minute (0 turns it off) |
 | L7 backup and restore scripts | to build |
 | L8 health | to build |
 | L9 evidence ledger | to build |

@@ -5,6 +5,7 @@ import { streamTrace, wantsStream } from "@/lib/trace-stream";
 import { DEMO_MODE, answersFor, frozenTrace } from "@/lib/demo";
 import type { TraceRun } from "@/lib/audit";
 import { recordTrace } from "@/lib/audit-store";
+import { guarded } from "@/lib/write-guard";
 
 /**
  * POST /api/trace — run a live trace. AGENTS.md §5.
@@ -24,7 +25,7 @@ import { recordTrace } from "@/lib/audit-store";
  */
 export const dynamic = "force-dynamic";
 
-export async function POST(request: Request) {
+export const POST = guarded(async function POST(request: Request) {
   let body: unknown;
   try {
     body = await request.json();
@@ -150,4 +151,4 @@ export async function POST(request: Request) {
       { status: 502 },
     );
   }
-}
+});

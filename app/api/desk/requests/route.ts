@@ -5,6 +5,7 @@ import { changeDesk, loadDesk } from "@/lib/desk-store";
 import { ASKS, REQUEST_STATUSES, type Ask, type RequestStatus } from "@/lib/desk-types";
 import { actorOf } from "@/lib/identity";
 import { changeStatus, changeStatuses, draftRequest } from "@/lib/requests";
+import { guarded } from "@/lib/write-guard";
 
 /**
  * /api/desk/requests — one consolidated request per VASP, and what it became.
@@ -32,7 +33,7 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+export const POST = guarded(async function POST(request: Request) {
   const b = await body<{ vasp: unknown; asks: unknown }>(request);
   const asks = Array.isArray(b.asks) ? b.asks.filter((a): a is Ask => (ASKS as readonly unknown[]).includes(a)) : [];
   if (typeof b.vasp !== "string" || !b.vasp.trim() || !Array.isArray(b.asks) || asks.length !== b.asks.length) {
@@ -53,12 +54,12 @@ export async function POST(request: Request) {
   } catch (err) {
     return failed(err);
   }
-}
+});
 
 /** Most requests one call may change: more VASPs than a desk holds at once. */
 const MAX_BULK = 100;
 
-export async function PATCH(request: Request) {
+export const PATCH = guarded(async function PATCH(request: Request) {
   const b = await body<{ id: unknown; ids: unknown; status: unknown; on: unknown; reference: unknown; note: unknown }>(request);
   const status = REQUEST_STATUSES.find((s) => s === b.status) as RequestStatus | undefined;
   const text = (v: unknown) => (typeof v === "string" ? v : null);
@@ -111,4 +112,4 @@ export async function PATCH(request: Request) {
   } catch (err) {
     return failed(err);
   }
-}
+});
