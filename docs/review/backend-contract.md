@@ -197,9 +197,13 @@ export interface EvidenceLedger {
 - **L6, every write route.** `413 { error }` over the route's size limit (64 KB for a filing,
   16 KB for everything else). `429 { error }` with `Retry-After: <seconds>` past 60 writes a
   minute from one client.
-- **L8, `GET /api/health`.** Adds `state: { writable: boolean; reason: string | null }` always,
-  and with `?deep=1` `chains: { tron, ethereum, polygon: "reachable" | "unreachable" }`. Without
-  `deep` no chain is read, so an uptime monitor stays cheap.
+- **L8, `GET /api/health`.** Adds `state: { writable: boolean; reason: string | null }` always (the
+  state directory is probed at most once a minute). With `?deep=1` it also adds
+  `chains: { tron, ethereum, polygon: "reachable" | "unreachable" }` and
+  `chainsWhy: { tron, ethereum, polygon: string | null }` (why one did not answer: `"it answered 429:
+  this deployment is being rate-limited"`, `"it did not answer"`, a setting that is not a URL).
+  Without `deep` no chain is read, so an uptime monitor stays cheap. `ok` stays `true` when a chain is
+  down: it says the server answers.
 
 ## Status
 
@@ -212,5 +216,5 @@ export interface EvidenceLedger {
 | L5 retry and backoff | built (`tests/worker-retry.test.mjs`). A desk with a retry waiting wakes the worker when anyone reads it, so a restart loses no retry |
 | L6 rate limits and size guards | built (`tests/write-guard.test.mjs`): `lib/write-guard.ts` wraps every write handler. `NOIR_WRITE_LIMIT` sets the writes a minute (0 turns it off) |
 | L7 backup and restore scripts | built (`tests/backup.test.mjs`): `scripts/backup-state.mjs`, `scripts/restore-state.mjs`, both standalone. No route |
-| L8 health | to build |
+| L8 health | built (`tests/health.test.mjs`): `lib/health.ts` |
 | L9 evidence ledger | to build |
