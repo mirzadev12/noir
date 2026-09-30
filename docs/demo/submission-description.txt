@@ -1,0 +1,33 @@
+SUMMARY
+NOIR is a VASP attribution and request-routing desk for investigators. Given an unknown crypto wallet, it names the exchange to write to in both directions: the exchange account that received the wallet's money, and the exchange that funded it. It files the wallet on one shared desk under that exchange, so an officer drafts one consolidated request per exchange for every case that leads there, and tracks what the exchange did with it. It answers problem statement SIH26182 (MHA, I4C, CIS Division).
+
+THE PROBLEM
+Investigators meet wallet addresses linked to cyber fraud whose exchange is unknown. Complaints arrive one at a time, but their money converges on a few exchanges, so the same exchange is written to again and again. Which exchange holds the account, how to reach it, and which account a freeze must name are found by hand, while the money moves.
+
+WHAT NOIR DOES
+1. File. Paste one address or up to 500, or a CSV, from one case or many. Each line is checked before any chain is read; a bad line is refused with the reason.
+2. Attribute both ways. Outbound: NOIR follows the wallet's USDT forward, hop by hop, on TRON, Ethereum or Polygon, and stops at the first exchange wallet or customer deposit address in its label table. It names that VASP and the account there. If the trail ends at a mixer, a contract or a sanctioned address, it says so. Inbound: it reads who paid the wallet and who funded those payers, and names the exchanges among them.
+3. Screen. Every wallet is checked against the OFAC list, including money that reached a listed address on the way to an exchange, and its trace is checked for laundering typologies (fast forwarding, fan-out, peel chains, round amounts, new addresses). Each exchange is checked against the FIU-IND list, and its law-enforcement channel is copied from its own page.
+4. Route. Wallets from many cases sit on one desk under the exchange they lead to. NOIR drafts one consolidated request per exchange (KYC, access logs, transaction history, preservation and, where an account is known, a freeze) as a print-ready A4 letter and a JSON package built for SAHYOG's intake. The legal basis is left blank for the officer.
+5. Track. NOIR records what each exchange did (sent, acknowledged, data received, frozen, refused, no response), warns when a reply is late or a freeze is about to lapse, and asks the chains whether a wallet has moved since it was read. Every write is logged in a hash-chained audit log that can be re-checked.
+
+HOW AN ATTRIBUTION IS MADE
+Attribution is a deterministic lookup, not a model: every step is a lookup or a count, and the same wallet gives the same answer on any day the data is the same. The label table holds 17 VASPs across TRON, Ethereum and Polygon. It starts from 37 exchange wallets that public block explorers tag and derives 565 customer deposit addresses from them by a sweep heuristic (an address that repeatedly forwards nearly all it receives to a tagged wallet). Each row keeps its source and its evidence.
+
+Every result states how much evidence was seen, in words (strong, moderate or limited), and its tier: explorer tag, sweep heuristic, sanctions list or community report. That is evidence seen, never a probability of being right. An explorer's tag on a funder is shown as a lead, never filed. A wallet that could not be read is never reported as empty; it says so and is read again. Each result keeps the hash of every chain response it was read from.
+
+WHAT IT RUNS ON
+Public blockchain APIs (TronGrid for TRON, Blockscout for Ethereum and Polygon), which an agency can point at its own nodes; the OFAC SDN list (1,043 addresses, list of 18 Sep 2026); the FIU-IND list (December 2023 annexure); and 14 exchange law-enforcement pages. NOIR is a TypeScript web application (Next.js, React) with no database: the desk lives in plain files written atomically, so it runs on one small server. 282 automated tests pass. A recorded mode answers 14 recorded cases from stored chain reads, so they can be shown offline.
+
+WHAT IS BUILT, AND WHAT IS NOT
+Of 18 capabilities, 13 are built, 4 partial and 1 not built. Tracing is live for TRON, Ethereum and Polygon (USDT); Bitcoin and other chains are recognised and screened against OFAC, not traced. Partial: chain coverage (Bitcoin, Solana and BNB Smart Chain are not traced), bridge and swap detection, routing into SAHYOG, and large-volume scale. SAHYOG integration is designed, not live: the request package is built for its intake, and sending it needs SAHYOG API access for I4C. Not built: cross-chain mapping.
+
+WHY IT MATTERS
+One request per exchange replaces one letter per complaint. The account a freeze must name is found and shown with its evidence. Late replies and lapsing freezes are flagged in time. NOIR states what it cannot say, so an officer never relies on more than the data supports.
+
+NEXT
+SAHYOG API integration, Bitcoin and Solana readers, bridge and swap matching (which unlocks cross-chain mapping), and an indexer and a database for scale.
+
+Live site: https://noir-lmot.onrender.com/
+Source: https://github.com/mirzadev12/noir
+Demo film: <YouTube link>
