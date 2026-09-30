@@ -43,7 +43,11 @@ export default async function WalletPage(props: PageProps<"/wallet/[address]">) 
     <Page>
       <Refresher active={pending} />
       <PageHead
-        title={`Wallet ${shortAddress(entry.wallet)}`}
+        title={
+          <>
+            Wallet <span className="type-mono whitespace-nowrap">{shortAddress(entry.wallet)}</span>
+          </>
+        }
         lede={
           pending
             ? "Being read now. This page refreshes every 3 seconds until the answer lands."

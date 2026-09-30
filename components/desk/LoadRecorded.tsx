@@ -42,7 +42,7 @@ export function LoadRecorded({ text, wallets, cases }: { text: string; wallets: 
         Bitcoin address it screens but does not trace. They are filed under {count(cases)} sample case references, because no case file
         came with the recordings. Each can be removed from its own page.
       </Text>
-      <Button icon="arrow-right" busy={busy} onClick={go}>
+      <Button variant="outline" icon="arrow-right" busy={busy} onClick={go}>
         {busy ? "Filing…" : "Load the recorded cases"}
       </Button>
       {error ? (

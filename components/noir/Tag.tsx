@@ -20,7 +20,7 @@ const TONE = {
   plain: "rule-box bg-paper text-ink",
   solid: "border border-ink bg-ink text-on-light",
   quiet: "hair-box bg-paper text-ink-soft",
-  prohibit: "rule-box-prohibit bg-prohibit text-on-ink",
+  prohibit: "rule-box-prohibit bg-prohibit text-on-light",
   ok: "border border-ok bg-transparent text-ok",
   wait: "border border-wait bg-transparent text-wait",
 } as const;

@@ -102,7 +102,7 @@ function MovedLines({ m, readAt }: { m: MovedWallet; readAt: string | undefined 
         <strong className="type-mono">{amount(m.usdt)} USDT</strong> in{" "}
         {m.complete ? plural(m.transfers, "transfer") : `${count(m.transfers)} or more transfers`}
         {readAt ? ` since it was read on ${utc(readAt)}` : " since it was read"}.
-        {m.complete ? "" : " One check reads only a wallet's most recent transfers, so both figures are a floor."}
+        {m.complete ? "" : " One check reads only a wallet’s most recent transfers, so both figures are a floor."}
       </p>
       <p className="mt-1 text-small text-ink-soft">
         Latest: {amount(m.latest.valueUsdt)} USDT to {m.latest.toPhrase ? <strong className="text-ink">{m.latest.toPhrase}</strong> : null}
@@ -169,7 +169,7 @@ export function Movement({ asks, of = asks.length }: { asks: WatchAsk[]; of?: nu
         {summary && summary.moved.length > 0 ? (
           <ul className="rule-t">
             {summary.moved.map((m) => (
-              <li key={`${chainOf(m)}:${m.address}`} className="hair-b grid min-w-0 gap-2 py-4 sm:grid-cols-[minmax(0,12rem)_minmax(0,1fr)] sm:gap-6">
+              <li key={`${chainOf(m)}:${m.address}`} className="hair-b grid min-w-0 gap-2 py-4 sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] sm:gap-6">
                 <div className="flex min-w-0 flex-col items-start gap-2">
                   <WalletLink wallet={m.address} chain={chainOf(m)} short />
                   <Tag tone="wait">Moved</Tag>

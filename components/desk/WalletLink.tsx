@@ -10,7 +10,7 @@ export function WalletLink({ wallet, chain, short = false }: { wallet: string; c
   return (
     <span className="inline-flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1" title={short ? wallet : undefined}>
       <ChainBadge chain={chain} />
-      <RouteLink href={walletHref(wallet, chain)} mono>
+      <RouteLink href={walletHref(wallet, chain)} mono className={short ? "whitespace-nowrap" : undefined}>
         {short ? shortAddress(wallet) : wallet}
       </RouteLink>
     </span>

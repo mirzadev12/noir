@@ -1,9 +1,13 @@
 /**
  * Directions — the two ways NOIR reads a wallet, drawn as one route: money
  * arrives from the left and leaves to the right, so inbound stands on the left,
- * outbound on the right, and the wallet sits on the seam between them with an
- * arrow running into it and an arrow running out. The light in each panel comes
- * from the side its money travels to or from.
+ * outbound on the right, and NOIR's route line runs through both panels with
+ * the wallet on the seam between them: from the exchange that funded it, to the
+ * account that received its money. The light in each panel comes from the side
+ * its money travels to or from.
+ *
+ * Stacked on a phone there is no seam to cross, so each panel carries its own
+ * arrow instead: back for inbound, forward for outbound.
  */
 
 import { Heading, Icon, Text } from "@/components/noir";
@@ -19,13 +23,9 @@ export function Directions() {
       </Text>
 
       <div className="relative mt-10 grid min-w-0 gap-5 md:grid-cols-2">
-        <article className="lit-in flex min-h-64 min-w-0 flex-col justify-between gap-10 p-6 md:min-h-80 md:p-9">
-          {/* Side by side, the arrow runs into the wallet on the seam; stacked on a phone, it points back the way the money came. */}
+        <article className="lit-in flex min-h-64 min-w-0 flex-col justify-between gap-10 p-6 md:min-h-80 md:justify-end md:p-9">
           <span className="text-route md:hidden">
             <Icon name="arrow-left" size="lg" />
-          </span>
-          <span className="hidden text-route md:mr-16 md:block md:self-end">
-            <Icon name="arrow-right" size="lg" />
           </span>
           <div className="min-w-0">
             <Heading level={3} size="headline">
@@ -36,8 +36,10 @@ export function Directions() {
             </Text>
           </div>
         </article>
-        <article className="lit-out flex min-h-64 min-w-0 flex-col justify-between gap-10 p-6 md:min-h-80 md:p-9">
-          <Icon name="arrow-right" size="lg" className="text-ink md:ml-16" />
+        <article className="lit-out flex min-h-64 min-w-0 flex-col justify-between gap-10 p-6 md:min-h-80 md:justify-end md:p-9">
+          <span className="text-ink md:hidden">
+            <Icon name="arrow-right" size="lg" />
+          </span>
           <div className="min-w-0">
             <Heading level={3} size="headline">
               Outbound
@@ -47,13 +49,15 @@ export function Directions() {
             </Text>
           </div>
         </article>
-        {/* The wallet, on the seam: both panels are about the same one. */}
-        <span
-          aria-hidden="true"
-          className="type-mono rule-box absolute left-1/2 top-9 hidden -translate-x-1/2 rounded-full bg-paper px-4 py-2 text-small text-ink md:inline-block"
-        >
-          the wallet
-        </span>
+
+        {/* The route, from md up: origin, the line, the wallet on the seam, the line, terminus. The same stations a wallet's own route is drawn with. */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-9 top-9 hidden h-10 items-center md:flex">
+          <span className="size-6 shrink-0 bg-ink" />
+          <span className="route-bar-x min-w-0 flex-1" />
+          <span className="type-sign rule-box shrink-0 rounded-full bg-paper px-4 py-2 text-small text-ink">the wallet</span>
+          <span className="route-bar-x min-w-0 flex-1" />
+          <span className="rule-box size-8 shrink-0 bg-signal" />
+        </div>
       </div>
     </section>
   );

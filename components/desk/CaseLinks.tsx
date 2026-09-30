@@ -26,13 +26,13 @@ export function CaseLinks({ rows }: { rows: VaspRow[] }) {
         {links.map((l) => (
           <li key={`${l.vasp}-${l.account}`} className="hair-b py-5">
             <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2">
-              {l.crossCase ? <Tag tone="solid">{l.caseRefs.length} cases, one account</Tag> : <Tag>One case, one account</Tag>}
               <span className="type-sign text-lead">
                 <Link href={vaspHref(l.vasp)} className="text-ink no-underline hover:text-route">
                   {l.vasp}
                 </Link>{" "}
                 customer account
               </span>
+              {l.crossCase ? <Tag tone="solid">{l.caseRefs.length} cases, one account</Tag> : <Tag>One case, one account</Tag>}
               <ChainBadge chain={l.chain} />
               <Mono copy>{l.account}</Mono>
             </div>

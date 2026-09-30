@@ -81,7 +81,7 @@ export function FollowUpList({ list, showVasp = true }: { list: Item[]; showVasp
   return (
     <ul className="rule-t">
       {list.map((it, i) => (
-        <li key={`${it.vasp}-${i}`} className="hair-b grid min-w-0 gap-2 py-4 sm:grid-cols-[minmax(0,12rem)_minmax(0,1fr)] sm:gap-6">
+        <li key={`${it.vasp}-${i}`} className="hair-b grid min-w-0 gap-2 py-4 sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] sm:gap-6">
           <div className="flex min-w-0 flex-col items-start gap-2">
             {showVasp ? (
               <Link href={vaspHref(it.vasp)} className="type-sign text-lead text-ink no-underline hover:text-route">
@@ -108,7 +108,7 @@ export function FollowUps({ rows, now }: { rows: VaspRow[]; now: string }) {
       flush
       title="Follow up"
       count={`${list.length} on the clock`}
-      note="Answers due, freezes that lapse and preserved records about to be released, most urgent first. Dates come from each exchange's own published law-enforcement page, quoted beneath each line, or from NOIR's stated default."
+      note="Answers due, freezes that lapse and preserved records about to be released, most urgent first. Dates come from each exchange’s own published law-enforcement page, quoted beneath each line, or from NOIR’s stated default."
     >
       <FollowUpList list={list} />
     </Section>

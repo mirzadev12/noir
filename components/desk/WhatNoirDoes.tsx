@@ -22,9 +22,8 @@ export function WhatNoirDoes() {
         How NOIR routes a wallet
       </Heading>
       <p className="mt-4 max-w-prose text-lede text-ink-soft">
-        A wallet turns up in a case and nobody knows whose it is. <strong className="font-bold text-ink">NOIR tells you which exchange to write to.</strong> It follows the wallet’s money
-        forward to the exchange account that received it, and back to the exchange that funded it. Then it drafts one letter per exchange, covering every wallet from every case that
-        leads there.
+        A wallet turns up in a case and nobody knows whose it is. <strong className="font-bold text-ink">NOIR tells you which exchange to write to</strong>, drafts one letter per
+        exchange covering every wallet from every case that leads there, and keeps track of the reply.
       </p>
       <div className="mt-10">
         <RouteLine stops={STAGES} />

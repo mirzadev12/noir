@@ -34,7 +34,7 @@ export function LandingFooter({ ofacPublished }: { ofacPublished: string | null 
       <div className="mx-auto grid w-full max-w-page min-w-0 gap-10 px-gutter pb-24 pt-10 md:grid-cols-3 md:pb-32">
         <div className="min-w-0">
           <p className="text-body">For Indian cyber-crime investigators</p>
-          <p className="mt-1 text-small text-on-ink-soft">Automated attribution of unknown wallets to the nearest VASP.</p>
+          <p className="mt-1 text-small text-on-ink-soft">Names the exchange to write to, in both directions, and drafts the one request.</p>
         </div>
         <div className="min-w-0">
           <h2 className="type-label text-on-ink-soft">Data</h2>
@@ -56,9 +56,7 @@ export function LandingFooter({ ofacPublished }: { ofacPublished: string | null 
               <Link href="/registry">Registry</Link>
             </li>
             <li>
-              <a href="https://github.com/mirzadev12/noir#readme" target="_blank" rel="noreferrer noopener">
-                README
-              </a>
+              <Link href="/audit">Audit log</Link>
             </li>
           </ul>
         </div>

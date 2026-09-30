@@ -21,6 +21,8 @@ const ACTION: Record<string, string> = {
   "desk.reattributed": "Attributed a wallet again",
   "request.drafted": "Drafted a request",
   "request.status": "Recorded a status",
+  "case.closed": "Closed a case",
+  "case.reopened": "Reopened a case",
 };
 
 /** Every write to the desk is one line in a hash-chained log. This page re-checks the chain each time it opens. */
@@ -38,6 +40,10 @@ export default async function AuditPage() {
     .reverse()
     .slice(0, SHOWN);
 
+  // NOIR asks for no sign-in. An entry names someone only when a gateway in front of it supplied a name,
+  // and the column is drawn only when at least one entry shown does.
+  const named = latest.some(({ entry }) => entry !== null && entry.actor.id !== null);
+
   const rows: TableRow[] = latest.map(({ entry, line }) =>
     entry
       ? {
@@ -48,7 +54,7 @@ export default async function AuditPage() {
             </span>,
             utc(entry.at),
             ACTION[entry.action] ?? entry.action,
-            actorName(entry.actor),
+            ...(named ? [entry.actor.id !== null ? actorName(entry.actor) : <span key="w" className="text-ink-soft">—</span>] : []),
             entry.address ? <Mono key="a">{shortAddress(entry.address)}</Mono> : <span className="text-ink-soft">—</span>,
           ],
         }
@@ -62,7 +68,7 @@ export default async function AuditPage() {
               Line {line} could not be read as an entry
             </span>,
             "",
-            "",
+            ...(named ? [""] : []),
             "",
           ],
         },
@@ -107,12 +113,12 @@ export default async function AuditPage() {
         {rows.length === 0 ? (
           <Empty title="No entry has been written yet">File a wallet on the desk and the first entry appears here.</Empty>
         ) : (
-          <Table caption="The latest audit entries" columns={[{ label: "No." }, { label: "When" }, { label: "What" }, { label: "Who" }, { label: "Wallet" }]} rows={rows} />
+          <Table caption="The latest audit entries" columns={[{ label: "No." }, { label: "When" }, { label: "What" }, ...(named ? [{ label: "Who" }] : []), { label: "Wallet" }]} rows={rows} />
         )}
       </Section>
 
       <Text className="mt-8 text-ink-soft">
-        The log records that things happened and who did them. It does not decide anything. <RouteLink href="/method">How NOIR decides</RouteLink>
+        The log records what happened and when. It does not decide anything. <RouteLink href="/method">How NOIR decides</RouteLink>
       </Text>
     </Page>
   );

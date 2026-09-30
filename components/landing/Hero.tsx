@@ -29,12 +29,12 @@ export function Hero({ desk }: { desk: RecordedDesk }) {
         <Lanes className="inset-x-0 bottom-0 top-[58%]" />
       </div>
 
-      <div className="@container relative mx-auto min-w-0 max-w-5xl px-5 pt-14 text-center md:px-10 md:pt-24">
+      <div className="@container relative mx-auto min-w-0 max-w-5xl px-3 pt-14 text-center md:px-10 md:pt-24">
         <h1 className="type-sign-black rise text-display leading-[0.98] text-ink">
           <span className="block whitespace-nowrap">Every unknown wallet</span>
           <span className="text-gradient block whitespace-nowrap pb-2">has a destination.</span>
         </h1>
-        <p className="rise mx-auto mt-7 max-w-prose text-lede text-ink-soft" style={{ ["--rise" as string]: 1 }}>
+        <p className="rise mx-auto mt-7 max-w-prose px-2 text-lede text-ink-soft md:px-0" style={{ ["--rise" as string]: 1 }}>
           NOIR follows each wallet forward to <strong className="font-bold text-ink">the exchange account that received its money</strong> and back to{" "}
           <strong className="font-bold text-ink">the exchange that funded it</strong>, then files it there, so every exchange gets{" "}
           <strong className="font-bold text-ink">one request for all its cases</strong>.

@@ -27,7 +27,7 @@ colors:
 typography:
   display:
     fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
-    fontSize: "min(4.75rem, 8.6cqi)"
+    fontSize: "min(4.75rem, 9.6cqi)"
     fontWeight: 700
     lineHeight: 0.92
     letterSpacing: "-0.015em"
@@ -149,7 +149,7 @@ components:
     padding: "2px 10px"
   tag-prohibit:
     backgroundColor: "{colors.prohibit}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.on-light}"
     typography: "{typography.label}"
     rounded: "{rounded.pill}"
     padding: "2px 10px"
@@ -248,9 +248,10 @@ Scoped to the letter sheet: Letter White (letter-paper) ground, Letter Ink (lett
 
 ### Hierarchy
 - **Display** (700, fluid to its own column, 0.92): the landing headline only; the one fluid size.
-- **Headline** (700, 2.125rem phone / 2.75rem md / 3.5rem lg, 1.0): a landing section's heading, and the names on its two direction panels. Landing only.
+- **Headline** (700, 1.625rem phone / 2.75rem md / 3.5rem lg, 1.0): a landing section's heading, and the names on its two direction panels. Landing only.
 - **Sign** (700, 3rem phone / 4.5rem md / 5.5rem lg, 0.95, -0.015em): a VASP's name on its destination sign; the wordmark uses the same black cut at title size.
-- **Title** (600, 1.5rem / 1.75rem / 2rem, 1.05, -0.015em): screen names, section titles, the current stop on a route.
+- **Title** (600, 1.5rem / 1.75rem / 2rem, 1.05, -0.015em): a screen's name, and the current stop on a route.
+- **Section** (600, 1.25rem / 1.375rem / 1.5rem, 1.1): a section's title on a working screen, always a step below the screen's name.
 - **Lead** (400 running, 600 in sign role; 1.25rem, 1.4): button labels, sidebar route names, notice titles, a working screen's lede.
 - **Lede** (400, 1.125rem / 1.25rem / 1.375rem, 1.4): a landing section's opening sentence. Landing only.
 - **Body** (400, 1rem, 1.55): running text; paragraphs held to 42rem.
@@ -294,7 +295,7 @@ Gently rounded controls (0.75rem): buttons, fields, the destination sign, the pr
 - **Small:** 40px tall, body size, for tight rows.
 
 ### Chips (status tags and filters)
-- **Tags:** uppercase label type in a pill, 2px 10px. Plain (strong hairline, white type), quiet (hairline, fog grey), ok and wait (a coloured outline and coloured words), prohibit (a red field). The words always name the state.
+- **Tags:** uppercase label type in a pill, 2px 10px. Plain (strong hairline, white type), quiet (hairline, fog grey), ok and wait (a coloured outline and coloured words), prohibit (a red field with night type, 7.2:1). The words always name the state.
 - **Filters:** label-type buttons with a mono count; selected is a raised-panel field with a strong hairline, unselected a hairline box in fog grey.
 
 ### Cards / Containers
@@ -329,7 +330,7 @@ The landing's hero and its closing line each stand in a hall: a stage-radius pan
 Under the hero's hall: four figures in JetBrains Mono at count size (2.5rem / 3rem / 4rem), each over what it counts, separated by single hairlines at any width (two by two on a phone). Every figure is counted from `data/` when the site is built, and the line beneath names the files. Landing only; working screens state figures in sentences and tables.
 
 ### Direction Panels
-Inbound on the left, outbound on the right, read as one route: an arrow runs into a mono pill on the seam ("the wallet") and an arrow runs out of it. Each is a stage-radius panel with its name in headline type at the foot and one sentence beneath; inbound is lit from the left in the deep accent, outbound from the right in the accent. Stacked on a phone, the pill is dropped and inbound's arrow points back.
+Inbound on the left, outbound on the right, read as one route: NOIR's own route line runs through both panels, from an origin station, through a pill on the seam ("the wallet"), to a terminus station, drawn with the same stations a wallet's own route uses. Each is a stage-radius panel with its name in headline type at the foot and one sentence beneath; inbound is lit from the left in the deep accent, outbound from the right in the accent. Stacked on a phone there is no seam, so each panel carries an arrow instead: back for inbound, forward for outbound.
 
 ### Request Letter
 A white A4 sheet with its own light palette: facts as label-over-value pairs, a line to write on, a seal box. No statute is printed; the officer supplies the legal basis.

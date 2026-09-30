@@ -37,7 +37,7 @@ export interface RouteStopView {
 
 const STATION: Record<StopTone, string> = {
   origin: "size-6 bg-ink",
-  via: "size-4 rule-box bg-paper",
+  via: "size-4 border-2 border-signal bg-paper",
   terminus: "size-8 rule-box bg-signal",
   done: "size-5 bg-ink",
   current: "size-8 bg-ink",

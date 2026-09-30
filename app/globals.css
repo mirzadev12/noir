@@ -77,6 +77,8 @@
   --text-lead--line-height: 1.4;
   --text-lede: var(--size-lede); /* a landing section's opening sentence */
   --text-lede--line-height: 1.4;
+  --text-section: var(--size-section); /* a section's title on a working screen: a step below the screen's name */
+  --text-section--line-height: 1.1;
   --text-title: var(--size-title);
   --text-title--line-height: 1.05;
   --text-headline: var(--size-headline); /* a landing section's heading: between a title and the display line */
@@ -110,13 +112,14 @@
   --gutter: 1rem; /* 16px at phone width */
 
   /* Working-screen sizes: fixed, stepping at the md and lg breakpoints. */
+  --size-section: 1.25rem;
   --size-title: 1.5rem;
   --size-sign: 3rem; /* a VASP's name on its destination sign: 48px on a phone */
   --size-figure: 1.5rem;
   --size-lede: 1.125rem;
-  --size-headline: 2.125rem;
+  --size-headline: 1.625rem;
   --size-count: 2.5rem;
-  --size-display: min(4.75rem, 8.6cqi); /* the landing headline only: sized to its own column (an @container), so each line fits whole */
+  --size-display: min(4.75rem, 9.6cqi); /* the landing headline only: sized to its own column (an @container), so each line fits whole */
   --rule-heavy: 1px; /* the strong hairline: table heads, section rules, boxed controls */
   --rule-hair: 1px; /* the grey rule: table rows, dividers */
   --rule-focus: 3px; /* the focus ring */
@@ -142,6 +145,7 @@
 @media (min-width: 48rem) {
   :root {
     --gutter: 2.5rem;
+    --size-section: 1.375rem;
     --size-title: 1.75rem;
     --size-sign: 4.5rem;
     --size-figure: 1.875rem;
@@ -153,6 +157,7 @@
 
 @media (min-width: 64rem) {
   :root {
+    --size-section: 1.5rem;
     --size-title: 2rem;
     --size-sign: 5.5rem; /* 88px: a VASP's name on its destination sign */
     --size-figure: 2.25rem;

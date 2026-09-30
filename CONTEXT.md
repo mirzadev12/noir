@@ -64,7 +64,7 @@ npm run dev
 npx next typegen; npx tsc --noEmit
 npx eslint .
 node --import ./tests/register.mjs --test "tests/*.test.mjs"
-DEMO_MODE=true npm run dev     # recorded cases, no network
+DEMO_MODE=true npm run dev     # recorded cases answer from data/; other wallets and the movement check still read the chains
 node --import ./tests/register.mjs scripts/freeze-payers.mjs   # re-capture recorded payers (live)
 ```
 

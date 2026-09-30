@@ -64,7 +64,9 @@ export default async function RequestsPage() {
         }
       />
 
-      <FollowUps rows={[...rowsByVasp.values()]} now={new Date().toISOString()} />
+      <div className="mt-12 empty:hidden md:mt-16">
+        <FollowUps rows={[...rowsByVasp.values()]} now={new Date().toISOString()} />
+      </div>
 
       <div className="mt-8">
         {requests.length === 0 ? (

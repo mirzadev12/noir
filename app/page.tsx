@@ -82,7 +82,7 @@ export default async function Landing() {
           {busiest ? (
             <section className="mt-20 min-w-0 md:mt-32" aria-labelledby="many-title">
               <Heading level={2} size="headline" id="many-title">
-                Many cases. One exchange. <span className="text-route">One request.</span>
+                Many cases. One exchange. One request.
               </Heading>
               <Text size="lede" tone="soft" className="mt-4 max-w-prose">
                 Complaints arrive one at a time, but their money converges on a handful of exchanges. NOIR files every wallet under the exchange it

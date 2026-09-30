@@ -19,7 +19,7 @@ const TONE: Record<"note" | "caution" | "stop" | "sanction", { box: string; icon
   note: { box: "rule-l pl-4 py-1", icon: null, role: "note" },
   caution: { box: "rounded-control rule-box p-4", icon: "warning", role: "note" },
   stop: { box: "rounded-control border border-prohibit bg-paper-2 p-4 text-ink", icon: "warning", role: "alert" },
-  sanction: { box: "on-ink bg-prohibit p-4 text-on-ink", icon: "prohibit", role: "alert" },
+  sanction: { box: "bg-prohibit p-4 text-on-light", icon: "prohibit", role: "alert" },
 };
 
 export function Notice({
