@@ -49,6 +49,8 @@ function crumbsFor(pathname: string): Crumb[] {
       return [{ label: "Registry" }];
     case "method":
       return [{ label: "Method" }];
+    case "audit":
+      return [{ label: "Method", href: "/method" }, { label: "Audit log" }];
     default:
       return [];
   }
