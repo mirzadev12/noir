@@ -39,7 +39,7 @@ code, docs, the UI or the deck.
 ## Visual world (summary; the brief is authoritative)
 
 A dark, precise console (the user's pin of 29 Sep, night; DESIGN.md records it as built).
-Near-black ground, raised panels, white type in Manrope, JetBrains Mono for addresses and
+Near-black ground, raised panels, white type in IBM Plex Sans, JetBrains Mono for addresses and
 figures, one electric-blue accent (a gradient only on the landing headline, a glow only on
 the product board and the destination sign), light-blue links, green/amber/red status,
 hairline borders, rounded controls, the sidebar on every screen. The desk is a departures

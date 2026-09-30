@@ -25,40 +25,40 @@ colors:
   letter-route: "#1b5fd1"
 typography:
   display:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "min(4.75rem, 8.6cqi)"
     fontWeight: 800
     lineHeight: 0.92
     letterSpacing: "-0.03em"
   sign:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "5.5rem"
     fontWeight: 800
     lineHeight: 0.95
     letterSpacing: "-0.03em"
   title:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "2rem"
     fontWeight: 700
     lineHeight: 1.05
     letterSpacing: "-0.03em"
   lead:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "1.25rem"
     fontWeight: 400
     lineHeight: 1.4
   body:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.55
   small:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "0.875rem"
     fontWeight: 400
     lineHeight: 1.5
   label:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "0.75rem"
     fontWeight: 700
     lineHeight: 1.35
@@ -183,7 +183,7 @@ The one surface that is not dark is the request letter: a white paper sheet on s
 - Near-black ground, raised panels one step lighter; depth by tone, not shadow.
 - One electric-blue accent for direction; light blue for links and actions.
 - White primary buttons: the brightest block on any screen is the next action.
-- Manrope for every word, heavy and tight for signs; JetBrains Mono for addresses, hashes and figures.
+- IBM Plex Sans for every word, semibold for signs; JetBrains Mono for addresses, hashes and figures.
 - Hairline rules, gently rounded controls, pill-shaped status tags.
 - Sidebar navigation on every screen; a phone strip with a Menu button below md.
 - Motion is decoration over visible content and goes to zero under reduced motion.
@@ -227,8 +227,8 @@ Scoped to the letter sheet: Letter White (letter-paper) ground, Letter Ink (lett
 
 ## Typography
 
-**Display Font:** Manrope (with Segoe UI, system-ui)
-**Body Font:** Manrope (with Noto Sans Devanagari as a fallback for Hindi entries only)
+**Display Font:** IBM Plex Sans (with Segoe UI, system-ui)
+**Body Font:** IBM Plex Sans (with Noto Sans Devanagari as a fallback for Hindi entries only)
 **Label/Mono Font:** JetBrains Mono (with ui-monospace, Consolas)
 
 **Character:** A geometric sans set heavy and tight for signs and headings, relaxed at 400 for reading; a monospace with tabular, slashed-zero figures for everything a machine produced.
