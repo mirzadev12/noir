@@ -66,6 +66,8 @@ npx eslint .
 node --import ./tests/register.mjs --test "tests/*.test.mjs"
 DEMO_MODE=true npm run dev     # recorded cases answer from data/; other wallets and the movement check still read the chains
 node --import ./tests/register.mjs scripts/freeze-payers.mjs   # re-capture recorded payers (live)
+node scripts/backup-state.mjs --out <dir>      # snapshot the state directory (desk, audit log, closures)
+node scripts/restore-state.mjs <snapshot>      # refused unless every file matches and the audit chain verifies
 ```
 
 State (the desk, the audit log, the alert watch) lives in `.noir/`, or `NOIR_STATE_DIR`.

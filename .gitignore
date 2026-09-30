@@ -56,3 +56,7 @@ next-env.d.ts
 /.impeccable/review/
 /.impeccable/hook.cache.json
 /.noir-prod/
+
+# snapshots of the state directory (scripts/backup-state.mjs): officers' records, never committed
+/backups/
+/.noir.replaced-*/

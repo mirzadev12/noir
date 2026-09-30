@@ -79,6 +79,23 @@ The shared desk is one file, `desk.json`, in `.noir/` (git-ignored). Set `NOIR_S
 persistent disk. Delete it to start fresh. A desk file that cannot be read is reported as unreadable — never
 shown as an empty desk.
 
+### Backing the desk up
+
+```
+node scripts/backup-state.mjs --out D:\noir-backups      # a snapshot: every state file, a manifest, the audit log's head
+node scripts/restore-state.mjs <snapshot> --check        # would it restore? writes nothing
+node scripts/restore-state.mjs <snapshot> [--force]      # stop the server first
+```
+
+Both read `NOIR_STATE_DIR` as the server does. A snapshot is a directory `noir-state-<UTC time>/` with a copy of
+the desk, the audit log, the closed cases, the case file and the alert watch, and a `manifest.json` naming each
+file's size and SHA-256 and the audit log's head. A restore is refused, and nothing is written, when a file does
+not match its manifest or **the audit log's chain does not verify**; that check is made from the log itself, so a
+log that was edited does not get through by re-writing the manifest. A state that is already there is never
+deleted: without `--force` the restore is refused, and with it the old files are set aside beside the state
+directory first. Write the head the backup prints somewhere the server cannot reach: it is what proves a later
+snapshot was not cut short.
+
 ### Who is at the desk
 
 NOIR asks for no name and holds no passwords. Behind a department sign-in gateway, set `NOIR_IDENTITY_HEADER`
