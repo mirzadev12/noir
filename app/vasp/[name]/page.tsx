@@ -58,6 +58,16 @@ export default async function VaspPage(props: PageProps<"/vasp/[name]">) {
         <span>Evidence seen: {evidenceSummary(row.wallets)}</span>
       </Sign>
 
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <span className="text-small text-ink-soft">Download this VASP’s wallets</span>
+        <ButtonLink href={`/api/desk/export?kind=wallets&vasp=${encodeURIComponent(row.vasp)}&format=csv`} download variant="outline" size="sm" icon="download">
+          CSV
+        </ButtonLink>
+        <ButtonLink href={`/api/desk/export?kind=wallets&vasp=${encodeURIComponent(row.vasp)}&format=json`} download variant="outline" size="sm" icon="download">
+          JSON
+        </ButtonLink>
+      </div>
+
       <div className="mt-8">
         <SectionNav
           items={[

@@ -87,6 +87,17 @@ export default async function RequestsPage() {
             rows={rows}
           />
         )}
+        {requests.length ? (
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <span className="text-small text-ink-soft">Download the register</span>
+            <ButtonLink href="/api/desk/export?kind=requests&format=csv" download variant="outline" size="sm" icon="download">
+              CSV
+            </ButtonLink>
+            <ButtonLink href="/api/desk/export?kind=requests&format=json" download variant="outline" size="sm" icon="download">
+              JSON
+            </ButtonLink>
+          </div>
+        ) : null}
       </div>
 
       <Section
