@@ -1,5 +1,5 @@
 import { loadClosures } from "@/lib/case-store";
-import { fileWallets, groupByVasp, newEntryId, removeEntry } from "@/lib/desk";
+import { fileWallets, groupByVasp, hasWork, newEntryId, removeEntry } from "@/lib/desk";
 import { auditEntry, body, failed, json } from "@/lib/desk-http";
 import { parseIntake, refuseClosedCases } from "@/lib/desk-intake";
 import { changeDesk, loadDesk } from "@/lib/desk-store";
@@ -26,8 +26,8 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     const file = await loadDesk();
-    // A server restarted mid-queue resumes as soon as anyone looks.
-    if (file.entries.some((e) => e.status === "pending")) kickDesk();
+    // A server restarted mid-queue, or with a retry waiting, resumes as soon as anyone looks.
+    if (hasWork(file)) kickDesk();
     return json(groupByVasp(file));
   } catch (err) {
     return failed(err);

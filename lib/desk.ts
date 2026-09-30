@@ -96,11 +96,21 @@ export function removeEntry(file: DeskFile, id: string): DeskEntry | null {
   return removed;
 }
 
+/** Reads of one wallet in all before the worker leaves it unreadable: the first, and two more by itself. */
+export const MAX_READ_ATTEMPTS = 3;
+/** How long after each unreadable read the next one waits: 30 seconds, then 2 minutes. */
+export const RETRY_DELAYS_MS = [30_000, 120_000];
+
 /**
  * Store the worker's answer for an entry. The status follows from the record:
  * unread → `unreadable`, untraced chain → `screened-only`, else `attributed`.
  * A thrown attribution is `failed` with its reason; the last record written,
  * if any, is kept as it was, never replaced by nothing.
+ *
+ * A wallet that could not be read is given a time to be read again, further
+ * off each time, until `MAX_READ_ATTEMPTS` reads are spent. It is `unreadable`
+ * while it waits and after the last read: never attributed with nothing in it,
+ * never empty. A thrown attribution is not retried by itself.
  */
 export function setRecord(
   file: DeskFile,
@@ -110,6 +120,9 @@ export function setRecord(
 ): DeskEntry | null {
   const entry = file.entries.find((e) => e.id === id);
   if (!entry) return null;
+  const attempts = (entry.attempts ?? 0) + 1;
+  entry.attempts = attempts;
+  entry.retryAt = null;
   if ("error" in result) {
     entry.status = "failed";
     entry.error = result.error;
@@ -120,15 +133,55 @@ export function setRecord(
   entry.error = null;
   entry.attributedAt = now;
   entry.status = !record.readable ? "unreadable" : !record.traced ? "screened-only" : "attributed";
+  if (entry.status === "unreadable" && attempts < MAX_READ_ATTEMPTS) {
+    const wait = RETRY_DELAYS_MS[Math.min(attempts, RETRY_DELAYS_MS.length) - 1];
+    entry.retryAt = new Date(Date.parse(now) + wait).toISOString();
+  }
   return entry;
+}
+
+/**
+ * Queue the unreadable wallets whose time to be read again has come. Their
+ * count of attempts is kept: this is the worker retrying, not an officer asking.
+ * Mutates `file`; returns the entries it queued.
+ */
+export function requeueDue(file: DeskFile, now: string): DeskEntry[] {
+  const due = file.entries.filter((e) => e.status === "unreadable" && typeof e.retryAt === "string" && e.retryAt <= now);
+  for (const entry of due) {
+    entry.status = "pending";
+    entry.retryAt = null;
+  }
+  return due;
+}
+
+/** When the next retry is due (ISO, UTC), or null when none is scheduled. */
+export function nextRetryAt(file: DeskFile): string | null {
+  let next: string | null = null;
+  for (const e of file.entries) {
+    if (e.status !== "unreadable" || typeof e.retryAt !== "string") continue;
+    if (next === null || e.retryAt < next) next = e.retryAt;
+  }
+  return next;
+}
+
+/** True when the worker has something to do or to wait for: a wallet to read, or one scheduled to be read again. */
+export function hasWork(file: DeskFile): boolean {
+  return file.entries.some((e) => e.status === "pending" || (e.status === "unreadable" && typeof e.retryAt === "string"));
+}
+
+/** Asked for by a person: the wallet is read afresh, and its attempts are counted from nothing. */
+function queueAfresh(entry: DeskEntry): void {
+  entry.status = "pending";
+  entry.error = null;
+  entry.attempts = 0;
+  entry.retryAt = null;
 }
 
 /** Queue an entry to be attributed again. Its last record stays until a new one is written. */
 export function markPending(file: DeskFile, id: string): DeskEntry | null {
   const entry = file.entries.find((e) => e.id === id);
   if (!entry) return null;
-  entry.status = "pending";
-  entry.error = null;
+  queueAfresh(entry);
   return entry;
 }
 
@@ -185,8 +238,7 @@ export function markPendingWhere(file: DeskFile, select: ReadAgainSelector): Rea
       skipped.push({ id: entry.id, wallet: entry.wallet, reason: "Already being read." });
       continue;
     }
-    entry.status = "pending";
-    entry.error = null;
+    queueAfresh(entry);
     queued.push(entry);
   }
   return { queued, skipped, matched: matched.length };

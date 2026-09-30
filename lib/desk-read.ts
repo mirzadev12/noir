@@ -10,7 +10,7 @@
 
 import { groupByCase, vaspResponse, type CaseRow, type VaspResponse } from "./analytics";
 import { loadClosures } from "./case-store";
-import { groupByVasp, vaspKey } from "./desk";
+import { groupByVasp, hasWork, vaspKey } from "./desk";
 import { loadDesk } from "./desk-store";
 import type { Ask, DeskEntry, DeskView, RequestLetter, VaspRequest, VaspRow } from "./desk-types";
 import { kickDesk } from "./desk-worker";
@@ -44,7 +44,7 @@ export interface DeskPage {
 export function readDeskView(): Promise<Read<DeskPage>> {
   return guard(async () => {
     const file = await loadDesk();
-    if (file.entries.some((e) => e.status === "pending")) kickDesk();
+    if (hasWork(file)) kickDesk();
     return { view: groupByVasp(file), flagged: file.entries.filter(isSanctioned), watch: watchList(file.entries), watchable: watchList(file.entries, Infinity).length };
   });
 }

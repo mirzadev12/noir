@@ -145,6 +145,13 @@ export interface DeskEntry {
   error: string | null;
   /** When the current record was written, or null. */
   attributedAt: string | null;
+  /** Times the worker has read this wallet since it was last queued. Absent on entries written before retries existed. */
+  attempts?: number;
+  /**
+   * When the worker will read an unreadable wallet again by itself (ISO, UTC);
+   * null when it will not: the wallet was read, or the attempts are spent.
+   */
+  retryAt?: string | null;
 }
 
 export const ASKS = ["kyc", "access-logs", "transactions", "preservation", "freeze"] as const;
