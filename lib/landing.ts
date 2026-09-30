@@ -73,11 +73,9 @@ export async function landingTrace(): Promise<LandingTrace | null> {
   const payers = (demoPayers as unknown as { cases: Record<string, PayersTrace> }).cases[`tron:${LANDING_TRACE_WALLET}`] ?? null;
   try {
     const record = await attributeWallet(LANDING_TRACE_WALLET, "tron", { recorded: () => ({ trace: recorded.trace, payers }), trace: offline, payers: offline });
-    const contact = listedContact(record);
-    const reached = contact ? recorded.trace.nodes.find((n) => n.address === contact.address) : undefined;
     return {
       record,
-      listed: contact ? { ...contact, usdt: reached ? reached.taintedValueUsdt : null } : null,
+      listed: listedContact(record),
       transfers: recorded.trace.edges
         .map((e) => ({ txHash: e.txHash, from: e.from, to: e.to, usdt: e.valueUsdt, at: e.timestamp }))
         .sort((a, b) => a.at.localeCompare(b.at)),

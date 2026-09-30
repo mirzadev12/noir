@@ -42,3 +42,17 @@ test("a wallet flagged for a contact is still a row under the VASP its money rea
   assert.equal(entry.record.sanctioned, null, "the wallet itself is not listed");
   assert.equal(entry.record.outboundStop, null, "its trail did not end at the listing");
 });
+
+test("the record keeps how much of the wallet's traced money reached the listed address", async () => {
+  const { listedContact } = await import("../lib/listed-contact.ts");
+  const page = await read.readDeskView();
+  const entry = page.value.flagged.find((e) => e.wallet === WALLETS.contact);
+  const contact = entry.record.typologies.find((t) => t.code === "SANCTIONED_CONTACT");
+  assert.equal(contact.usdt, 800);
+  assert.deepEqual(listedContact(entry.record), { address: contact.at, entity: "ISIL KHORASAN", usdt: 800 });
+  // Only a contact carries the figure; the other typologies stay as the trace worded them.
+  for (const t of entry.record.typologies) if (t.code !== "SANCTIONED_CONTACT") assert.equal("usdt" in t, false);
+  // A record read before the figure was kept still names the listing, without one.
+  const old = { ...entry.record, typologies: entry.record.typologies.map(({ code, reason, at }) => ({ code, reason, at })) };
+  assert.deepEqual(listedContact(old), { address: contact.at, entity: "ISIL KHORASAN", usdt: null });
+});

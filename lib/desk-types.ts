@@ -68,6 +68,8 @@ export interface Typology {
   reason: string;
   /** The wallet it was observed at. */
   at: string;
+  /** For a contact with a listed address or a mixer: the USDT of the wallet's traced money that reached `at`, as the trace counted it. Absent on records read before it was kept. */
+  usdt?: number;
 }
 
 /** Why no outbound VASP was named, when none was. */

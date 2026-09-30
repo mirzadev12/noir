@@ -8,9 +8,10 @@
  * part went on to an exchange. That wallet has a VASP to write to and a
  * listing to report, and it must be flagged like the other two.
  *
- * The typology names the address; the listing is looked up again here, against
- * the same OFAC table screening uses, so a contact with a mixer (which shares
- * the typology's code) is never called a listing.
+ * The typology names the address and, on records read since it was kept, the
+ * USDT of the wallet's traced money that reached it; the listing is looked up
+ * again here, against the same OFAC table screening uses, so a contact with a
+ * mixer (which shares the typology's code) is never called a listing.
  *
  * Server-only: it reads the sanctions tables.
  */
@@ -24,7 +25,7 @@ export function listedContact(record: AttributionRecord | null | undefined): Lis
   for (const t of record.typologies ?? []) {
     if (t.code !== "SANCTIONED_CONTACT") continue;
     const listing = screenAddress(t.at).listing;
-    if (listing) return { address: t.at, entity: listing.entity };
+    if (listing) return { address: t.at, entity: listing.entity, usdt: typeof t.usdt === "number" ? t.usdt : null };
   }
   return null;
 }

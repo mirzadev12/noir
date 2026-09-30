@@ -45,6 +45,12 @@ const round2 = (n: number) => Math.round(n * 100) / 100;
 const isVasp = (label: Label | null): label is Label & { kind: VaspKind } =>
   !!label && (label.kind === "exchange_deposit" || label.kind === "exchange_hot");
 
+/** The USDT of the traced money that reached an address, as the trace counted it; nothing when the trace holds no such node. */
+function reachedUsdt(trace: TraceResult, address: string): { usdt?: number } {
+  const node = trace.nodes.find((n) => n.address === address);
+  return node ? { usdt: round2(node.taintedValueUsdt) } : {};
+}
+
 /** The exchange the money reached — the largest share, as the tracer ranks an exit. */
 function outboundOf(trace: TraceResult): { outbound: OutboundAttribution | null; stop: OutboundStop | null } {
   const reached = trace.nodes
@@ -210,7 +216,7 @@ export async function attributeWallet(
     inbound: inb.inbound,
     inboundLeads: inb.leads,
     inboundRead: payers ? (payers.readable ? "read" : "unreadable") : "not-run",
-    typologies: trace.riskFlags.map((f) => ({ code: f.code, reason: observedOnly(f.reason), at: f.atAddress })),
+    typologies: trace.riskFlags.map((f) => ({ code: f.code, reason: observedOnly(f.reason), at: f.atAddress, ...(f.code === "SANCTIONED_CONTACT" ? reachedUsdt(trace, f.atAddress) : {}) })),
     provenance: {
       generatedAt: trace.provenance.generatedAt,
       basis: recorded ? "recorded" : "live",

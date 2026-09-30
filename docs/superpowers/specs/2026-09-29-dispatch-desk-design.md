@@ -139,3 +139,8 @@ from `data/`.
   read are said to be unread. The desk's OFAC flags now also list a wallet whose money reached a
   listed address on its way to a VASP (`lib/listed-contact.ts`): before, only a listed wallet or a
   trail that ended at a listed address was flagged. Looping motion rests when out of sight.
+- 30 Sep 2026 — a contact typology keeps its amount. When a wallet's money reached a listed address
+  or a mixer, the record's `SANCTIONED_CONTACT` typology now carries `usdt`: the USDT of the wallet's
+  traced money that reached it, as the trace counted it. The wallet page's graph and the landing's
+  both read it from the record (the landing no longer reaches into the recorded trace for it). A
+  record read before this names the listing without a figure until it is read again.

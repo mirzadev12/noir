@@ -113,14 +113,15 @@ test("the graph in words says both directions, and says what could not be said",
 test("the recorded wallet that routes both ways draws both ways, with its listed contact", async () => {
   const record = await recorded("TTQd8Bo1nhKEVgkKJVP3SRYZ1nDNStckvj");
   const contact = listedContact(record);
-  assert.deepEqual(contact, { address: "THstQuwNidzC4YeJ7uPowf55ZdVZtGcHJ5", entity: "ISIL KHORASAN" });
+  assert.deepEqual(contact, { address: "THstQuwNidzC4YeJ7uPowf55ZdVZtGcHJ5", entity: "ISIL KHORASAN", usdt: 800 });
   const g = traceGraphOf(record, contact);
   assert.deepEqual(g.nodes.map((n) => `${n.col}:${n.row} ${n.kind} ${n.title}`), ["0:0 funder MEXC", "1:0 wallet The wallet", "2:0 hop Hop", "3:0 terminus Binance", "2:1 listed ISIL KHORASAN"]);
   assert.equal(g.nodes.find((n) => n.id === "terminus").figure, "200.00 USDT");
   assert.equal(g.nodes.find((n) => n.id === "funder-0").figure, "10,000.00 USDT");
+  assert.equal(g.nodes.find((n) => n.id === "listed").figure, "800.00 USDT", "the record itself holds what reached the listed address");
   assert.equal(
     describeGraph(g),
-    "MEXC funded 1 payer, who paid in 10,000.00 USDT. 200.00 USDT reached Binance (exchange wallet) through 1 hop. Its money reached ISIL KHORASAN (THstQu…cHJ5), on the OFAC list.",
+    "MEXC funded 1 payer, who paid in 10,000.00 USDT. 200.00 USDT reached Binance (exchange wallet) through 1 hop. 800.00 USDT of it reached ISIL KHORASAN (THstQu…cHJ5), on the OFAC list.",
   );
 });
 
