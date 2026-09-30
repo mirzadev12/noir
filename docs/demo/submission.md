@@ -11,13 +11,13 @@ NOIR: Attributing Unknown Crypto Wallets to the Nearest VASP | SIH 2026 (SIH2618
 The text is in [`submission-description.txt`](submission-description.txt): plain ASCII, so a form cannot reject a
 curly quote or a dash, in eight short sections (summary, the problem, what NOIR does, how an attribution is made,
 what it runs on, what is built and what is not, why it matters, next), then the live site, the source and the film.
-Put the YouTube link in place of `<YouTube link>` once the film is uploaded.
+The film is at https://youtu.be/unMVWqiIN_U (2 min 53 s).
 
 No character limit for the description field is published where a web search could reach (one search, 30 Sep 2026;
 the portal itself needs a sign-in). If the form stops accepting text, cut from the bottom: NEXT, then WHY IT MATTERS,
 then WHAT IT RUNS ON. Every figure in it was counted from `data/` and the code that day (17 VASPs, 37 tagged wallets,
 565 deposit addresses, 14 law-enforcement channels, 1,043 OFAC-listed addresses of the list of 18 Sep 2026, 18
-capabilities of which 13 are built, 4 partial and 1 not built, 282 tests). Recount them before changing any.
+capabilities of which 13 are built, 4 partial and 1 not built, 286 tests). Recount them before changing any.
 
 ### Short version, 1,407 characters
 
@@ -31,4 +31,4 @@ Attribution is a deterministic lookup, not a language model. Confidence is how m
 
 Live site: https://noir-lmot.onrender.com/
 Source: https://github.com/mirzadev12/noir
-Demo film: (the YouTube link, once the film is uploaded)
+Demo film: https://youtu.be/unMVWqiIN_U

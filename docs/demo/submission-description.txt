@@ -17,7 +17,7 @@ Attribution is a deterministic lookup, not a model: every step is a lookup or a 
 Every result states how much evidence was seen, in words (strong, moderate or limited), and its tier: explorer tag, sweep heuristic, sanctions list or community report. That is evidence seen, never a probability of being right. An explorer's tag on a funder is shown as a lead, never filed. A wallet that could not be read is never reported as empty; it says so and is read again. Each result keeps the hash of every chain response it was read from.
 
 WHAT IT RUNS ON
-Public blockchain APIs (TronGrid for TRON, Blockscout for Ethereum and Polygon), which an agency can point at its own nodes; the OFAC SDN list (1,043 addresses, list of 18 Sep 2026); the FIU-IND list (December 2023 annexure); and 14 exchange law-enforcement pages. NOIR is a TypeScript web application (Next.js, React) with no database: the desk lives in plain files written atomically, so it runs on one small server. 282 automated tests pass. A recorded mode answers 14 recorded cases from stored chain reads, so they can be shown offline.
+Public blockchain APIs (TronGrid for TRON, Blockscout for Ethereum and Polygon), which an agency can point at its own nodes; the OFAC SDN list (1,043 addresses, list of 18 Sep 2026); the FIU-IND list (December 2023 annexure); and 14 exchange law-enforcement pages. NOIR is a TypeScript web application (Next.js, React) with no database: the desk lives in plain files written atomically, so it runs on one small server. 286 automated tests pass. A recorded mode answers 14 recorded cases from stored chain reads, so they can be shown offline.
 
 WHAT IS BUILT, AND WHAT IS NOT
 Of 18 capabilities, 13 are built, 4 partial and 1 not built. Tracing is live for TRON, Ethereum and Polygon (USDT); Bitcoin and other chains are recognised and screened against OFAC, not traced. Partial: chain coverage (Bitcoin, Solana and BNB Smart Chain are not traced), bridge and swap detection, routing into SAHYOG, and large-volume scale. SAHYOG integration is designed, not live: the request package is built for its intake, and sending it needs SAHYOG API access for I4C. Not built: cross-chain mapping.
@@ -30,4 +30,4 @@ SAHYOG API integration, Bitcoin and Solana readers, bridge and swap matching (wh
 
 Live site: https://noir-lmot.onrender.com/
 Source: https://github.com/mirzadev12/noir
-Demo film: <YouTube link>
+Demo film: https://youtu.be/unMVWqiIN_U
