@@ -9,6 +9,7 @@ import { ButtonLink, Notice, Page, RouteLink, Section, SectionNav, Sign, Text } 
 import { readVasp } from "@/lib/desk-read";
 import { amount, count, utc } from "@/lib/noir-format";
 import { evidenceSummary, requestHref, statusOf, walletCounts } from "@/lib/noir-view";
+import { ReadAgainMany } from "@/components/desk/ReadAgainMany";
 
 export const dynamic = "force-dynamic";
 
@@ -58,7 +59,9 @@ export default async function VaspPage(props: PageProps<"/vasp/[name]">) {
         <span>Evidence seen: {evidenceSummary(row.wallets)}</span>
       </Sign>
 
-      <div className="mt-6 flex flex-wrap items-center gap-3">
+      <div className="mt-6 flex flex-wrap items-start gap-x-8 gap-y-4">
+        <ReadAgainMany vasp={row.vasp} count={c.wallets} />
+        <div className="flex flex-wrap items-center gap-3">
         <span className="text-small text-ink-soft">Download this VASP’s wallets</span>
         <ButtonLink href={`/api/desk/export?kind=wallets&vasp=${encodeURIComponent(row.vasp)}&format=csv`} download variant="outline" size="sm" icon="download">
           CSV
@@ -66,6 +69,7 @@ export default async function VaspPage(props: PageProps<"/vasp/[name]">) {
         <ButtonLink href={`/api/desk/export?kind=wallets&vasp=${encodeURIComponent(row.vasp)}&format=json`} download variant="outline" size="sm" icon="download">
           JSON
         </ButtonLink>
+        </div>
       </div>
 
       <div className="mt-8">

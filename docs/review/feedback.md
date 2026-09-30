@@ -302,3 +302,26 @@ the SIH checklist, DESIGN.md, the merge and the deploy.
 A cloud session that starts now: sync, and do not redo R1–R5.
 
 **R2–R5 are done locally; R1 came from the cloud and is merged.** Cloud: stop here, all finish-review items are closed.
+
+## 30 Sep — backend L1 to L9 is built, and the local session built its screens
+
+`docs/review/backend-contract.md` is the contract; every item in it is marked built. The cloud
+session was waiting on it (note B5). Because the user could not reach the cloud session, the
+local session built the screens for it too. **CLOUD: do not build these again; merge
+`origin/claude/loving-tu-812683` first.**
+
+- `/cases`: each case has Case file (download), Read its wallets again, Close the case (two
+  steps, an optional note) and, once closed, a Closed tag with the day and Reopen
+  (`components/desk/CaseActions.tsx`).
+- `/vasp/[name]`: Read all N wallets again (`components/desk/ReadAgainMany.tsx`).
+- `/requests`: Record N drafted requests as sent, shown when two or more are drafted
+  (`components/desk/MarkSent.tsx`).
+- Desk, "Could not be read": each wallet says which read was last and when NOIR reads it again
+  (`retryLine` in `lib/noir-view.ts`).
+- `/registry`: the evidence ledger's sentence, or a caution listing rows without provenance.
+- The finish review of 30 Sep (7/10) and its fixes are in the commit "Finish review, first
+  round": `text-on-light` on red fields, `--text-section` for section titles, the route line
+  through the two direction panels, no Who column on `/audit` unless an entry names someone.
+
+Still open for whoever takes it: a phone capture of every screen in `docs/screens/`, and the
+`?deep=1` health answer shown somewhere an officer would look (the method or audit screen).

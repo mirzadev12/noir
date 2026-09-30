@@ -1,5 +1,6 @@
 import { DeskUnavailable } from "@/components/desk/DeskUnavailable";
 import { FollowUps } from "@/components/desk/FollowUps";
+import { MarkSent } from "@/components/desk/MarkSent";
 import { StatusTag } from "@/components/desk/StatusTag";
 import { ButtonLink, Empty, Page, PageHead, RouteLink, Section, Table, Text, type TableRow } from "@/components/noir";
 import { readRegister } from "@/lib/desk-read";
@@ -63,6 +64,10 @@ export default async function RequestsPage() {
             : "One consolidated request per VASP is drafted from the desk and tracked here."
         }
       />
+
+      <div className="mt-6 empty:hidden">
+        <MarkSent requests={requests.filter(({ request }) => statusOf(request) === "drafted").map(({ request }) => ({ id: request.id, vasp: request.vasp }))} />
+      </div>
 
       <div className="mt-12 empty:hidden md:mt-16">
         <FollowUps rows={[...rowsByVasp.values()]} now={new Date().toISOString()} />

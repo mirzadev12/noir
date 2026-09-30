@@ -93,3 +93,14 @@ test("a long value breaks into even parts that join back to the value, never a s
     assert.ok(Math.max(...sizes) - Math.min(...sizes) <= 1, `${v} parts are even`);
   }
 });
+
+test("an unreadable wallet says which read was last and whether another is coming", async () => {
+  const { retryLine } = await import("../lib/noir-view.ts");
+  const at = "2026-09-30T08:01:00.000Z";
+  assert.equal(retryLine({ attributedAt: null }, 3), "Not yet read");
+  assert.equal(retryLine({ attributedAt: at }, 3), "Tried 30 Sep 2026, 08:01 UTC", "an entry written before retries existed says only when");
+  assert.equal(retryLine({ attributedAt: at, attempts: 1, retryAt: "2026-09-30T08:01:30.000Z" }, 3), "Tried 30 Sep 2026, 08:01 UTC (1 of 3). NOIR reads it again at 30 Sep 2026, 08:01 UTC.");
+  assert.equal(retryLine({ attributedAt: at, attempts: 2, retryAt: "2026-09-30T08:03:00.000Z" }, 3), "Tried 30 Sep 2026, 08:01 UTC (2 of 3). NOIR reads it again at 30 Sep 2026, 08:03 UTC.");
+  assert.equal(retryLine({ attributedAt: at, attempts: 3, retryAt: null }, 3), "Tried 30 Sep 2026, 08:01 UTC (3 of 3). NOIR will not read it again by itself.");
+  assert.equal(retryLine({ attributedAt: at, attempts: 1, retryAt: null }, 3), "Tried 30 Sep 2026, 08:01 UTC (1 of 3).");
+});

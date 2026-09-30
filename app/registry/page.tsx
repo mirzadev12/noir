@@ -1,4 +1,5 @@
-import { ChainBadge, Page, PageHead, Table, Tag, Text, type TableRow } from "@/components/noir";
+import { ChainBadge, Notice, Page, PageHead, Table, Tag, Text, type TableRow } from "@/components/noir";
+import { evidenceLedger } from "@/lib/evidence";
 import { FIU_SOURCE } from "@/lib/fiu";
 import { count, utcDay } from "@/lib/noir-format";
 import { registryRows, registryTotals } from "@/lib/registry";
@@ -12,6 +13,7 @@ const ORDER: TracedChain[] = ["tron", "ethereum", "polygon"];
 export default function RegistryPage() {
   const rows = registryRows();
   const t = registryTotals();
+  const ledger = evidenceLedger();
 
   const tableRows: TableRow[] = rows.map((r) => ({
     key: r.vasp,
@@ -64,6 +66,25 @@ export default function RegistryPage() {
           A <strong>seed wallet</strong> is an exchange’s own wallet named by a public explorer tag. A <strong>deposit address</strong> is a customer account NOIR derived from
           it, because it forwarded nearly everything it received to that wallet. Attribution looks a wallet’s money up against these two lists; nothing else decides it.
         </Text>
+      </div>
+      <div className="mt-6 max-w-prose">
+        {ledger.missing.length === 0 ? (
+          <Text tone="soft">
+            Every row says where it came from. All <strong className="type-mono text-ink">{count(ledger.seedWallets.withSource)}</strong> seed wallets name the explorer page that tags
+            them, and all <strong className="type-mono text-ink">{count(ledger.depositAddresses.withEvidence)}</strong> deposit addresses carry their evidence and the seed wallet they
+            forward to. A row without its source fails the build.
+          </Text>
+        ) : (
+          <Notice tone="caution" title={`${count(ledger.missing.length)} ${ledger.missing.length === 1 ? "row lacks" : "rows lack"} provenance`}>
+            <ul className="mt-2 flex flex-col gap-1 text-small">
+              {ledger.missing.slice(0, 20).map((m) => (
+                <li key={`${m.file}-${m.address}-${m.lacks}`}>
+                  <span className="type-mono">{m.address}</span> in {m.file} lacks {m.lacks}.
+                </li>
+              ))}
+            </ul>
+          </Notice>
+        )}
       </div>
       <div className="mt-8">
         <Table

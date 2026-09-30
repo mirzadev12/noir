@@ -181,3 +181,18 @@ export const TIER_LINE: Record<string, string> = {
   sanctions: "The address is on the OFAC Specially Designated Nationals list.",
   community: "The address was reported on a public list. The weakest tier.",
 };
+
+/**
+ * What the desk says of an unreadable wallet's attempts: when it was last
+ * tried, which read that was, and whether NOIR will read it again by itself.
+ * `max` is the number of reads the worker makes in all (`MAX_READ_ATTEMPTS`).
+ */
+export function retryLine(entry: Pick<DeskEntry, "attempts" | "retryAt" | "attributedAt">, max: number): string {
+  if (!entry.attributedAt) return "Not yet read";
+  const tried = `Tried ${utc(entry.attributedAt)}`;
+  const n = entry.attempts;
+  if (typeof n !== "number" || n < 1) return tried;
+  const which = `${tried} (${Math.min(n, max)} of ${max})`;
+  if (typeof entry.retryAt === "string") return `${which}. NOIR reads it again at ${utc(entry.retryAt)}.`;
+  return n >= max ? `${which}. NOIR will not read it again by itself.` : `${which}.`;
+}

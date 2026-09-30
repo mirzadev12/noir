@@ -11,8 +11,8 @@
 
 import { Empty, Section, Table, Tag, type TableRow } from "@/components/noir";
 import type { DeskEntry } from "@/lib/desk-types";
-import { utc } from "@/lib/noir-format";
-import { caseRefsOf, isSanctioned, STOP_LINE } from "@/lib/noir-view";
+import { MAX_READ_ATTEMPTS } from "@/lib/desk";
+import { caseRefsOf, isSanctioned, retryLine, STOP_LINE } from "@/lib/noir-view";
 import { ReadAgain } from "./ReadAgain";
 import { WalletLink } from "./WalletLink";
 
@@ -83,7 +83,7 @@ export function UnreadableList({ entries }: { entries: DeskEntry[] }) {
       <WalletLink key="w" wallet={e.wallet} chain={e.chain} />,
       cases(e),
       <span key="t" className="text-small text-ink-soft">
-        {e.attributedAt ? `Tried ${utc(e.attributedAt)}` : "Not yet read"}
+        {retryLine(e, MAX_READ_ATTEMPTS)}
       </span>,
       <ReadAgain key="a" id={e.id} />,
     ],
@@ -92,7 +92,7 @@ export function UnreadableList({ entries }: { entries: DeskEntry[] }) {
     <Section
       title="Could not be read"
       count={walletsLabel(entries.length)}
-      note="The chain would not give these wallets' history. That is not the same as a wallet with nothing in it, and NOIR files them under no VASP. Read them again when the chain answers."
+      note="The chain would not give these wallets’ history. That is not the same as a wallet with nothing in it, and NOIR files them under no VASP. NOIR reads each again by itself, three reads in all; after that, read them again yourself when the chain answers."
     >
       <Table caption="Wallets that could not be read" columns={[{ label: "Wallet" }, { label: "Case" }, { label: "Last try" }, { label: "" }]} rows={rows} />
     </Section>

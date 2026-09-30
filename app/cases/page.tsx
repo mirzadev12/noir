@@ -1,3 +1,4 @@
+import { CaseActions } from "@/components/desk/CaseActions";
 import { DeskUnavailable } from "@/components/desk/DeskUnavailable";
 import { StatusTag } from "@/components/desk/StatusTag";
 import { ChainBadge, Empty, Page, PageHead, RouteLink, Table, Tag, type TableRow, ButtonLink } from "@/components/noir";
@@ -18,7 +19,14 @@ export default async function CasesPage() {
   const rows: TableRow[] = cases.map((c) => ({
     key: c.caseRef ?? "none",
     cells: [
-      c.caseRef ? <strong key="c">{c.caseRef}</strong> : <span key="c" className="text-ink-soft">No case reference</span>,
+      c.caseRef ? (
+        <div key="c" className="min-w-0">
+          <strong>{c.caseRef}</strong>
+          <CaseActions caseRef={c.caseRef} closed={c.closed ? { closedAt: c.closed.closedAt, note: c.closed.note } : null} />
+        </div>
+      ) : (
+        <span key="c" className="text-ink-soft">No case reference</span>
+      ),
       <ul key="w" className="flex flex-col gap-1.5">
         {c.wallets.map((w) => (
           <li key={w.entryId} className="flex min-w-0 flex-wrap items-center gap-2">
@@ -63,7 +71,7 @@ export default async function CasesPage() {
         title="Cases"
         lede={
           cases.length
-            ? `${noun(cases.length, "case reference")} on the desk. Each shows the wallets filed under it, the VASPs they reach in either direction, and where its requests stand.`
+            ? `${noun(cases.length, "case reference")} on the desk. Each shows the wallets filed under it, the VASPs they reach in either direction, and where its requests stand. A case’s whole file downloads from here, and a case can be closed when the unit is done with it.`
             : "Wallets filed with a case reference are gathered here by case."
         }
       />
