@@ -1,7 +1,9 @@
 import { DeskUnavailable } from "@/components/desk/DeskUnavailable";
+import { FollowUps } from "@/components/desk/FollowUps";
 import { StatusTag } from "@/components/desk/StatusTag";
 import { ButtonLink, Empty, Page, PageHead, RouteLink, Section, Table, Text, type TableRow } from "@/components/noir";
 import { readRegister } from "@/lib/desk-read";
+import type { VaspRow } from "@/lib/desk-types";
 import { count, vaspHref } from "@/lib/noir-format";
 import { ASK_SHORT, eventTime, requestHref, sentAndAnswered, statusOf } from "@/lib/noir-view";
 import { STATUS_LABEL } from "@/lib/requests";
@@ -16,6 +18,9 @@ export default async function RequestsPage() {
   const read = await readRegister();
   if (!read.ok) return <DeskUnavailable reason={read.reason} />;
   const { requests, responses } = read.value;
+  // One row per VASP: each row carries its latest request, so a second request to the same VASP must not repeat its follow-up.
+  const rowsByVasp = new Map<string, VaspRow>();
+  for (const { row } of requests) if (row) rowsByVasp.set(row.vasp, row);
 
   const rows: TableRow[] = requests.map(({ request }) => {
     const { sent, answer } = sentAndAnswered(request);
@@ -58,6 +63,8 @@ export default async function RequestsPage() {
             : "One consolidated request per VASP is drafted from the desk and tracked here."
         }
       />
+
+      <FollowUps rows={[...rowsByVasp.values()]} now={new Date().toISOString()} />
 
       <div className="mt-8">
         {requests.length === 0 ? (
