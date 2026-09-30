@@ -3,10 +3,10 @@
  * chooses a size, weight or colour on its own.
  *
  *   <Heading level size>   a sign-type heading. `level` is the HTML rank (1–4);
- *                          `size` is how loud it is: "display" | "sign" | "title" | "lead".
+ *                          `size` is how loud it is: "display" | "sign" | "headline" | "title" | "lead".
  *                          Rank on screen is carried by size alone.
  *   <Label soft>           small heavy capitals that name a thing: "OUTBOUND".
- *   <Text size tone>       running text. size "body" | "small" | "lead"; tone "ink" | "soft".
+ *   <Text size tone>       running text. size "body" | "small" | "lead" | "lede" (a landing section's opening sentence); tone "ink" | "soft".
  *                          `measure` limits the line length for reading.
  *
  * Sizes, weights and widths come from app/globals.css.
@@ -17,6 +17,7 @@ import { createElement } from "react";
 const HEADING = {
   display: "type-sign-black text-display",
   sign: "type-sign-black text-sign",
+  headline: "type-sign-black text-headline",
   title: "type-sign text-title",
   lead: "type-sign text-lead",
 } as const;
@@ -41,7 +42,7 @@ export function Label({ children, soft = false, className = "" }: { children: Re
   return <span className={`type-label ${soft ? "text-ink-soft" : ""} ${className}`}>{children}</span>;
 }
 
-const TEXT = { body: "text-body", small: "text-small", lead: "text-lead" } as const;
+const TEXT = { body: "text-body", small: "text-small", lead: "text-lead", lede: "text-lede" } as const;
 
 export function Text({
   children,
