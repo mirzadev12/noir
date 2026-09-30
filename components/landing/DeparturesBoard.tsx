@@ -44,13 +44,13 @@ function Clock() {
     const t = setInterval(tick, 15_000);
     return () => clearInterval(t);
   }, []);
-  return <span className="type-mono text-small text-ink-soft">{now ? `${now} UTC` : " "}</span>;
+  return <span className="type-mono whitespace-nowrap text-small text-ink-soft">{now ? `${now} UTC` : " "}</span>;
 }
 
 export function DeparturesBoard({ lines, total }: { lines: BoardLine[]; total: { wallets: number; vasps: number } }) {
   return (
     <figure className="glow min-w-0 rounded-control bg-paper-2 p-5 md:p-6" aria-label="The desk as a departures board, from the recorded cases">
-      <div className="hair-b flex items-center justify-between gap-4 pb-4">
+      <div className="hair-b flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pb-4">
         <div className="flex items-center gap-3">
           <svg viewBox="0 0 24 24" className="size-6 text-signal" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <path d="M3 12h17M13 5l7 7-7 7" />

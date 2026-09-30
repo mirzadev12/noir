@@ -18,14 +18,15 @@ const STAGES: RouteStopView[] = [
 export function WhatNoirDoes() {
   return (
     <section aria-labelledby="what-noir-does" className="min-w-0">
-      <Heading level={2} size="title" id="what-noir-does">
+      <Heading level={2} size="headline" id="what-noir-does">
         How NOIR routes a wallet
       </Heading>
-      <p className="mt-4 max-w-prose text-lead">
-        A wallet turns up in a case and nobody knows whose it is. <strong>NOIR tells you which exchange to write to.</strong> It follows the wallet’s money forward to the exchange account
-        that received it, and back to the exchange that funded it. Then it drafts one letter per exchange, covering every wallet from every case that leads there.
+      <p className="mt-4 max-w-prose text-lede text-ink-soft">
+        A wallet turns up in a case and nobody knows whose it is. <strong className="font-bold text-ink">NOIR tells you which exchange to write to.</strong> It follows the wallet’s money
+        forward to the exchange account that received it, and back to the exchange that funded it. Then it drafts one letter per exchange, covering every wallet from every case that
+        leads there.
       </p>
-      <div className="mt-8">
+      <div className="mt-10">
         <RouteLine stops={STAGES} />
       </div>
     </section>

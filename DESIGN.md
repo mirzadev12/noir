@@ -11,6 +11,7 @@ colors:
   ink-faint: "#7d8592"
   signal: "#3b82f6"
   signal-2: "#2563eb"
+  signal-3: "#1e3a8a"
   route: "#60a5fa"
   rule: "#20242d"
   rule-strong: "#313745"
@@ -25,42 +26,53 @@ colors:
   letter-route: "#1b5fd1"
 typography:
   display:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "min(4.75rem, 8.6cqi)"
-    fontWeight: 800
-    lineHeight: 0.92
-    letterSpacing: "-0.03em"
-  sign:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
-    fontSize: "5.5rem"
-    fontWeight: 800
-    lineHeight: 0.95
-    letterSpacing: "-0.03em"
-  title:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
-    fontSize: "2rem"
     fontWeight: 700
+    lineHeight: 0.92
+    letterSpacing: "-0.015em"
+  sign:
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
+    fontSize: "5.5rem"
+    fontWeight: 700
+    lineHeight: 0.95
+    letterSpacing: "-0.015em"
+  headline:
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
+    fontSize: "3.5rem"
+    fontWeight: 700
+    lineHeight: 1
+    letterSpacing: "-0.015em"
+  title:
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
+    fontSize: "2rem"
+    fontWeight: 600
     lineHeight: 1.05
-    letterSpacing: "-0.03em"
+    letterSpacing: "-0.015em"
+  lede:
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
+    fontSize: "1.375rem"
+    fontWeight: 400
+    lineHeight: 1.4
   lead:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "1.25rem"
     fontWeight: 400
     lineHeight: 1.4
   body:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.55
   small:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
     fontSize: "0.875rem"
     fontWeight: 400
     lineHeight: 1.5
   label:
-    fontFamily: "Manrope, Segoe UI, system-ui, sans-serif"
-    fontSize: "0.75rem"
-    fontWeight: 700
+    fontFamily: "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
+    fontSize: "0.8125rem"
+    fontWeight: 600
     lineHeight: 1.35
     letterSpacing: "0.08em"
   figure:
@@ -75,6 +87,7 @@ typography:
     fontFeature: "\"tnum\" 1, \"zero\" 1"
 rounded:
   control: "0.75rem"
+  stage: "1.75rem"
   pill: "9999px"
 spacing:
   unit: "0.25rem"
@@ -173,7 +186,7 @@ components:
 
 **Creative North Star: "The Night Departures Hall"**
 
-NOIR is a routing console seen at night: a near-black ground, panels one tonal step lighter, white type in a heavy geometric sans, and a single electric blue that marks where things are going. Its grammar comes from wayfinding: every wallet has a destination, the destination is named on one sign per screen, arrows and a drawn route line carry direction, and the desk reads as a departures board. It is a working tool for an investigator at a government desk, so density is measured, lines are hairlines, and rank is carried by type size rather than by colour or ornament.
+NOIR is a routing console seen at night: a near-black ground, panels one tonal step lighter, white type in a sober, institutional sans, and a single electric blue that marks where things are going. Its grammar comes from wayfinding: every wallet has a destination, the destination is named on one sign per screen, arrows and a drawn route line carry direction, and the desk reads as a departures board. It is a working tool for an investigator at a government desk, so density is measured, lines are hairlines, and rank is carried by type size rather than by colour or ornament.
 
 The system is flat and quiet by default and spends its few effects in named places: a gradient on one line of the landing headline, a soft blue glow on the product board and the destination sign, and a small set of motions (split-flap names, a breathing status light, travelling lane pulses, a flowing route, a route line that draws once). All of it decorates content that is already there, and all of it stops for people who ask for less motion.
 
@@ -183,7 +196,7 @@ The one surface that is not dark is the request letter: a white paper sheet on s
 - Near-black ground, raised panels one step lighter; depth by tone, not shadow.
 - One electric-blue accent for direction; light blue for links and actions.
 - White primary buttons: the brightest block on any screen is the next action.
-- Manrope for every word, heavy and tight for signs; JetBrains Mono for addresses, hashes and figures.
+- IBM Plex Sans for every word, semibold for headings and bold for signs; JetBrains Mono for addresses, hashes and figures.
 - Hairline rules, gently rounded controls, pill-shaped status tags.
 - Sidebar navigation on every screen; a phone strip with a Menu button below md.
 - Motion is decoration over visible content and goes to zero under reduced motion.
@@ -219,7 +232,7 @@ A dark neutral ramp with one electric-blue accent, one link blue, and a status t
 Scoped to the letter sheet: Letter White (letter-paper) ground, Letter Ink (letter-ink) type and strong rules, Letter Grey (letter-ink-soft) secondary type, Letter Rule (letter-rule) hairlines, Letter Blue (letter-route) for links and the sheet's accent. In print the whole page is forced to black on white.
 
 ### Named Rules
-**The One Light Rule.** Electric blue marks direction: arrows, route lines, termini, and the two glows. The gradient appears once, on the landing headline's second line; the glow appears only on the product board and the destination sign. Nothing else is lit.
+**The One Light Rule.** Electric blue marks direction: arrows, route lines and termini. The light itself has named places and no others: the landing's hall (the hero and the closing line stand in one), its two direction panels, the footer's horizon, the glow on the product board and the glow on the destination sign, which also stands in a quieter version of the hall's light. The gradient in type appears once, on the landing headline's second line. Nothing else is lit.
 
 **The Status Speaks In Words Rule.** Green, amber and red are for request, channel and sanction status only, and every status also says its meaning in words; colour never carries it alone.
 
@@ -227,20 +240,22 @@ Scoped to the letter sheet: Letter White (letter-paper) ground, Letter Ink (lett
 
 ## Typography
 
-**Display Font:** Manrope (with Segoe UI, system-ui)
-**Body Font:** Manrope (with Noto Sans Devanagari as a fallback for Hindi entries only)
+**Display Font:** IBM Plex Sans (with Segoe UI, system-ui)
+**Body Font:** IBM Plex Sans (with Noto Sans Devanagari as a fallback for Hindi entries only)
 **Label/Mono Font:** JetBrains Mono (with ui-monospace, Consolas)
 
-**Character:** A geometric sans set heavy and tight for signs and headings, relaxed at 400 for reading; a monospace with tabular, slashed-zero figures for everything a machine produced.
+**Character:** A sober, institutional sans: bold for signs, semibold for headings, relaxed at 400 for reading; a monospace with tabular, slashed-zero figures for everything a machine produced.
 
 ### Hierarchy
-- **Display** (800, fluid to its own column, 0.92): the landing headline only; the one fluid size.
-- **Sign** (800, 3rem phone / 4.5rem md / 5.5rem lg, 0.95, -0.03em): a VASP's name on its destination sign; the wordmark uses the same black cut at title size.
-- **Title** (700, 1.5rem / 1.75rem / 2rem, 1.05, -0.03em): screen names, section titles, the current stop on a route.
-- **Lead** (400 running, 700 in sign role; 1.25rem, 1.4): ledes, button labels, sidebar route names, notice titles.
+- **Display** (700, fluid to its own column, 0.92): the landing headline only; the one fluid size.
+- **Headline** (700, 2.125rem phone / 2.75rem md / 3.5rem lg, 1.0): a landing section's heading, and the names on its two direction panels. Landing only.
+- **Sign** (700, 3rem phone / 4.5rem md / 5.5rem lg, 0.95, -0.015em): a VASP's name on its destination sign; the wordmark uses the same black cut at title size.
+- **Title** (600, 1.5rem / 1.75rem / 2rem, 1.05, -0.015em): screen names, section titles, the current stop on a route.
+- **Lead** (400 running, 600 in sign role; 1.25rem, 1.4): button labels, sidebar route names, notice titles, a working screen's lede.
+- **Lede** (400, 1.125rem / 1.25rem / 1.375rem, 1.4): a landing section's opening sentence. Landing only.
 - **Body** (400, 1rem, 1.55): running text; paragraphs held to 42rem.
 - **Small** (400/500, 0.875rem, 1.5): hints, notes, breadcrumbs, route descriptions.
-- **Label** (700, 0.75rem, 0.08em, uppercase): field labels, table heads, tags, filters. The smallest size anything is set.
+- **Label** (600, 0.8125rem, 0.08em, uppercase): field labels, table heads, tags, filters. The smallest size anything is set.
 - **Figure / Mono** (JetBrains Mono, tabular, slashed zero): addresses, hashes, counts and amounts; figures step 1.5rem / 1.875rem / 2.25rem.
 
 ### Named Rules
@@ -260,13 +275,14 @@ Flat. Depth is tonal: ground, raised panel, lifted panel, each one step lighter,
 
 ### Shadow Vocabulary
 - **Accent glow** (`box-shadow: 0 0 0 1px color-mix(in srgb, #3b82f6 35%, transparent), 0 40px 90px -40px color-mix(in srgb, #3b82f6 55%, transparent)`): the landing's departures board and the destination sign, nothing else.
+- **Hall light** (`stage`, `lit-in`, `lit-out`, `horizon`, `sign-lit`: layered radial gradients of the accent and its deep ends over a raised panel): the landing's hall and closing line, its direction panels, its footer, and the destination sign. A background, never a shadow; it carries no offset and lights no text.
 
 ### Named Rules
 **The Tonal Step Rule.** To raise a surface, step it one tone lighter and give it a hairline; do not add a shadow.
 
 ## Shapes
 
-Gently rounded controls (0.75rem): buttons, fields, the destination sign, the product board, stop boxes and error lines share one radius set by one token. Status tags and status dots are full pills. Rules are 1px: strong hairlines for boxes, table heads and section tops, faint hairlines for rows. The route line is a 4px bar in the accent. Icons are NOIR's own, drawn on a 24-unit grid with a 2px non-scaling stroke, square ends and mitred corners. The focus ring is a 3px link-blue outline offset 2px.
+Gently rounded controls (0.75rem): buttons, fields, the destination sign, the product board, stop boxes and error lines share one radius set by one token. The landing's halls, direction panels, intake panel and diagram panel are rooms, not controls, and take the stage radius (1.75rem). Status tags and status dots are full pills. Rules are 1px: strong hairlines for boxes, table heads and section tops, faint hairlines for rows. The route line is a 4px bar in the accent. Icons are NOIR's own, drawn on a 24-unit grid with a 2px non-scaling stroke, square ends and mitred corners. The focus ring is a 3px link-blue outline offset 2px.
 
 ## Components
 
@@ -294,7 +310,7 @@ Gently rounded controls (0.75rem): buttons, fields, the destination sign, the pr
 - **Error:** a rounded red-outlined line on the raised panel, red words, announced as an alert.
 
 ### Navigation
-- **Sidebar:** the raised-panel route list: the wordmark in electric blue, a "Wallet to VASP" line, then five routes, each a sign-type name over a small description with an arrow at the right, divided by hairlines. The current route drops to the night ground (a dark inset in the raised panel) with its description in fog grey; others lift on hover. Hidden in print.
+- **Sidebar:** the raised-panel route list: the two-tone wordmark (NO in night type on an electric-blue tile, IR in electric blue), a "Wallet to VASP" line, then five routes, each a sign-type name over a small description with an arrow at the right, divided by hairlines. The current route drops to the night ground (a dark inset in the raised panel) with its description in fog grey; others lift on hover. Hidden in print.
 - **Context bar:** a breadcrumb and recorded-mode line under a hairline above each screen.
 
 ### Destination Sign
@@ -304,7 +320,16 @@ The one per screen: a raised-panel field with the glow, an accent arrow before t
 Stations joined by a 4px accent bar, vertical on a phone and horizontal from md. The current stop is a raised-panel field with its name in the black sign cut. The line draws once from origin to terminus, each segment after the last, and the stops fade in as it arrives.
 
 ### Departures Board
-The landing's product board: a glowing raised panel headed "Departures" with an accent arrow, a breathing green "Recorded" light and a UTC clock, over a table of destinations, chains, wallet counts, USDT and status; names flip in like a split-flap sign. Route lanes with travelling light pulses run behind it.
+The landing's product board: a glowing raised panel headed "Departures" with an accent arrow, a breathing green "Recorded" light and a UTC clock, over a table of destinations, chains, wallet counts, USDT and status; names flip in like a split-flap sign. It stands at the far end of the hall and steps out past the hall's lower edge.
+
+### The Hall
+The landing's hero and its closing line each stand in a hall: a stage-radius panel one tone above the ground, a hairline around it, the accent's light low on its far wall. The hero's hall holds the headline centred, the lede, two buttons and the board; route lanes run through its lower half, fading toward its walls, with travelling pulses of light. The closing hall holds one headline, the honest count of what is built, and two buttons.
+
+### Counted Figures
+Under the hero's hall: four figures in JetBrains Mono at count size (2.5rem / 3rem / 4rem), each over what it counts, separated by single hairlines at any width (two by two on a phone). Every figure is counted from `data/` when the site is built, and the line beneath names the files. Landing only; working screens state figures in sentences and tables.
+
+### Direction Panels
+Inbound on the left, outbound on the right, read as one route: an arrow runs into a mono pill on the seam ("the wallet") and an arrow runs out of it. Each is a stage-radius panel with its name in headline type at the foot and one sentence beneath; inbound is lit from the left in the deep accent, outbound from the right in the accent. Stacked on a phone, the pill is dropped and inbound's arrow points back.
 
 ### Request Letter
 A white A4 sheet with its own light palette: facts as label-over-value pairs, a line to write on, a seal box. No statute is printed; the officer supplies the legal basis.
@@ -322,10 +347,10 @@ A white A4 sheet with its own light palette: facts as label-over-value pairs, a 
 - **Do** tie every motion to the motion tokens so it goes to zero under reduced motion.
 
 ### Don't:
-- **Don't** add shadows other than the accent glow, or a gradient other than the landing headline's second line and the lane pulses.
+- **Don't** add shadows other than the accent glow, a gradient in type other than the landing headline's second line, or the hall's light anywhere the One Light Rule does not name.
 - **Don't** use electric blue for body text, or link blue for anything but links and actions.
 - **Don't** use red for anything but sanctions, refusals and errors.
 - **Don't** set a small label above a heading.
 - **Don't** set anything below 12px.
 - **Don't** use a text character or emoji as an icon; draw it in the Icon set.
-- **Don't** add a top navigation bar, brass or gold, or a serif display face: the navigation lives in the sidebar and the type is one geometric sans.
+- **Don't** add a top navigation bar, brass or gold, or a serif display face: the navigation lives in the sidebar and the type is one sober sans.

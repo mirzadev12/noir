@@ -1,8 +1,11 @@
 /**
  * Lanes — the graphic behind the departures board: route lanes running across
- * the page, each carrying a pulse of light toward the board, the way wallets
+ * the hall, each carrying a pulse of light toward the board, the way wallets
  * run toward their exchange. Purely decorative (aria-hidden); the pulses stop
  * under reduced motion and the lanes stay as quiet rules.
+ *
+ * Props
+ *   className  where in its positioned parent the lanes run (inset utilities)
  */
 
 const LANES = [
@@ -13,11 +16,11 @@ const LANES = [
   { top: "88%", delay: "-3.8s", dur: "10s" },
 ];
 
-export function Lanes() {
+export function Lanes({ className = "inset-x-0 -inset-y-6" }: { className?: string }) {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 -inset-y-6 overflow-hidden">
+    <div aria-hidden="true" className={`lane-fade pointer-events-none absolute overflow-hidden ${className}`}>
       {LANES.map((l, i) => (
-        <div key={i} className="absolute inset-x-0 h-px bg-rule" style={{ top: l.top }}>
+        <div key={i} className="absolute inset-x-0 h-px bg-ink/8" style={{ top: l.top }}>
           <span className="lane-pulse absolute top-1/2 h-0.5 w-40 -translate-y-1/2" style={{ animationDelay: l.delay, animationDuration: l.dur }} />
         </div>
       ))}

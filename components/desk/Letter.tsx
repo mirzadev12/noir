@@ -120,7 +120,8 @@ export function Letter({ letter, draftedBy }: { letter: RequestLetter; draftedBy
                     {chainCode(w.chain)} · {w.direction === "outbound" ? "its money reached this VASP" : "this VASP funded its payers"}
                   </span>
                 </p>
-                <dl className="mt-2 grid min-w-0 gap-x-6 gap-y-2 sm:grid-cols-[max-content_max-content_minmax(0,1fr)_minmax(0,1.4fr)]">
+                {/* Four facts in a row where there is room for them (a wide screen, and paper); two by two in between, so the unwrapped account never squeezes the others to nothing. */}
+                <dl className="mt-2 grid min-w-0 gap-x-6 gap-y-2 sm:grid-cols-[max-content_minmax(0,1fr)] lg:grid-cols-[max-content_max-content_minmax(0,1fr)_minmax(0,1.4fr)] print:grid-cols-[max-content_max-content_minmax(0,1fr)_minmax(0,1.4fr)]">
                   <Line
                     label="Account"
                     value={

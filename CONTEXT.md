@@ -26,7 +26,7 @@ code, docs, the UI or the deck.
 
 | Route | Job |
 | --- | --- |
-| `/` | Landing: paste a wallet or a list, both directions in a line, a recorded route, the counted figures |
+| `/` | Landing: the hall (the claim and the departures board), the counted figures, the two directions, the intake, many cases meeting at one exchange, the four stages, a recorded route |
 | `/desk` | The follow-up clock, then the sign naming the next VASP to write to; every VASP on a departures board with filters and search; accounts that link cases; which wallets have sent USDT since they were read; pending, unreadable, screened-only, unrouted and failed wallets; the intake |
 | `/vasp/[name]` | One VASP: its wallets in both directions, its FIU-IND line and LE channel, the asks, the request and its status history |
 | `/vasp/[name]/request` | The consolidated request as a print-ready A4 letter, and its JSON package |
@@ -39,10 +39,11 @@ code, docs, the UI or the deck.
 ## Visual world (summary; the brief is authoritative)
 
 A dark, precise console (the user's pin of 29 Sep, night; DESIGN.md records it as built).
-Near-black ground, raised panels, white type in Manrope, JetBrains Mono for addresses and
-figures, one electric-blue accent (a gradient only on the landing headline, a glow only on
-the product board and the destination sign), light-blue links, green/amber/red status,
-hairline borders, rounded controls, the sidebar on every screen. The desk is a departures
+Near-black ground, raised panels, white type in IBM Plex Sans, JetBrains Mono for addresses
+and figures, one electric-blue accent (a gradient only on the landing headline; the light
+only in the landing's halls, direction panels and footer, and the glow on the product board
+and the destination sign), light-blue links, green/amber/red status, hairline borders,
+rounded controls, the sidebar on every screen. The desk is a departures
 board. The request letter is always a white paper sheet. The site never names the
 hackathon, the problem statement or any other project, and asks for no officer ID.
 
