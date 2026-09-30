@@ -21,11 +21,11 @@ export function Counted({ items, children }: { items: CountedItem[]; children?: 
         What NOIR can name, counted
       </h2>
       {/* The gaps between the cells show the ground beneath: one hairline between any two figures, at any width. */}
-      <dl className="grid min-w-0 grid-cols-2 gap-px bg-rule lg:grid-cols-4">
+      <dl className="grid min-w-0 grid-cols-2 gap-px bg-rule xl:grid-cols-4">
         {items.map((it) => (
           <div key={it.label} className="flex min-w-0 flex-col-reverse justify-end gap-3 bg-paper px-4 py-6 md:px-7 md:py-8">
             <dt className="max-w-44 text-body text-ink-soft">{it.label}</dt>
-            <dd className="type-mono text-count font-bold text-ink">{it.value}</dd>
+            <dd className="type-mono whitespace-nowrap text-count font-bold text-ink">{it.value}</dd>
           </div>
         ))}
       </dl>

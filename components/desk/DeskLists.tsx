@@ -12,6 +12,7 @@
 import { Empty, Section, Table, Tag, type TableRow } from "@/components/noir";
 import type { DeskEntry } from "@/lib/desk-types";
 import { MAX_READ_ATTEMPTS } from "@/lib/desk";
+import { listedContact } from "@/lib/listed-contact";
 import { caseRefsOf, isSanctioned, retryLine, STOP_LINE } from "@/lib/noir-view";
 import { ReadAgain } from "./ReadAgain";
 import { WalletLink } from "./WalletLink";
@@ -31,18 +32,30 @@ export function OfacTag({ entry }: { entry: DeskEntry }) {
   ) : null;
 }
 
+/** Which of the three findings this is, in a sentence. */
+function flagLine(e: DeskEntry): string {
+  if (e.record?.sanctioned) return `The wallet is listed: ${e.record.sanctioned.entity}.`;
+  const contact = listedContact(e.record);
+  if (e.record?.outboundStop === "sanctioned") return contact ? `The trace ended at an address on the OFAC SDN list: ${contact.entity}.` : STOP_LINE.sanctioned;
+  return contact ? `Part of its money reached an address on the OFAC SDN list (${contact.entity}); the rest went on to a VASP.` : STOP_LINE.sanctioned;
+}
+
 export function OfacFlags({ entries }: { entries: DeskEntry[] }) {
   if (entries.length === 0) return null;
   const rows: TableRow[] = entries.map((e) => ({
     key: e.id,
     cells: [
-      <WalletLink key="w" wallet={e.wallet} chain={e.chain} />,
+      <WalletLink key="w" wallet={e.wallet} chain={e.chain} short />,
       cases(e),
       <span key="f" className="inline-flex min-w-0 flex-col items-start gap-1">
-        <OfacTag entry={e} />
-        <span className="text-small">
-          {e.record?.sanctioned ? `The wallet is listed: ${e.record.sanctioned.entity}.` : STOP_LINE.sanctioned}
-        </span>
+        {isSanctioned(e) ? (
+          <OfacTag entry={e} />
+        ) : (
+          <Tag tone="prohibit" icon="prohibit" title="Its money reached an address on the OFAC Specially Designated Nationals list">
+            Reached a listed address
+          </Tag>
+        )}
+        <span className="text-small">{flagLine(e)}</span>
       </span>,
     ],
   }));
@@ -51,7 +64,7 @@ export function OfacFlags({ entries }: { entries: DeskEntry[] }) {
       flush
       title="OFAC flags"
       count={walletsLabel(entries.length)}
-      note="A listing is a finding. These wallets are on the OFAC SDN list, or their money ended at an address that is. Check them before any request is sent."
+      note="A listing is a finding. These wallets are on the OFAC SDN list, or their money reached an address that is. Check them before any request is sent."
     >
       <Table caption="OFAC-flagged wallets" columns={[{ label: "Wallet" }, { label: "Case" }, { label: "Flag" }]} rows={rows} />
     </Section>

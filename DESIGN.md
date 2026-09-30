@@ -188,7 +188,7 @@ components:
 
 NOIR is a routing console seen at night: a near-black ground, panels one tonal step lighter, white type in a sober, institutional sans, and a single electric blue that marks where things are going. Its grammar comes from wayfinding: every wallet has a destination, the destination is named on one sign per screen, arrows and a drawn route line carry direction, and the desk reads as a departures board. It is a working tool for an investigator at a government desk, so density is measured, lines are hairlines, and rank is carried by type size rather than by colour or ornament.
 
-The system is flat and quiet by default and spends its few effects in named places: a gradient on one line of the landing headline, a soft blue glow on the product board and the destination sign, and a small set of motions (split-flap names, a breathing status light, travelling lane pulses, a flowing route, a route line that draws once). All of it decorates content that is already there, and all of it stops for people who ask for less motion.
+The system is flat and quiet by default and spends its few effects in named places: a gradient on one line of the landing headline, a soft blue glow on the product board and the destination sign, and a small set of motions (a trace that draws once from the wallet outward, a ticker of the transfers read, split-flap names, a breathing status light, travelling lane pulses, a flowing route, a route line that draws once). All of it decorates content that is already there, and all of it stops for people who ask for less motion.
 
 The one surface that is not dark is the request letter: a white paper sheet on screen and in print, because it leaves NOIR and goes into a file. Navigation sits in the sidebar; there is no top navigation bar, no gold and no serif display type.
 
@@ -232,7 +232,7 @@ A dark neutral ramp with one electric-blue accent, one link blue, and a status t
 Scoped to the letter sheet: Letter White (letter-paper) ground, Letter Ink (letter-ink) type and strong rules, Letter Grey (letter-ink-soft) secondary type, Letter Rule (letter-rule) hairlines, Letter Blue (letter-route) for links and the sheet's accent. In print the whole page is forced to black on white.
 
 ### Named Rules
-**The One Light Rule.** Electric blue marks direction: arrows, route lines and termini. The light itself has named places and no others: the landing's hall (the hero and the closing line stand in one), its two direction panels, the footer's horizon, the glow on the product board and the glow on the destination sign, which also stands in a quieter version of the hall's light. The gradient in type appears once, on the landing headline's second line. Nothing else is lit.
+**The One Light Rule.** Electric blue marks direction: arrows, route lines and termini. The light itself has named places and no others: the landing's hall (the hero and the closing line stand in one), the footer's horizon, the glow on the landing's trace panel and departures board, and the glow on the destination sign, which also stands in a quieter version of the hall's light. The gradient in type appears once, on the landing headline's second line. Nothing else is lit.
 
 **The Status Speaks In Words Rule.** Green, amber and red are for request, channel and sanction status only, and every status also says its meaning in words; colour never carries it alone.
 
@@ -248,7 +248,7 @@ Scoped to the letter sheet: Letter White (letter-paper) ground, Letter Ink (lett
 
 ### Hierarchy
 - **Display** (700, fluid to its own column, 0.92): the landing headline only; the one fluid size.
-- **Headline** (700, 1.625rem phone / 2.75rem md / 3.5rem lg, 1.0): a landing section's heading, and the names on its two direction panels. Landing only.
+- **Headline** (700, 1.625rem phone / 2.75rem md / 3.5rem lg, 1.0): a landing section's heading. Landing only.
 - **Sign** (700, 3rem phone / 4.5rem md / 5.5rem lg, 0.95, -0.015em): a VASP's name on its destination sign; the wordmark uses the same black cut at title size.
 - **Title** (600, 1.5rem / 1.75rem / 2rem, 1.05, -0.015em): a screen's name, and the current stop on a route.
 - **Section** (600, 1.25rem / 1.375rem / 1.5rem, 1.1): a section's title on a working screen, always a step below the screen's name.
@@ -268,22 +268,22 @@ Scoped to the letter sheet: Letter White (letter-paper) ground, Letter Ink (lett
 
 ## Layout
 
-A fixed left sidebar (15rem) from md up; below md it folds into a 3.5rem sticky strip with the wordmark and a Menu button, and the route list slides over the page. The content column runs to 76rem with a side gutter of 1rem on a phone and 2.5rem from md; paragraphs stop at 42rem; the letter measures 56rem on screen and prints on A4 with a 16mm margin. The desk adds a 22rem intake rail from lg. Every gap is a multiple of a 0.25rem unit; sections open 48px apart (64px from md) under a rule with 12px above the title. The landing centres its headline over a full-width departures board with route lanes running behind it. The one table pattern is a real table from lg and stacks into labelled rows below it, so no screen scrolls sideways.
+A fixed left sidebar (15rem) from md up; below md it folds into a 3.5rem sticky strip with the wordmark and a Menu button, and the route list slides over the page. The content column runs to 76rem with a side gutter of 1rem on a phone and 2.5rem from md; paragraphs stop at 42rem; the letter measures 56rem on screen and prints on A4 with a 16mm margin. The desk adds a 22rem intake rail from lg. Every gap is a multiple of a 0.25rem unit; sections open 48px apart (64px from md) under a rule with 12px above the title. The landing centres its headline over one recorded wallet traced both ways, a fund-flow graph in a glowing panel; the departures board stands in its own section beneath, with route lanes running behind it. The one table pattern is a real table from lg and stacks into labelled rows below it, so no screen scrolls sideways.
 
 ## Elevation & Depth
 
 Flat. Depth is tonal: ground, raised panel, lifted panel, each one step lighter, separated by hairlines. The only shadow in the system is the accent glow.
 
 ### Shadow Vocabulary
-- **Accent glow** (`box-shadow: 0 0 0 1px color-mix(in srgb, #3b82f6 35%, transparent), 0 40px 90px -40px color-mix(in srgb, #3b82f6 55%, transparent)`): the landing's departures board and the destination sign, nothing else.
-- **Hall light** (`stage`, `lit-in`, `lit-out`, `horizon`, `sign-lit`: layered radial gradients of the accent and its deep ends over a raised panel): the landing's hall and closing line, its direction panels, its footer, and the destination sign. A background, never a shadow; it carries no offset and lights no text.
+- **Accent glow** (`box-shadow: 0 0 0 1px color-mix(in srgb, #3b82f6 35%, transparent), 0 40px 90px -40px color-mix(in srgb, #3b82f6 55%, transparent)`): the landing's trace panel and departures board, and the destination sign; nothing else.
+- **Hall light** (`stage`, `horizon`, `sign-lit`: layered radial gradients of the accent and its deep ends over a raised panel): the landing's hall and closing line, its footer, and the destination sign. The hall also carries a faint dot grid that fades toward its walls, the ground a trace is plotted on. A background, never a shadow; it carries no offset and lights no text.
 
 ### Named Rules
 **The Tonal Step Rule.** To raise a surface, step it one tone lighter and give it a hairline; do not add a shadow.
 
 ## Shapes
 
-Gently rounded controls (0.75rem): buttons, fields, the destination sign, the product board, stop boxes and error lines share one radius set by one token. The landing's halls, direction panels, intake panel and diagram panel are rooms, not controls, and take the stage radius (1.75rem). Status tags and status dots are full pills. Rules are 1px: strong hairlines for boxes, table heads and section tops, faint hairlines for rows. The route line is a 4px bar in the accent. Icons are NOIR's own, drawn on a 24-unit grid with a 2px non-scaling stroke, square ends and mitred corners. The focus ring is a 3px link-blue outline offset 2px.
+Gently rounded controls (0.75rem): buttons, fields, the destination sign, the product board, stop boxes and error lines share one radius set by one token. The landing's halls, intake panel and diagram panel are rooms, not controls, and take the stage radius (1.75rem). Status tags and status dots are full pills. Rules are 1px: strong hairlines for boxes, table heads and section tops, faint hairlines for rows. The route line is a 4px bar in the accent. Icons are NOIR's own, drawn on a 24-unit grid with a 2px non-scaling stroke, square ends and mitred corners. The focus ring is a 3px link-blue outline offset 2px.
 
 ## Components
 
@@ -301,7 +301,7 @@ Gently rounded controls (0.75rem): buttons, fields, the destination sign, the pr
 ### Cards / Containers
 - **Corner Style:** 0.75rem.
 - **Background:** raised panel on the night ground.
-- **Shadow Strategy:** none; only the product board and destination sign glow.
+- **Shadow Strategy:** none; only the landing's trace panel and board and the destination sign glow.
 - **Border:** strong hairline, or hairline for secondary panels.
 - **Internal Padding:** 20px, 28 to 32px from md.
 
@@ -321,16 +321,19 @@ The one per screen: a raised-panel field with the glow, an accent arrow before t
 Stations joined by a 4px accent bar, vertical on a phone and horizontal from md. The current stop is a raised-panel field with its name in the black sign cut. The line draws once from origin to terminus, each segment after the last, and the stops fade in as it arrives.
 
 ### Departures Board
-The landing's product board: a glowing raised panel headed "Departures" with an accent arrow, a breathing green "Recorded" light and a UTC clock, over a table of destinations, chains, wallet counts, USDT and status; names flip in like a split-flap sign. It stands at the far end of the hall and steps out past the hall's lower edge.
+The landing's product board: a glowing raised panel headed "Departures" with an accent arrow, a breathing green "Recorded" light and a UTC clock, over a table of destinations, chains, wallet counts, USDT and status; names flip in like a split-flap sign. It stands in its own section under the hero ("Then it is filed where it routes.") with the route lanes running behind it.
 
 ### The Hall
-The landing's hero and its closing line each stand in a hall: a stage-radius panel one tone above the ground, a hairline around it, the accent's light low on its far wall. The hero's hall holds the headline centred, the lede, two buttons and the board; route lanes run through its lower half, fading toward its walls, with travelling pulses of light. The closing hall holds one headline, the honest count of what is built, and two buttons.
+The landing's hero and its closing line each stand in a hall: a stage-radius panel one tone above the ground, a hairline around it, the accent's light low on its far wall. The hero's hall holds the headline centred, the lede, two buttons and the trace panel, which steps out past the hall's lower edge; a faint dot grid lies on its floor and route lanes run through its lower half, fading toward its walls, with travelling pulses of light. The closing hall holds one headline, the honest count of what is built, and two buttons.
 
 ### Counted Figures
-Under the hero's hall: four figures in JetBrains Mono at count size (2.5rem / 3rem / 4rem), each over what it counts, separated by single hairlines at any width (two by two on a phone). Every figure is counted from `data/` when the site is built, and the line beneath names the files. Landing only; working screens state figures in sentences and tables.
+Under the hero's hall: four figures in JetBrains Mono at count size (2.5rem / 3rem / 3.5rem), each on one line over what it counts, separated by single hairlines at any width (two by two below xl, four across from xl). Every figure is counted from `data/` when the site is built, and the line beneath names the files. Landing only; working screens state figures in sentences and tables.
 
-### Direction Panels
-Inbound on the left, outbound on the right, read as one route: NOIR's own route line runs through both panels, from an origin station, through a pill on the seam ("the wallet"), to a terminus station, drawn with the same stations a wallet's own route uses. Each is a stage-radius panel with its name in headline type at the foot and one sentence beneath; inbound is lit from the left in the deep accent, outbound from the right in the accent. Stacked on a phone there is no seam, so each panel carries an arrow instead: back for inbound, forward for outbound.
+### Trace Graph
+One wallet as a fund-flow graph, drawn from its own attribution record and nothing else (`lib/trace-graph.ts`, `components/noir/TraceGraph.tsx`): the exchanges that funded it on the left, the wallet in the middle (the one node on the night ground with a white hairline), the hops its money passed through, and the exchange account it reached on the right; an OFAC-listed address its money reached hangs off the wallet as a red branch. VASP nodes are deep-accent fields, hops are lifted panels, a stop is a hairline box that says why the trail ended. Each node carries a name, a shortened address in mono, a figure in USDT and one line saying what the figure is; small labels ("Funded by", "Went to", "The trail") name the columns. Edges are 2px accent curves with an arrowhead that draw once from the wallet outward, inbound edges back toward the funders, each node arriving as its edge reaches it; a dashed light then keeps travelling the edge in the direction the money moved. Below xl the graph folds into the funders as a list and the wallet's route line. A wallet whose funders were not read says so in a sentence: unread is never drawn as unfunded. It heads the landing (one recorded wallet, in the glowing panel) and every wallet's page (on a hairline panel, its nodes linked to the VASP's page and the explorer).
+
+### Transfers Ticker
+Under the landing's trace: the transfers the recorded chain read held, as one slow line in mono (hash, amount, from, to, day) that runs right to left and fades at both edges. It pauses under the pointer and under keyboard focus, rests when it is out of sight (`Live`), and under reduced motion stands still as a list. Landing only.
 
 ### Request Letter
 A white A4 sheet with its own light palette: facts as label-over-value pairs, a line to write on, a seal box. No statute is printed; the officer supplies the legal basis.
@@ -339,13 +342,14 @@ A white A4 sheet with its own light palette: facts as label-over-value pairs, a 
 
 ### Do:
 - **Do** read every value from the tokens; a page carries no hex, font name or pixel value of its own.
-- **Do** keep one destination sign per screen, and give it the only glow besides the product board.
+- **Do** keep one destination sign per screen, and give it the only glow outside the landing's trace panel and board.
 - **Do** make the primary action the white button; secondary actions are outlines, quiet ones are link-blue words.
 - **Do** set addresses, hashes and figures in JetBrains Mono with tabular, slashed-zero figures.
 - **Do** say every status in words; green, amber and red only confirm it.
 - **Do** step working sizes at md and lg; only the landing headline is fluid.
 - **Do** keep the request letter a white sheet, on screen and in print.
-- **Do** tie every motion to the motion tokens so it goes to zero under reduced motion.
+- **Do** tie every motion to the motion tokens so it goes to zero under reduced motion, and wrap a looping region in `Live` so it rests when it is out of sight.
+- **Do** draw a trace only from the wallet's own record; a node, an edge or a figure that the record does not hold is not drawn.
 
 ### Don't:
 - **Don't** add shadows other than the accent glow, a gradient in type other than the landing headline's second line, or the hall's light anywhere the One Light Rule does not name.

@@ -1,39 +1,38 @@
 import { IntakeBox } from "@/components/desk/IntakeBox";
-import { RouteOf } from "@/components/desk/RouteOf";
 import { WhatNoirDoes } from "@/components/desk/WhatNoirDoes";
 import { ClosingBand } from "@/components/landing/ClosingBand";
 import { Counted } from "@/components/landing/Counted";
-import { Directions } from "@/components/landing/Directions";
+import { DeskSection } from "@/components/landing/DeskSection";
 import { Hero } from "@/components/landing/Hero";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ManyToOne } from "@/components/landing/ManyToOne";
 import { recordedDesk } from "@/components/landing/recorded";
-import { ChainBadge, Heading, Page, RouteLink, Tag, Text } from "@/components/noir";
-import { landingFigures, landingRoute } from "@/lib/landing";
-import { count, utc, utcDay } from "@/lib/noir-format";
+import { ChainBadge, Heading, Page, RouteLink, Text } from "@/components/noir";
+import { landingFigures, landingTrace } from "@/lib/landing";
+import { count, utcDay } from "@/lib/noir-format";
 import { walletCounts } from "@/lib/noir-view";
 
 /**
- * The argument. It is static: every figure, the departures board, the diagram's
- * exchange and the recorded route are computed from data/ when the site is
- * built, so nothing on it is typed in and it cannot drift from what the desk
- * can actually attribute.
+ * The argument. It is static: every figure, the trace, the departures board and
+ * the diagram's exchange are computed from data/ when the site is built, so
+ * nothing on it is typed in and it cannot drift from what the desk can actually
+ * attribute.
  *
- * Its order: the hall (the claim and the board), what NOIR can name (counted),
- * the two directions, the intake, many cases meeting at one exchange, the four
- * stages, a recorded route, what NOIR does not say, and the hall again.
+ * Its order: the hall (the claim, and one real wallet traced both ways), what
+ * NOIR can name (counted), the desk as a departures board, the intake, many
+ * cases meeting at one exchange, the four stages, what NOIR does not say, and
+ * the hall again.
  */
 export default async function Landing() {
-  const [recorded, desk] = await Promise.all([landingRoute(), recordedDesk()]);
+  const [trace, desk] = await Promise.all([landingTrace(), recordedDesk()]);
   const f = landingFigures();
-  const route = recorded?.outbound ? recorded : null;
   const busiest = [...desk.rows].sort((a, b) => walletCounts(b).wallets - walletCounts(a).wallets)[0] ?? null;
 
   return (
     <>
       <main id="main" className="min-w-0">
         <Page>
-          <Hero desk={desk} />
+          <Hero trace={trace} />
 
           <div className="mt-12 md:mt-16">
             <Counted
@@ -51,7 +50,7 @@ export default async function Landing() {
           </div>
 
           <div className="mt-20 md:mt-32">
-            <Directions />
+            <DeskSection desk={desk} />
           </div>
 
           <section id="file" className="mt-20 grid min-w-0 scroll-mt-24 gap-10 md:mt-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-16" aria-labelledby="file-title">
@@ -97,25 +96,6 @@ export default async function Landing() {
           <div className="mt-20 md:mt-32">
             <WhatNoirDoes />
           </div>
-
-          {route ? (
-            <section className="mt-20 min-w-0 md:mt-32" aria-labelledby="recorded-route">
-              <Heading level={2} size="headline" id="recorded-route">
-                A route, recorded
-              </Heading>
-              <p className="mt-4 flex flex-wrap items-center gap-2 text-small text-ink-soft">
-                <Tag>Recorded</Tag>
-                <span>read from the chain on {utc(route.provenance.generatedAt)}</span>
-              </p>
-              <div className="mt-10">
-                <RouteOf record={route} draw />
-              </div>
-              <Text size="small" tone="soft" className="mt-6 max-w-prose">
-                A real case, not an illustration: the USDT this wallet sent reached a customer deposit account at {route.outbound?.vasp}, and the desk files the wallet under it.
-                {route.outbound?.evidence ? ` The label’s own evidence: “${route.outbound.evidence}”.` : ""}
-              </Text>
-            </section>
-          ) : null}
 
           <section className="mt-20 min-w-0 md:mt-32" aria-labelledby="not-said">
             <Heading level={2} size="headline" id="not-said">

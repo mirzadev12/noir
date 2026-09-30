@@ -130,3 +130,12 @@ from `data/`.
   carries. Desk reads wait their turn behind writes (on Windows a file being read cannot be
   replaced). No evidence row was added: each is a live chain read
   (`docs/review/backend-asks.md`).
+- 30 Sep 2026 — the trace, drawn. A wallet's attribution record is turned into a fund-flow graph
+  (`lib/trace-graph.ts`, pure and tested): funding exchanges, the wallet, the hops, the exchange
+  account it reached or the reason the trail stopped, and an OFAC-listed address its money reached
+  as a branch. The graph heads the landing (one recorded wallet, with the transfers the chain read
+  held beneath it) and every wallet's page, replacing the landing's two direction panels and the
+  wallet page's signpost. Nothing is drawn that the record does not hold; funders that were not
+  read are said to be unread. The desk's OFAC flags now also list a wallet whose money reached a
+  listed address on its way to a VASP (`lib/listed-contact.ts`): before, only a listed wallet or a
+  trail that ended at a listed address was flagged. Looping motion rests when out of sight.

@@ -163,7 +163,7 @@
     --size-figure: 2.25rem;
     --size-lede: 1.375rem;
     --size-headline: 3.5rem;
-    --size-count: 4rem;
+    --size-count: 3.5rem; /* five figures ("1,043") fit one of four cells beside the sidebar at 1280 */
   }
 }
 
@@ -361,25 +361,12 @@
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: var(--radius-stage);
   background:
+    linear-gradient(180deg, var(--color-paper-2) 12%, transparent 70%),
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--color-ink) 13%, transparent) 1px, transparent 1.5px) 0 0 / 28px 28px,
     radial-gradient(70% 55% at 50% 108%, color-mix(in srgb, var(--color-signal) 62%, transparent), transparent 70%),
     radial-gradient(55% 60% at 8% 112%, color-mix(in srgb, var(--color-signal-2) 55%, transparent), transparent 72%),
     radial-gradient(55% 60% at 92% 112%, color-mix(in srgb, var(--color-signal-2) 55%, transparent), transparent 72%),
     linear-gradient(180deg, var(--color-paper-2), color-mix(in srgb, var(--color-signal-3) 38%, var(--color-paper-2)));
-}
-/* A direction panel: the same light, entering from the side the money travels to. */
-@utility lit-out {
-  border: var(--rule-hair) solid color-mix(in srgb, var(--color-signal) 40%, var(--color-rule));
-  border-radius: var(--radius-stage);
-  background:
-    radial-gradient(90% 120% at 108% 100%, color-mix(in srgb, var(--color-signal) 58%, transparent), transparent 68%),
-    color-mix(in srgb, var(--color-signal-3) 46%, var(--color-paper-2));
-}
-@utility lit-in {
-  border: var(--rule-hair) solid var(--color-rule-strong);
-  border-radius: var(--radius-stage);
-  background:
-    radial-gradient(90% 120% at -8% 100%, color-mix(in srgb, var(--color-signal-2) 34%, transparent), transparent 66%),
-    var(--color-paper-2);
 }
 /* The footer's horizon: the hall's light seen from outside, low along the bottom edge. */
 @utility horizon {
@@ -515,9 +502,63 @@
   .flap-in,
   .rise,
   .route-arrive,
-  .breathe {
+  .breathe,
+  .trace-draw,
+  .trace-draw-back,
+  .ticker {
     animation: none;
   }
+}
+/* A loop nobody is looking at rests: `Live` (components/noir/Live.tsx) marks what is out of sight. */
+[data-live="false"] :is(.flow, .ticker, .lane-pulse, .breathe) {
+  animation-play-state: paused;
+}
+.ticker:hover,
+.ticker:focus-within {
+  animation-play-state: paused;
+}
+
+/* The trace graph: each edge is drawn as the trace reaches it, forward toward the
+   VASP or backward toward the funders. A path with pathLength 1 and a dash of 1. */
+@keyframes trace-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes trace-draw-back {
+  from {
+    stroke-dashoffset: -1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@utility trace-draw {
+  stroke-dasharray: 1;
+  animation: trace-draw var(--motion-draw) var(--ease) both;
+  animation-delay: calc(var(--stop, 0) * var(--motion-stagger));
+}
+@utility trace-draw-back {
+  stroke-dasharray: 1;
+  animation: trace-draw-back var(--motion-draw) var(--ease) both;
+  animation-delay: calc(var(--stop, 0) * var(--motion-stagger));
+}
+/* The ticker: what the chain read held, passing at reading pace. It holds two
+   copies of its list, so moving it by half its width loops without a seam. */
+@keyframes ticker-run {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@utility ticker {
+  animation: ticker-run var(--ticker-duration, 80s) linear infinite;
+}
+/* Anything that scrolls past an edge fades out toward it. */
+@utility fade-x {
+  mask-image: linear-gradient(90deg, transparent, var(--color-ink) 6%, var(--color-ink) 94%, transparent); /* a mask reads only the alpha */
 }
 
 @utility flap-in {

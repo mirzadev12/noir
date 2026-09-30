@@ -14,6 +14,7 @@ import { groupByVasp, hasWork, vaspKey } from "./desk";
 import { loadDesk } from "./desk-store";
 import type { Ask, DeskEntry, DeskView, RequestLetter, VaspRequest, VaspRow } from "./desk-types";
 import { kickDesk } from "./desk-worker";
+import { listedContact } from "./listed-contact";
 import { watchList, type WatchAsk } from "./movement";
 import { isSanctioned } from "./noir-view";
 import { allowedAsks, buildLetter } from "./requests";
@@ -32,7 +33,7 @@ const newestFirst = (a: VaspRequest, b: VaspRequest) => b.history[0].at.localeCo
 
 export interface DeskPage {
   view: DeskView;
-  /** Filed wallets that are OFAC-listed, or whose trail ended at a listed address, wherever they sit on the desk. */
+  /** Filed wallets that are OFAC-listed, whose trail ended at a listed address, or whose money reached one on its way to a VASP, wherever they sit on the desk. */
   flagged: DeskEntry[];
   /** The wallets the desk has read, to ask the chains whether they have sent USDT since. */
   watch: WatchAsk[];
@@ -45,7 +46,7 @@ export function readDeskView(): Promise<Read<DeskPage>> {
   return guard(async () => {
     const file = await loadDesk();
     if (hasWork(file)) kickDesk();
-    return { view: groupByVasp(file), flagged: file.entries.filter(isSanctioned), watch: watchList(file.entries), watchable: watchList(file.entries, Infinity).length };
+    return { view: groupByVasp(file), flagged: file.entries.filter((e) => isSanctioned(e) || listedContact(e.record) !== null), watch: watchList(file.entries), watchable: watchList(file.entries, Infinity).length };
   });
 }
 

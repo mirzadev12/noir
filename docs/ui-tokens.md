@@ -30,7 +30,7 @@ and `@media print` does the same for the whole page.
 IBM Plex Sans (loaded in `app/layout.tsx`; semibold for headings, 700 for the wordmark and signs) for words, JetBrains Mono for addresses, hashes and figures.
 Sizes are `--text-*` tokens; the working screens use fixed rem steps (`--size-title`, `--size-sign`,
 `--size-figure`) that change at the md and lg breakpoints. Only the landing headline is fluid:
-`--size-display` is `min(4.75rem, 8.6cqi)`, sized to its own `@container` column so each line fits whole.
+`--size-display` is `min(4.75rem, 9.6cqi)`, sized to its own `@container` column so each line fits whole.
 The landing has three sizes of its own, each stepping at md and lg: `--size-headline` (a section's heading, `text-headline`),
 `--size-lede` (a section's opening sentence, `text-lede`) and `--size-count` (the counted figures, `text-count`).
 Roles are utilities: `type-sign`, `type-sign-black`, `type-label`, `type-mono`.
@@ -38,9 +38,9 @@ Roles are utilities: `type-sign`, `type-sign-black`, `type-label`, `type-mono`.
 ## Shape, rules and motion
 
 `--radius-control` (0.75rem) rounds every control, panel and sign; tags and filter chips are full pills.
-`--radius-stage` (1.75rem) rounds the landing's rooms: its halls, direction panels, intake panel and diagram panel.
-The light is five utilities, each a layered radial gradient of the accent over a raised panel: `stage` (the hall),
-`lit-in` and `lit-out` (the direction panels), `horizon` (the footer) and `sign-lit` (the destination sign, quieter).
+`--radius-stage` (1.75rem) rounds the landing's rooms: its halls, intake panel and diagram panel.
+The light is three utilities, each a layered radial gradient of the accent over a raised panel: `stage` (the hall, which
+also carries a faint dot grid fading toward its walls), `horizon` (the footer) and `sign-lit` (the destination sign, quieter).
 `lane-fade` masks the hall's lanes so they fade toward its walls. To change the light's colour, change `--color-signal`,
 `--color-signal-2` and `--color-signal-3`; to switch it off, make each utility a flat `background: var(--color-paper-2)`.
 `--rule-heavy` and `--rule-hair` are both 1px; the difference is colour. Motion durations are
@@ -48,12 +48,17 @@ The light is five utilities, each a layered radial gradient of the accent over a
 become 0ms under `prefers-reduced-motion`, where the animated utilities are switched off entirely.
 Animated utilities: `flap-in` (split-flap names), `breathe` (status lights), `flow` (dashed routes),
 `rise` (landing entrance), `lane-pulse` (the lanes behind the board), `route-draw-x/y` and
-`route-arrive` (route lines). `text-gradient` is used on the landing headline's second line only;
-`glow` on the product board and the destination sign only.
+`route-arrive` (route lines), `trace-draw` and `trace-draw-back` (a trace graph's edges, drawn once from the
+wallet outward; `--stop` sets each edge's turn) and `ticker` (the transfers read, `--ticker-duration`, paused under
+the pointer and keyboard focus). `fade-x` masks a strip so it fades at both edges. A looping region is wrapped in
+`Live`, which sets `data-live="false"` while it is out of sight; `flow`, `ticker`, `lane-pulse` and `breathe` pause there. `text-gradient` is used on the landing headline's second line only;
+`glow` on the landing's trace panel and board and the destination sign only.
 
 ## Primitives
 
 `Sign` (the destination sign; `flap` flips a plain-text name in), `Button` / `ButtonLink`, `Tag`
 (tones `plain`, `solid`, `quiet`, `ok`, `wait`, `prohibit`), `Table` (scrolls inside its own frame;
 stacks under 40rem), `Section`, `PageHead`, `Mono` (even address breaks, optional copy), `ChainBadge`,
-`RouteLine`, `Sidebar`, `ContextBar`, `Field` family, `Notice`, `Icon` (drawn, one stroke weight).
+`RouteLine`, `TraceGraph` (a wallet's fund-flow graph from `traceGraphOf(record)`; an SVG from xl, a list and a route
+line below it), `Live` (rests looping motion out of sight), `Sidebar`, `ContextBar`, `Field` family, `Notice`, `Icon`
+(drawn, one stroke weight).

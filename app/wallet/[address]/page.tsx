@@ -5,11 +5,12 @@ import { ReadAgain } from "@/components/desk/ReadAgain";
 import { Refresher } from "@/components/desk/Refresher";
 import { RemoveWallet } from "@/components/desk/RemoveWallet";
 import { RouteOf } from "@/components/desk/RouteOf";
-import { Signpost } from "@/components/desk/Signpost";
 import { StatusTag } from "@/components/desk/StatusTag";
+import { WalletTrace } from "@/components/desk/WalletTrace";
 import { ChainBadge, Facts, Mono, Notice, Page, PageHead, RouteLink, Section, SectionNav, Table, Tag, Text, type TableRow } from "@/components/noir";
 import { readWallet } from "@/lib/desk-read";
 import { actorBasis, actorName } from "@/lib/identity";
+import { listedContact } from "@/lib/listed-contact";
 import { watchList } from "@/lib/movement";
 import { amount, evidenceWord, shortAddress, tierName, utc, vaspHref } from "@/lib/noir-format";
 import { statusOf, TYPOLOGY_NAME } from "@/lib/noir-view";
@@ -31,6 +32,8 @@ export default async function WalletPage(props: PageProps<"/wallet/[address]">) 
   const { entry, siblings, requests } = read.value;
   const r = entry.record;
   const pending = entry.status === "pending";
+  // Its money reached an OFAC-listed address on the way to a VASP: the wallet is not listed, and its trail did not end there.
+  const contact = r && !r.sanctioned && r.outboundStop !== "sanctioned" ? listedContact(r) : null;
   // Only a wallet NOIR has read can be asked whether it has moved since.
   const ask = watchList([entry])[0];
 
@@ -77,6 +80,11 @@ export default async function WalletPage(props: PageProps<"/wallet/[address]">) 
           <Notice tone="sanction" title="Listed on the OFAC SDN list">
             {r.sanctioned.entity}
             {r.sanctioned.program ? ` · ${r.sanctioned.program}` : ""} · filed under {r.sanctioned.assets.join(", ")}
+          </Notice>
+        ) : null}
+        {contact ? (
+          <Notice tone="sanction" title="Its money reached an address on the OFAC SDN list">
+            {contact.entity} · <Mono>{contact.address}</Mono>. The wallet itself is not listed, and part of its money went on to a VASP; report the listing and write to the VASP.
           </Notice>
         ) : null}
         {siblings.length > 0 ? (
@@ -143,7 +151,7 @@ export default async function WalletPage(props: PageProps<"/wallet/[address]">) 
 
       {r && r.readable ? (
         <div className="mt-10">
-          <Signpost entry={entry} />
+          <WalletTrace entry={entry} />
         </div>
       ) : null}
 

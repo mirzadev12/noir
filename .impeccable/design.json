@@ -4,59 +4,451 @@
   "title": "Design System: NOIR",
   "extensions": {
     "colorMeta": {
-      "paper": { "role": "neutral", "displayName": "Night Ground", "canonical": "#07080b", "tonalRamp": ["#07080b", "#0e1015", "#151821", "#20242d", "#313745", "#7d8592", "#a1a8b3", "#f4f5f7"] },
-      "paper-2": { "role": "neutral", "displayName": "Raised Panel", "canonical": "#0e1015", "tonalRamp": ["#07080b", "#0e1015", "#151821", "#20242d", "#313745", "#7d8592", "#a1a8b3", "#f4f5f7"] },
-      "paper-3": { "role": "neutral", "displayName": "Lifted Panel", "canonical": "#151821", "tonalRamp": ["#07080b", "#0e1015", "#151821", "#20242d", "#313745", "#7d8592", "#a1a8b3", "#f4f5f7"] },
-      "navy": { "role": "neutral", "displayName": "Field (alias of Raised Panel)", "canonical": "#0e1015", "tonalRamp": ["#07080b", "#0e1015", "#151821", "#20242d", "#313745", "#7d8592", "#a1a8b3", "#f4f5f7"] },
-      "ink": { "role": "neutral", "displayName": "Signal White", "canonical": "#f4f5f7", "tonalRamp": ["#20242d", "#313745", "#4b5260", "#7d8592", "#a1a8b3", "#c8cdd4", "#e3e6ea", "#f4f5f7"] },
-      "ink-soft": { "role": "neutral", "displayName": "Fog Grey", "canonical": "#a1a8b3", "tonalRamp": ["#20242d", "#313745", "#4b5260", "#7d8592", "#a1a8b3", "#c8cdd4", "#e3e6ea", "#f4f5f7"] },
-      "ink-faint": { "role": "neutral", "displayName": "Dim Grey", "canonical": "#7d8592", "tonalRamp": ["#20242d", "#313745", "#4b5260", "#7d8592", "#a1a8b3", "#c8cdd4", "#e3e6ea", "#f4f5f7"] },
-      "signal": { "role": "primary", "displayName": "Electric Signal Blue", "canonical": "#3b82f6", "tonalRamp": ["#0c1f4a", "#1e3a8a", "#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd", "#dbeafe"] },
-      "signal-2": { "role": "primary", "displayName": "Deep Signal Blue", "canonical": "#2563eb", "tonalRamp": ["#0c1f4a", "#1e3a8a", "#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd", "#dbeafe"] },
-      "route": { "role": "secondary", "displayName": "Link Blue", "canonical": "#60a5fa", "tonalRamp": ["#0c1f4a", "#1e3a8a", "#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd", "#dbeafe"] },
-      "rule": { "role": "neutral", "displayName": "Hairline", "canonical": "#20242d", "tonalRamp": ["#07080b", "#0e1015", "#151821", "#20242d", "#313745", "#7d8592", "#a1a8b3", "#f4f5f7"] },
-      "rule-strong": { "role": "neutral", "displayName": "Strong Hairline", "canonical": "#313745", "tonalRamp": ["#07080b", "#0e1015", "#151821", "#20242d", "#313745", "#7d8592", "#a1a8b3", "#f4f5f7"] },
-      "ok": { "role": "tertiary", "displayName": "Answered Green", "canonical": "#34d399", "tonalRamp": ["#022c22", "#064e3b", "#047857", "#059669", "#10b981", "#34d399", "#6ee7b7", "#d1fae5"] },
-      "wait": { "role": "tertiary", "displayName": "Waiting Amber", "canonical": "#fbbf24", "tonalRamp": ["#451a03", "#78350f", "#b45309", "#d97706", "#f59e0b", "#fbbf24", "#fcd34d", "#fef3c7"] },
-      "prohibit": { "role": "tertiary", "displayName": "Refusal Red", "canonical": "#f87171", "tonalRamp": ["#450a0a", "#7f1d1d", "#b91c1c", "#dc2626", "#ef4444", "#f87171", "#fca5a5", "#fee2e2"] },
-      "on-light": { "role": "neutral", "displayName": "Night Type", "canonical": "#07080b", "tonalRamp": ["#07080b", "#0e1015", "#151821", "#20242d", "#313745", "#7d8592", "#a1a8b3", "#f4f5f7"] },
-      "letter-paper": { "role": "neutral", "displayName": "Letter White", "canonical": "#ffffff", "tonalRamp": ["#0e1b2c", "#2a3649", "#44526a", "#5e6b80", "#9aa5b5", "#d6dbe3", "#eceef2", "#ffffff"] },
-      "letter-ink": { "role": "neutral", "displayName": "Letter Ink", "canonical": "#0e1b2c", "tonalRamp": ["#0e1b2c", "#2a3649", "#44526a", "#5e6b80", "#9aa5b5", "#d6dbe3", "#eceef2", "#ffffff"] },
-      "letter-ink-soft": { "role": "neutral", "displayName": "Letter Grey", "canonical": "#44526a", "tonalRamp": ["#0e1b2c", "#2a3649", "#44526a", "#5e6b80", "#9aa5b5", "#d6dbe3", "#eceef2", "#ffffff"] },
-      "letter-rule": { "role": "neutral", "displayName": "Letter Rule", "canonical": "#d6dbe3", "tonalRamp": ["#0e1b2c", "#2a3649", "#44526a", "#5e6b80", "#9aa5b5", "#d6dbe3", "#eceef2", "#ffffff"] },
-      "letter-route": { "role": "secondary", "displayName": "Letter Blue", "canonical": "#1b5fd1", "tonalRamp": ["#081d40", "#0f3375", "#1549a8", "#1b5fd1", "#4a80dc", "#7ea5e7", "#b5ccf2", "#e6eefb"] }
+      "paper": {
+        "role": "neutral",
+        "displayName": "Night Ground",
+        "canonical": "#07080b",
+        "tonalRamp": [
+          "#07080b",
+          "#0e1015",
+          "#151821",
+          "#20242d",
+          "#313745",
+          "#7d8592",
+          "#a1a8b3",
+          "#f4f5f7"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Raised Panel",
+        "canonical": "#0e1015",
+        "tonalRamp": [
+          "#07080b",
+          "#0e1015",
+          "#151821",
+          "#20242d",
+          "#313745",
+          "#7d8592",
+          "#a1a8b3",
+          "#f4f5f7"
+        ]
+      },
+      "paper-3": {
+        "role": "neutral",
+        "displayName": "Lifted Panel",
+        "canonical": "#151821",
+        "tonalRamp": [
+          "#07080b",
+          "#0e1015",
+          "#151821",
+          "#20242d",
+          "#313745",
+          "#7d8592",
+          "#a1a8b3",
+          "#f4f5f7"
+        ]
+      },
+      "navy": {
+        "role": "neutral",
+        "displayName": "Field (alias of Raised Panel)",
+        "canonical": "#0e1015",
+        "tonalRamp": [
+          "#07080b",
+          "#0e1015",
+          "#151821",
+          "#20242d",
+          "#313745",
+          "#7d8592",
+          "#a1a8b3",
+          "#f4f5f7"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Signal White",
+        "canonical": "#f4f5f7",
+        "tonalRamp": [
+          "#20242d",
+          "#313745",
+          "#4b5260",
+          "#7d8592",
+          "#a1a8b3",
+          "#c8cdd4",
+          "#e3e6ea",
+          "#f4f5f7"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Fog Grey",
+        "canonical": "#a1a8b3",
+        "tonalRamp": [
+          "#20242d",
+          "#313745",
+          "#4b5260",
+          "#7d8592",
+          "#a1a8b3",
+          "#c8cdd4",
+          "#e3e6ea",
+          "#f4f5f7"
+        ]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Dim Grey",
+        "canonical": "#7d8592",
+        "tonalRamp": [
+          "#20242d",
+          "#313745",
+          "#4b5260",
+          "#7d8592",
+          "#a1a8b3",
+          "#c8cdd4",
+          "#e3e6ea",
+          "#f4f5f7"
+        ]
+      },
+      "signal": {
+        "role": "primary",
+        "displayName": "Electric Signal Blue",
+        "canonical": "#3b82f6",
+        "tonalRamp": [
+          "#0c1f4a",
+          "#1e3a8a",
+          "#1d4ed8",
+          "#2563eb",
+          "#3b82f6",
+          "#60a5fa",
+          "#93c5fd",
+          "#dbeafe"
+        ]
+      },
+      "signal-2": {
+        "role": "primary",
+        "displayName": "Deep Signal Blue",
+        "canonical": "#2563eb",
+        "tonalRamp": [
+          "#0c1f4a",
+          "#1e3a8a",
+          "#1d4ed8",
+          "#2563eb",
+          "#3b82f6",
+          "#60a5fa",
+          "#93c5fd",
+          "#dbeafe"
+        ]
+      },
+      "route": {
+        "role": "secondary",
+        "displayName": "Link Blue",
+        "canonical": "#60a5fa",
+        "tonalRamp": [
+          "#0c1f4a",
+          "#1e3a8a",
+          "#1d4ed8",
+          "#2563eb",
+          "#3b82f6",
+          "#60a5fa",
+          "#93c5fd",
+          "#dbeafe"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#20242d",
+        "tonalRamp": [
+          "#07080b",
+          "#0e1015",
+          "#151821",
+          "#20242d",
+          "#313745",
+          "#7d8592",
+          "#a1a8b3",
+          "#f4f5f7"
+        ]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Strong Hairline",
+        "canonical": "#313745",
+        "tonalRamp": [
+          "#07080b",
+          "#0e1015",
+          "#151821",
+          "#20242d",
+          "#313745",
+          "#7d8592",
+          "#a1a8b3",
+          "#f4f5f7"
+        ]
+      },
+      "ok": {
+        "role": "tertiary",
+        "displayName": "Answered Green",
+        "canonical": "#34d399",
+        "tonalRamp": [
+          "#022c22",
+          "#064e3b",
+          "#047857",
+          "#059669",
+          "#10b981",
+          "#34d399",
+          "#6ee7b7",
+          "#d1fae5"
+        ]
+      },
+      "wait": {
+        "role": "tertiary",
+        "displayName": "Waiting Amber",
+        "canonical": "#fbbf24",
+        "tonalRamp": [
+          "#451a03",
+          "#78350f",
+          "#b45309",
+          "#d97706",
+          "#f59e0b",
+          "#fbbf24",
+          "#fcd34d",
+          "#fef3c7"
+        ]
+      },
+      "prohibit": {
+        "role": "tertiary",
+        "displayName": "Refusal Red",
+        "canonical": "#f87171",
+        "tonalRamp": [
+          "#450a0a",
+          "#7f1d1d",
+          "#b91c1c",
+          "#dc2626",
+          "#ef4444",
+          "#f87171",
+          "#fca5a5",
+          "#fee2e2"
+        ]
+      },
+      "on-light": {
+        "role": "neutral",
+        "displayName": "Night Type",
+        "canonical": "#07080b",
+        "tonalRamp": [
+          "#07080b",
+          "#0e1015",
+          "#151821",
+          "#20242d",
+          "#313745",
+          "#7d8592",
+          "#a1a8b3",
+          "#f4f5f7"
+        ]
+      },
+      "letter-paper": {
+        "role": "neutral",
+        "displayName": "Letter White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0e1b2c",
+          "#2a3649",
+          "#44526a",
+          "#5e6b80",
+          "#9aa5b5",
+          "#d6dbe3",
+          "#eceef2",
+          "#ffffff"
+        ]
+      },
+      "letter-ink": {
+        "role": "neutral",
+        "displayName": "Letter Ink",
+        "canonical": "#0e1b2c",
+        "tonalRamp": [
+          "#0e1b2c",
+          "#2a3649",
+          "#44526a",
+          "#5e6b80",
+          "#9aa5b5",
+          "#d6dbe3",
+          "#eceef2",
+          "#ffffff"
+        ]
+      },
+      "letter-ink-soft": {
+        "role": "neutral",
+        "displayName": "Letter Grey",
+        "canonical": "#44526a",
+        "tonalRamp": [
+          "#0e1b2c",
+          "#2a3649",
+          "#44526a",
+          "#5e6b80",
+          "#9aa5b5",
+          "#d6dbe3",
+          "#eceef2",
+          "#ffffff"
+        ]
+      },
+      "letter-rule": {
+        "role": "neutral",
+        "displayName": "Letter Rule",
+        "canonical": "#d6dbe3",
+        "tonalRamp": [
+          "#0e1b2c",
+          "#2a3649",
+          "#44526a",
+          "#5e6b80",
+          "#9aa5b5",
+          "#d6dbe3",
+          "#eceef2",
+          "#ffffff"
+        ]
+      },
+      "letter-route": {
+        "role": "secondary",
+        "displayName": "Letter Blue",
+        "canonical": "#1b5fd1",
+        "tonalRamp": [
+          "#081d40",
+          "#0f3375",
+          "#1549a8",
+          "#1b5fd1",
+          "#4a80dc",
+          "#7ea5e7",
+          "#b5ccf2",
+          "#e6eefb"
+        ]
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "The landing headline only; the one fluid size, sized to its own container column." },
-      "sign": { "displayName": "Sign", "purpose": "A VASP's name on its destination sign. Steps 3rem / 4.5rem (md) / 5.5rem (lg)." },
-      "title": { "displayName": "Title", "purpose": "Screen names, section titles, the current route stop. Steps 1.5rem / 1.75rem / 2rem." },
-      "lead": { "displayName": "Lead", "purpose": "Ledes; in sign role (700, tight) for button labels, sidebar routes and notice titles." },
-      "body": { "displayName": "Body", "purpose": "Running text, held to 42rem." },
-      "small": { "displayName": "Small", "purpose": "Hints, notes, breadcrumbs, route descriptions." },
-      "label": { "displayName": "Label", "purpose": "Uppercase small capitals for field labels, table heads, tags and filters. Never above a heading." },
-      "figure": { "displayName": "Figure", "purpose": "A number with its name. Steps 1.5rem / 1.875rem / 2.25rem." },
-      "mono": { "displayName": "Mono", "purpose": "Addresses, hashes, references and counts; tabular, slashed zero, never hyphenated." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "The landing headline only; the one fluid size, sized to its own container column."
+      },
+      "sign": {
+        "displayName": "Sign",
+        "purpose": "A VASP's name on its destination sign. Steps 3rem / 4.5rem (md) / 5.5rem (lg)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Screen names, section titles, the current route stop. Steps 1.5rem / 1.75rem / 2rem."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Ledes; in sign role (700, tight) for button labels, sidebar routes and notice titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, held to 42rem."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Hints, notes, breadcrumbs, route descriptions."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase small capitals for field labels, table heads, tags and filters. Never above a heading."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "A number with its name. Steps 1.5rem / 1.875rem / 2.25rem."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Addresses, hashes, references and counts; tabular, slashed zero, never hyphenated."
+      }
     },
     "shadows": [
-      { "name": "accent-glow", "value": "0 0 0 1px color-mix(in srgb, var(--color-signal) 35%, transparent), 0 40px 90px -40px color-mix(in srgb, var(--color-signal) 55%, transparent)", "purpose": "The landing's departures board and the destination sign only." }
+      {
+        "name": "accent-glow",
+        "value": "0 0 0 1px color-mix(in srgb, var(--color-signal) 35%, transparent), 0 40px 90px -40px color-mix(in srgb, var(--color-signal) 55%, transparent)",
+        "purpose": "The landing's trace panel and departures board, and the destination sign, only."
+      }
     ],
     "motion": [
-      { "name": "motion-fast", "value": "150ms", "purpose": "State changes (the default transition). 0ms under reduced motion." },
-      { "name": "motion-base", "value": "250ms", "purpose": "Stop arrival fades and each split-flap letter. 0ms under reduced motion." },
-      { "name": "motion-draw", "value": "900ms", "purpose": "The route line drawing once; also paces breathe (x2.2) and flow (x1.6). 0ms under reduced motion." },
-      { "name": "motion-stagger", "value": "220ms", "purpose": "Delay between route segments. 0ms under reduced motion." },
-      { "name": "ease", "value": "cubic-bezier(0.2, 0, 0, 1)", "purpose": "The one easing curve." },
-      { "name": "flap-in", "value": "rotateX(-90deg) to none, per letter", "purpose": "Split-flap names on the departures board, the desk board and the destination sign." },
-      { "name": "breathe", "value": "opacity to 0.35 at 50%, infinite", "purpose": "The green 'Recorded' status light." },
-      { "name": "flow", "value": "stroke-dasharray 6 10, dashoffset -48, infinite", "purpose": "Dashed routes in the many-cases-to-one-exchange diagram." },
-      { "name": "rise", "value": "translateY(12px) and fade, staggered 90ms", "purpose": "The landing hero's entrance." },
-      { "name": "lane-pulse", "value": "8s linear infinite light trail", "purpose": "Pulses travelling the route lanes behind the departures board; hidden under reduced motion." },
-      { "name": "route-draw", "value": "scaleX/scaleY 0 to 1, staggered by stop", "purpose": "The route line between stations, once." }
+      {
+        "name": "motion-fast",
+        "value": "150ms",
+        "purpose": "State changes (the default transition). 0ms under reduced motion."
+      },
+      {
+        "name": "motion-base",
+        "value": "250ms",
+        "purpose": "Stop arrival fades and each split-flap letter. 0ms under reduced motion."
+      },
+      {
+        "name": "motion-draw",
+        "value": "900ms",
+        "purpose": "The route line drawing once; also paces breathe (x2.2) and flow (x1.6). 0ms under reduced motion."
+      },
+      {
+        "name": "motion-stagger",
+        "value": "220ms",
+        "purpose": "Delay between route segments. 0ms under reduced motion."
+      },
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.2, 0, 0, 1)",
+        "purpose": "The one easing curve."
+      },
+      {
+        "name": "flap-in",
+        "value": "rotateX(-90deg) to none, per letter",
+        "purpose": "Split-flap names on the departures board, the desk board and the destination sign."
+      },
+      {
+        "name": "breathe",
+        "value": "opacity to 0.35 at 50%, infinite",
+        "purpose": "The green 'Recorded' status light."
+      },
+      {
+        "name": "flow",
+        "value": "stroke-dasharray 6 10, dashoffset -48, infinite",
+        "purpose": "Light travelling a trace graph's edges in the direction the money moved, and the dashed routes in the many-cases-to-one-exchange diagram. Rests out of sight."
+      },
+      {
+        "name": "rise",
+        "value": "translateY(12px) and fade, staggered 90ms",
+        "purpose": "The landing hero's entrance."
+      },
+      {
+        "name": "lane-pulse",
+        "value": "8s linear infinite light trail",
+        "purpose": "Pulses travelling the route lanes behind the departures board; hidden under reduced motion."
+      },
+      {
+        "name": "route-draw",
+        "value": "scaleX/scaleY 0 to 1, staggered by stop",
+        "purpose": "The route line between stations, once."
+      },
+      {
+        "name": "trace-draw",
+        "value": "stroke-dashoffset 1 to 0 (trace-draw-back: -1 to 0), one edge per turn",
+        "purpose": "A trace graph's edges drawing once from the wallet outward; each node arrives as its edge reaches it."
+      },
+      {
+        "name": "ticker",
+        "value": "translateX(0) to translateX(-50%), 80s linear infinite",
+        "purpose": "The transfers read, under the landing's trace; pauses under the pointer and keyboard focus, rests out of sight, still under reduced motion."
+      }
     ],
     "breakpoints": [
-      { "name": "sm", "value": "40rem" },
-      { "name": "md", "value": "48rem" },
-      { "name": "lg", "value": "64rem" }
+      {
+        "name": "sm",
+        "value": "40rem"
+      },
+      {
+        "name": "md",
+        "value": "48rem"
+      },
+      {
+        "name": "lg",
+        "value": "64rem"
+      },
+      {
+        "name": "xl",
+        "value": "80rem"
+      }
     ]
   },
   "components": [
@@ -123,6 +515,14 @@
       "description": "The landing's product board: a glowing raised panel with a breathing Recorded light over a destinations table.",
       "html": "<figure class=\"ds-board\"><div class=\"ds-board-head\"><span class=\"ds-board-title\">Departures</span><span class=\"ds-board-live\"><span class=\"ds-dot\"></span>Recorded</span></div><table class=\"ds-board-table\"><thead><tr><th>Destination</th><th>Wallets</th><th>Status</th></tr></thead><tbody><tr><td>Binance</td><td class=\"ds-num\">4</td><td class=\"ds-next\">Write next</td></tr><tr><td>OKX</td><td class=\"ds-num\">2</td><td class=\"ds-wait\">On the desk</td></tr></tbody></table></figure>",
       "css": ".ds-board { margin: 0; padding: 24px; border-radius: var(--radius-control, 0.75rem); background: var(--color-paper-2, #0e1015); color: var(--color-ink, #f4f5f7); font-family: var(--font-sans, IBM Plex Sans, system-ui, sans-serif); box-shadow: 0 0 0 1px color-mix(in srgb, #3b82f6 35%, transparent), 0 40px 90px -40px color-mix(in srgb, #3b82f6 55%, transparent); } .ds-board-head { display: flex; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--color-rule, #20242d); } .ds-board-title { font-weight: 700; font-size: 1.25rem; } .ds-board-live { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 700; color: var(--color-ok, #34d399); } .ds-dot { width: 8px; height: 8px; border-radius: 9999px; background: var(--color-ok, #34d399); animation: ds-breathe 1980ms ease-in-out infinite; } .ds-board-table { width: 100%; margin-top: 8px; border-collapse: collapse; text-align: left; } .ds-board-table th { padding: 12px 12px 12px 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint, #7d8592); } .ds-board-table td { padding: 12px 12px 12px 0; border-top: 1px solid var(--color-rule, #20242d); font-weight: 700; font-size: 1.25rem; } .ds-num { font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace); font-variant-numeric: tabular-nums; } .ds-next, .ds-wait { font-size: 0.75rem !important; letter-spacing: 0.08em; text-transform: uppercase; } .ds-next { color: var(--color-route, #60a5fa); } .ds-wait { color: var(--color-wait, #fbbf24); } @keyframes ds-breathe { 50% { opacity: 0.35; } } @media (prefers-reduced-motion: reduce) { .ds-dot { animation: none; } }"
+    },
+    {
+      "name": "Trace Graph",
+      "kind": "custom",
+      "refersTo": "destination-sign",
+      "description": "One wallet as a fund-flow graph drawn from its own record: the funding exchange, the wallet, the exchange account it reached, joined by accent edges that draw once.",
+      "html": "<figure class=\"ds-trace\"><div class=\"ds-node ds-node-vasp\"><strong>MEXC</strong><span>funded 1 payer</span><b>10,000.00 USDT</b></div><span class=\"ds-edge\"></span><div class=\"ds-node ds-node-wallet\"><strong>The wallet</strong><span>TTQd8B…ckvj</span><b>2,000.00 USDT</b></div><span class=\"ds-edge\"></span><div class=\"ds-node ds-node-vasp\"><strong>Binance</strong><span>TDqSqu…hSCf</span><b>200.00 USDT</b></div></figure>",
+      "css": ".ds-trace { display: flex; align-items: center; gap: 0; margin: 0; padding: 24px; border-radius: var(--radius-control, 0.75rem); background: var(--color-paper-2, #0e1015); color: var(--color-ink, #f4f5f7); font-family: var(--font-sans, IBM Plex Sans, system-ui, sans-serif); } .ds-node { display: flex; flex-direction: column; gap: 2px; min-width: 150px; padding: 12px 14px; border-radius: var(--radius-control, 0.75rem); border: 1px solid var(--color-rule-strong, #3a4050); background: var(--color-paper-3, #151821); } .ds-node strong { font-weight: 600; } .ds-node span { font-family: var(--font-mono, JetBrains Mono, monospace); font-size: 0.8125rem; color: var(--color-ink-soft, #a1a8b3); } .ds-node b { font-family: var(--font-mono, JetBrains Mono, monospace); font-size: 0.875rem; } .ds-node-vasp { border-color: var(--color-signal, #3b82f6); background: color-mix(in srgb, var(--color-signal-3, #1e3a8a) 55%, var(--color-paper-2, #0e1015)); } .ds-node-wallet { border-color: var(--color-ink, #f4f5f7); background: var(--color-paper, #07080b); } .ds-edge { flex: 1; min-width: 48px; height: 2px; background: var(--color-signal, #3b82f6); transform-origin: left center; animation: ds-trace 900ms cubic-bezier(0.2,0,0,1) both; } @keyframes ds-trace { from { transform: scaleX(0); } to { transform: scaleX(1); } } @media (prefers-reduced-motion: reduce) { .ds-edge { animation: none; } }"
     }
   ],
   "narrative": {
@@ -138,23 +538,52 @@
       "Motion is decoration over visible content and goes to zero under reduced motion."
     ],
     "rules": [
-      { "name": "The One Light Rule", "body": "Electric blue marks direction: arrows, route lines, termini, and the two glows. The gradient appears once, on the landing headline's second line; the glow appears only on the product board and the destination sign. Nothing else is lit.", "section": "colors" },
-      { "name": "The Status Speaks In Words Rule", "body": "Green, amber and red are for request, channel and sanction status only, and every status also says its meaning in words; colour never carries it alone.", "section": "colors" },
-      { "name": "The Paper Letter Rule", "body": "The request letter is always a white sheet with its own light tokens, on screen and in print. No dark token reaches it.", "section": "colors" },
-      { "name": "The Size Carries Rank Rule", "body": "Working screens use fixed rem sizes that step at the md and lg breakpoints, never with the viewport; rank is carried by size, far apart, not by colour.", "section": "typography" },
-      { "name": "The No Label Above A Heading Rule", "body": "A heading stands alone: no small capitals line above a page head, section title or sign. Labels name form fields, table columns and facts, beside or above their value.", "section": "typography" },
-      { "name": "The Mono For Machines Rule", "body": "Anything a chain or a system produced (an address, a hash, a reference, a figure) is set in mono and never hyphenated.", "section": "typography" },
-      { "name": "The Tonal Step Rule", "body": "To raise a surface, step it one tone lighter and give it a hairline; do not add a shadow.", "section": "elevation" }
+      {
+        "name": "The One Light Rule",
+        "body": "Electric blue marks direction: arrows, route lines, a trace's edges and termini. The light has named places and no others: the landing's hall, the footer's horizon, the glow on the landing's trace panel and departures board, and the glow on the destination sign. The gradient in type appears once, on the landing headline's second line. Nothing else is lit.",
+        "section": "colors"
+      },
+      {
+        "name": "The Status Speaks In Words Rule",
+        "body": "Green, amber and red are for request, channel and sanction status only, and every status also says its meaning in words; colour never carries it alone.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paper Letter Rule",
+        "body": "The request letter is always a white sheet with its own light tokens, on screen and in print. No dark token reaches it.",
+        "section": "colors"
+      },
+      {
+        "name": "The Size Carries Rank Rule",
+        "body": "Working screens use fixed rem sizes that step at the md and lg breakpoints, never with the viewport; rank is carried by size, far apart, not by colour.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Label Above A Heading Rule",
+        "body": "A heading stands alone: no small capitals line above a page head, section title or sign. Labels name form fields, table columns and facts, beside or above their value.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mono For Machines Rule",
+        "body": "Anything a chain or a system produced (an address, a hash, a reference, a figure) is set in mono and never hyphenated.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tonal Step Rule",
+        "body": "To raise a surface, step it one tone lighter and give it a hairline; do not add a shadow.",
+        "section": "elevation"
+      }
     ],
     "dos": [
       "Do read every value from the tokens; a page carries no hex, font name or pixel value of its own.",
-      "Do keep one destination sign per screen, and give it the only glow besides the product board.",
+      "Do keep one destination sign per screen, and give it the only glow outside the landing's trace panel and board.",
       "Do make the primary action the white button; secondary actions are outlines, quiet ones are link-blue words.",
       "Do set addresses, hashes and figures in JetBrains Mono with tabular, slashed-zero figures.",
       "Do say every status in words; green, amber and red only confirm it.",
       "Do step working sizes at md and lg; only the landing headline is fluid.",
       "Do keep the request letter a white sheet, on screen and in print.",
-      "Do tie every motion to the motion tokens so it goes to zero under reduced motion."
+      "Do tie every motion to the motion tokens so it goes to zero under reduced motion.",
+      "Do draw a trace only from the wallet's own record; a node, an edge or a figure the record does not hold is not drawn."
     ],
     "donts": [
       "Don't add shadows other than the accent glow, or a gradient other than the landing headline's second line and the lane pulses.",
