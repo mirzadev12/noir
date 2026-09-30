@@ -325,3 +325,20 @@ local session built the screens for it too. **CLOUD: do not build these again; m
 
 Still open for whoever takes it: a phone capture of every screen in `docs/screens/`, and the
 `?deep=1` health answer shown somewhere an officer would look (the method or audit screen).
+
+## 30 Sep, final pass: how the last work is split
+
+Main is at the trace-graph pass (the landing hero is one recorded wallet traced both ways; the same
+graph heads every wallet page; the departures board has its own landing section).
+
+- Cloud session, on `cloud/ui`: C1 audit and fix the two trace surfaces (`/` and a wallet page) at
+  360, 390, 768, 1024, 1280, 1440 and 1920, including reduced motion, keyboard access and wallets
+  with no funders read, a stopped trail, and an Ethereum or Polygon wallet. C2 the same finish on
+  `/desk`, `/vasp/[name]`, `/requests`, `/cases`, `/registry`, `/method`, `/audit` (consistency only,
+  no new features or claims). C3 route tests for what changes, one line per fix in
+  `feedback-done.md`. Do not touch `lib/`, `app/api/`, `data/`, `scripts/`, `docs/screens/`,
+  `docs/demo/`, `DESIGN.md`, `.impeccable/`, `README.md`, `CONTEXT.md`; a fix that needs `lib/` goes
+  here as one line instead.
+- Local session: the screens and demo frames, the storyboard, merging `cloud/ui`, the checks, `main`
+  and the live site.
+
