@@ -26,14 +26,14 @@ const target = (n = 1) => ({ endpoint: `https://fcm.googleapis.com/fcm/send/devi
 const RESTING = {
   address: "TDii6vao7xyWg2rKPbCPWVRpSmne8xcqYx",
   caseAddress: "TDii6vao7xyWg2rKPbCPWVRpSmne8xcqYx",
-  caseId: "FX-2026-6619",
+  caseId: "NR-2026-6619",
   heldUsdt: 5535.981436,
   since: "2026-09-14T08:51:02.929Z",
 };
 const ETH = {
   address: "0xda4E10D8B82ed53d950e2D4312A22331c515569c",
   caseAddress: "0xda4E10D8B82ed53d950e2D4312A22331c515569c",
-  caseId: "FX-2026-0013",
+  caseId: "NR-2026-0013",
   heldUsdt: 700,
   since: "2026-09-25T10:00:00.000Z",
 };
@@ -133,7 +133,7 @@ test("only a read that came back, showing USDT leaving after that browser's mome
 
 test("the notification says it moved and when the case was read, and no more", () => {
   const m = alertMessage({ endpoint: "x", item: RESTING, movedUsdt: 142362, transfers: 2, complete: false });
-  assert.equal(m.title, "Funds moved · FX-2026-6619");
+  assert.equal(m.title, "Funds moved · NR-2026-6619");
   assert.equal(
     m.body,
     "TDii6v…xcqYx has sent at least 142,362.00 USDT since the case was read on 14 Sep 2026. Open the desk to see where it went.",

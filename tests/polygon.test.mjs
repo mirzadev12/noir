@@ -43,7 +43,7 @@ test("a recorded Polygon case answers only on Polygon, and batch triage is not o
 });
 
 test("a watched Polygon wallet is never taken for the same string on Ethereum", () => {
-  const base = { address: RECORDED, caseAddress: RECORDED, caseId: "FX-1", heldUsdt: 5, since: "2026-09-27T00:00:00.000Z" };
+  const base = { address: RECORDED, caseAddress: RECORDED, caseId: "NR-1", heldUsdt: 5, since: "2026-09-27T00:00:00.000Z" };
   assert.equal(watchKey({ ...base, chain: "polygon" }), `polygon:${RECORDED}`);
   assert.equal(watchKey(base), RECORDED);
   assert.equal(readItem({ ...base, chain: "polygon" }).chain, "polygon");

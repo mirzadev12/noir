@@ -208,7 +208,7 @@ function caseIdFor(address: string, fraudDate: string): string {
   let hash = 0;
   for (const ch of address) hash = (hash * 31 + ch.charCodeAt(0)) >>> 0;
   const year = new Date(fraudDate).getUTCFullYear() || new Date().getUTCFullYear();
-  return `FX-${year}-${String(hash % 10000).padStart(4, "0")}`;
+  return `NR-${year}-${String(hash % 10000).padStart(4, "0")}`;
 }
 
 export async function runTrace(

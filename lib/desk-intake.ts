@@ -84,7 +84,7 @@ type Checked =
   | { ok: false; reason: string };
 
 /** The address and the chain cell together: the one place a line is accepted or refused. */
-function checkLine(rawAddress: string, rawChain: string): Checked {
+export function checkLine(rawAddress: string, rawChain: string): Checked {
   const chainCell = rawChain.trim().toLowerCase();
   const check = checkAddress(rawAddress);
 

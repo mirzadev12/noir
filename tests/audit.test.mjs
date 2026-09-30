@@ -77,7 +77,7 @@ test("changing, removing, reordering or garbling any entry breaks the chain ther
 
   const changed = [...lines];
   const e = JSON.parse(changed[2]);
-  e.detail.caseId = "FX-2026-9999";
+  e.detail.caseId = "NR-2026-9999";
   changed[2] = JSON.stringify(e);
   assert.deepEqual(verifyChain(reread(changed)), {
     intact: false,
@@ -105,7 +105,7 @@ test("changing, removing, reordering or garbling any entry breaks the chain ther
   // An entry rebuilt with a fresh hash still does not follow the next one.
   const rehashed = [...lines];
   const r = JSON.parse(rehashed[1]);
-  r.detail.caseId = "FX-2026-9999";
+  r.detail.caseId = "NR-2026-9999";
   r.hash = entryHash(r);
   rehashed[1] = JSON.stringify(r);
   assert.match(verifyChain(reread(rehashed)).reason, /entry 3 does not follow/);
