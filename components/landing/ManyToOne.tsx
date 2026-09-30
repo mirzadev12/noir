@@ -13,7 +13,7 @@ export function ManyToOne({ vasp, wallets }: { vasp: string; wallets: number }) 
   const y = (i: number) => 170 + (i - (n - 1) / 2) * 58;
   return (
     <figure className="min-w-0">
-      <svg viewBox="0 0 760 340" className="hidden h-auto w-full sm:block" role="img" aria-labelledby="m2o-title m2o-desc">
+      <svg viewBox="0 0 760 340" className="hidden h-auto w-full xl:block" role="img" aria-labelledby="m2o-title m2o-desc">
         <title id="m2o-title">Many wallets, one exchange, one request</title>
         <desc id="m2o-desc">
           Wallets from several cases each follow their own route to the same exchange; the desk files them together and one request goes to
@@ -34,7 +34,7 @@ export function ManyToOne({ vasp, wallets }: { vasp: string; wallets: number }) 
             <text x="40" y={y(i) + 5} fill="var(--color-ink-soft)" fontSize="13" fontFamily="var(--font-mono)">
               {`wallet ${i + 1}`}
             </text>
-            <text x="22" y={y(i) - 24} fill="var(--color-ink-faint)" fontSize="11" fontFamily="var(--font-sans)">
+            <text x="22" y={y(i) - 24} fill="var(--color-ink-faint)" fontSize="13" fontFamily="var(--font-sans)">
               {`Case ${i + 1}`}
             </text>
           </g>
@@ -55,7 +55,7 @@ export function ManyToOne({ vasp, wallets }: { vasp: string; wallets: number }) 
           Each case label sits above its wallet, and each route lands on its own point of the exchange. */}
       <svg
         viewBox={`0 0 340 ${n * 62 + 262}`}
-        className="h-auto w-full sm:hidden"
+        className="mx-auto h-auto w-full max-w-md xl:hidden"
         role="img"
         aria-label="Wallets from several cases each follow their own route down to the same exchange, and one request goes to that exchange."
       >
