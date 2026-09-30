@@ -508,6 +508,24 @@
   .ticker {
     animation: none;
   }
+  /* The ticker becomes a still list: every transfer, wrapped, none of it masked or hidden off the edge. */
+  .ticker {
+    width: auto;
+  }
+  .ticker,
+  .ticker ul {
+    flex-wrap: wrap;
+  }
+  .ticker > [aria-hidden="true"] {
+    display: none;
+  }
+  .fade-x {
+    mask-image: none;
+  }
+  /* An edge stands whole: the travelling dash is a solid line. */
+  .flow {
+    stroke-dasharray: none;
+  }
 }
 /* A loop nobody is looking at rests: `Live` (components/noir/Live.tsx) marks what is out of sight. */
 [data-live="false"] :is(.flow, .ticker, .lane-pulse, .breathe) {
@@ -644,7 +662,8 @@
       border-bottom: var(--rule-hair) solid var(--color-rule);
       padding: calc(var(--spacing) * 4) 0;
     }
-    .noir-table td {
+    .noir-table td,
+    .noir-table td:first-child {
       border: 0;
       padding: calc(var(--spacing) * 1) 0;
       text-align: left !important;
