@@ -116,3 +116,17 @@ from `data/`.
 - 30 Sep 2026 — an empty desk in demo mode offers the recorded cases in one step
   (`lib/recorded-cases.ts`): the same paste through the same intake, under case references that say
   they are samples, because no case file came with the recordings.
+- 30 Sep 2026 — the landing stands in a lit hall and the type is IBM Plex Sans (the user's pins of
+  30 Sep; `.impeccable/briefs/console.md`, DESIGN.md). Working screens: a section's title is a step
+  below the screen's name; type on a red field is night type.
+- 30 Sep 2026 — backend hardening, L1 to L9 (`docs/review/backend-contract.md`): bulk read-again by
+  id list, VASP or case and a status on several requests; case close-out (a closed case refuses
+  filings; its whole file downloads as `noir-case-file-v1`); a repeated or malformed filing line is
+  refused by line with what is wrong; an unreadable wallet is read again by the worker, three reads
+  in all, 30 seconds then 2 minutes apart, and is never reported as empty; every write route stands
+  behind a body-size limit and a per-client write limit; the state directory backs up and restores,
+  and a restore is refused unless the audit chain verifies; health says whether the state can be
+  written and, asked, which chains answer; the evidence ledger counts the provenance every row
+  carries. Desk reads wait their turn behind writes (on Windows a file being read cannot be
+  replaced). No evidence row was added: each is a live chain read
+  (`docs/review/backend-asks.md`).

@@ -107,18 +107,29 @@ always left blank for the officer to complete.
 
 The screens are built on these routes, so anything the interface does can be done from another system. All
 `/api/desk` responses are `Cache-Control: no-store`. Types are in [`lib/desk-types.ts`](lib/desk-types.ts).
+Every route that changes something answers `413` to a body over its limit (64 KB for a filing, 16 KB otherwise) and
+`429` with `Retry-After` past 60 writes a minute from one client (`NOIR_WRITE_LIMIT`; `0` turns it off). A wallet
+that could not be read is read again by the server itself, three reads in all, and stays `unreadable` (with `attempts`
+and `retryAt`) while it waits and after the last. The full contract is in
+[`docs/review/backend-contract.md`](docs/review/backend-contract.md).
 
 | Method | Route | Returns |
 | --- | --- | --- |
 | `GET` | `/api/desk` | `DeskView`: `rows` (one per VASP), `pending`, `unreadable`, `screenedOnly`, `failed`, `unrouted` |
 | `POST` | `/api/desk` `{ text, caseRef? }` | `201 { added, merged, rejected }`. `text` is a pasted list or CSV `address[,chain][,case]`; every line is checked before any chain is read. `422` when no line is valid. Wallets are attributed in the background, one at a time. |
 | `DELETE` | `/api/desk` `{ id }` | Takes a wallet off the desk. `404` if it is not there. |
-| `POST` | `/api/desk/reattribute` `{ id }` | `202`. Reads the wallet again; the old record stays until the new one is written. |
+| `POST` | `/api/desk/reattribute` one of `{ id }`, `{ ids }`, `{ vasp }`, `{ caseRef }` | `202 { ok, queued, skipped, entry? }`. Reads those wallets again: one, a list, every wallet under a VASP, or every wallet filed under a case (`caseRef: null` is the wallets with none). A wallet already waiting is listed in `skipped`. The old record stays until the new one is written. `404` when the selector names nothing. |
 | `GET` | `/api/desk/vasp/[name]` | `{ row, allowedAsks, letter }` for one VASP. `404` if nothing on the desk routes to it. |
 | `GET` | `/api/desk/requests` | Every `VaspRequest`, newest first |
 | `POST` | `/api/desk/requests` `{ vasp, asks }` | `201` the drafted `VaspRequest`. `422` for an unknown VASP, no asks, or a freeze where no account is known. |
 | `GET` | `/api/desk/requests/[id]/export` | The request as a downloadable JSON package (`noir-request-v1`; `sahyog` reads "designed, not integrated"; `legalBasis` is `""`) |
-| `PATCH` | `/api/desk/requests` `{ id, status, on?, reference?, note? }` | The request with its new status. Order: `drafted` → `sent` → `acknowledged` \| `data-received` \| `frozen` \| `refused` \| `no-response`. |
+| `PATCH` | `/api/desk/requests` `{ id, status, on?, reference?, note? }` | The request with its new status. Order: `drafted` → `sent` → `acknowledged` \| `data-received` \| `frozen` \| `refused` \| `no-response`. With `{ ids, … }` in place of `{ id }` the same status is recorded on several requests, each judged by its own rules: `{ changed, refused }`, `200` when any changed and `422` when none did. |
+| `GET` | `/api/desk/cases` | The desk by case reference: each case's wallets, the VASPs they reach, its requests and `closed` (who closed it, when and why, or `null`) |
+| `POST` | `/api/desk/cases` `{ caseRef, action: "close" \| "reopen", note? }` | `{ caseRef, closed, open }`. Closing removes nothing; a closed case refuses new filings until it is reopened. `open` says what was still in motion. `404` unknown case, `409` already closed or not closed. |
+| `GET` | `/api/desk/cases/file?caseRef=…[&format=json\|csv]` | The case's whole file as a download (`noir-case-file-v1`): its wallets with evidence in words, the VASPs they reach, the requests that cover them and the audit lines about them |
+| `GET` | `/api/desk/export?kind=wallets&vasp=…` or `?kind=requests` `[&format=csv\|json]` | A VASP's wallets, or the requests register, as CSV or JSON |
+| `GET` | `/api/registry` | `{ rows, totals, evidence }`: every VASP NOIR can name, and the evidence ledger (how many rows carry their source; `missing` is empty in a sound build) |
+| `GET` | `/api/health[?deep=1]` | The commit serving, recorded mode, whether reads carry a key, where each read goes, and `state.writable`. With `?deep=1`, which chains answer (`chains`, `chainsWhy`). Never a key. |
 
 Examples, run against `DEMO_MODE=true npm run dev`:
 
