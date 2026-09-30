@@ -26,7 +26,7 @@ export function readDesk(v: unknown): DeskFile {
   return v as DeskFile;
 }
 
-export async function loadDesk(): Promise<DeskFile> {
+async function readDeskFile(): Promise<DeskFile> {
   const text = await readStateFile(FILE);
   if (text === null) return emptyDesk();
   try {
@@ -36,10 +36,19 @@ export async function loadDesk(): Promise<DeskFile> {
   }
 }
 
+/**
+ * The desk as it is now. A read waits its turn behind the writes queued before
+ * it, so it never sees a file half replaced and never holds the file open
+ * while a write is renaming over it.
+ */
+export function loadDesk(): Promise<DeskFile> {
+  return serially(FILE, readDeskFile);
+}
+
 /** Read, change and write, one change at a time. Nothing is written when the file cannot be read. */
 export function changeDesk<T>(change: (file: DeskFile) => T): Promise<T> {
   return serially(FILE, async () => {
-    const file = await loadDesk();
+    const file = await readDeskFile();
     const result = change(file);
     await writeStateFile(FILE, JSON.stringify(file, null, 2));
     return result;

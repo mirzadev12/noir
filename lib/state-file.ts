@@ -35,13 +35,29 @@ export async function readStateFile(name: string): Promise<string | null> {
   }
 }
 
-/** Written whole, then renamed into place, so a crash mid-write never leaves half a file. */
+/** Codes a rename answers with when another handle holds the target for a moment (a reader, a scanner): worth trying again. */
+const HELD = new Set(["EPERM", "EBUSY", "EACCES"]);
+
+/**
+ * Written whole, then renamed into place, so a crash mid-write never leaves
+ * half a file. On Windows a file that is being read cannot be renamed over; the
+ * rename is tried again a few times, briefly, before it is an error.
+ */
 export async function writeStateFile(name: string, text: string, mode?: number): Promise<void> {
   await mkdir(stateDir(), { recursive: true });
   const target = stateFile(name);
   const temp = `${target}.${process.pid}.tmp`;
   await writeFile(temp, text, mode === undefined ? undefined : { mode });
-  await rename(temp, target);
+  for (let attempt = 0; ; attempt++) {
+    try {
+      await rename(temp, target);
+      return;
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException).code ?? "";
+      if (attempt >= 5 || !HELD.has(code)) throw err;
+      await new Promise((resolve) => setTimeout(resolve, 20 * (attempt + 1)));
+    }
+  }
 }
 
 export async function appendStateFile(name: string, text: string): Promise<void> {

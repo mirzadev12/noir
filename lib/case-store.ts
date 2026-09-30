@@ -41,8 +41,7 @@ export function changeCases<T>(change: (cases: SavedCase[]) => T): Promise<T> {
   });
 }
 
-/** The cases closed on the desk, oldest first. Throws when the file is there and cannot be read. */
-export async function loadClosures(): Promise<CaseClosure[]> {
+async function readClosuresFile(): Promise<CaseClosure[]> {
   const text = await readStateFile(CLOSURES);
   if (text === null) return [];
   let parsed: unknown;
@@ -55,10 +54,15 @@ export async function loadClosures(): Promise<CaseClosure[]> {
   return readClosures(parsed);
 }
 
+/** The cases closed on the desk, oldest first. Throws when the file is there and cannot be read. A read waits its turn behind writes. */
+export function loadClosures(): Promise<CaseClosure[]> {
+  return serially(CLOSURES, readClosuresFile);
+}
+
 /** Read, change and write the closures, one change at a time. Nothing is written when `change` says it changed nothing. */
 export function changeClosures<T>(change: (closures: CaseClosure[]) => { write: boolean; result: T }): Promise<T> {
   return serially(CLOSURES, async () => {
-    const closures = await loadClosures();
+    const closures = await readClosuresFile();
     const { write, result } = change(closures);
     if (write) await writeStateFile(CLOSURES, JSON.stringify(closures, null, 2));
     return result;
