@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Manrope, Noto_Sans_Devanagari } from "next/font/google";
+import { IBM_Plex_Sans, JetBrains_Mono, Noto_Sans_Devanagari } from "next/font/google";
 import { Shell } from "@/components/noir/Shell";
 import "./globals.css";
 
 /* Two faces, each with one job (their weights, widths and roles are set in
    app/globals.css, not here):
-   Manrope        — every word: a geometric sans, heavy and tight for headings.
+   IBM Plex Sans  — every word: a sober, institutional sans, semibold for headings.
    JetBrains Mono — addresses, hashes and figures.
    Noto Sans Devanagari is a fallback only, for a unit or case reference typed
    in Hindi; Latin text never uses it and it is fetched only when needed. */
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
+const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-plex", display: "swap" });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
 const devanagari = Noto_Sans_Devanagari({
   subsets: ["devanagari"],
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${manrope.variable} ${jetbrains.variable} ${devanagari.variable}`}>
+    <html lang="en" className={`${plex.variable} ${jetbrains.variable} ${devanagari.variable}`}>
       <body>
         <Shell>{children}</Shell>
       </body>

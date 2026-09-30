@@ -53,15 +53,15 @@
   --color-on-light: #07080b; /* type on a white control (the primary button) */
 
   /* ------------------------------------------------------------- type */
-  /* Two families: Manrope for words (loaded in app/layout.tsx),
+  /* Two families: IBM Plex Sans for words (loaded in app/layout.tsx),
      JetBrains Mono for addresses, hashes and figures. */
-  --font-sans: var(--font-manrope), var(--font-devanagari), "Segoe UI", system-ui, sans-serif;
+  --font-sans: var(--font-plex), var(--font-devanagari), "Segoe UI", system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --font-weight-normal: 400; /* body */
   --font-weight-medium: 500; /* emphasis in body */
-  --font-weight-bold: 700; /* signs, headings, buttons */
-  --font-weight-black: 800; /* the wordmark and the destination sign */
+  --font-weight-bold: 600; /* signs, headings, buttons */
+  --font-weight-black: 700; /* the wordmark and the destination sign */
 
   /* The scale. Rank is carried by size alone, so the steps are far apart.
      Nothing in the product is set below --text-micro (12px). The working
@@ -124,7 +124,7 @@
   --route-weight: 4px; /* the route line between stations */
   --facts-label: 11rem; /* width of the label column in a Facts list, from sm up */
   --stretch-sign: 100%; /* normal width; kept so a condensed face could be swapped in */
-  --tracking-sign: -0.03em;
+  --tracking-sign: -0.015em;
   --tracking-label: 0.08em;
   --print-margin: 16mm; /* A4 page margin for the request letter */
   --print-size: 10.5pt; /* body type on paper */
@@ -251,7 +251,7 @@
 /* A role is a bundle of type properties, named for its job. Primitives apply
    them; a restyle changes the bundle here, not each use. */
 
-/* Heavy condensed grotesque: signs, headings, buttons. */
+/* Semibold sans: signs, headings, buttons. */
 @utility type-sign {
   font-family: var(--font-sans);
   font-weight: var(--font-weight-bold);

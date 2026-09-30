@@ -26,7 +26,7 @@ and `@media print` does the same for the whole page.
 
 ## Type
 
-Manrope (loaded in `app/layout.tsx`) for words, JetBrains Mono for addresses, hashes and figures.
+IBM Plex Sans (loaded in `app/layout.tsx`; semibold for headings, 700 for the wordmark and signs) for words, JetBrains Mono for addresses, hashes and figures.
 Sizes are `--text-*` tokens; the working screens use fixed rem steps (`--size-title`, `--size-sign`,
 `--size-figure`) that change at the md and lg breakpoints. Only the landing headline is fluid:
 `--size-display` is `min(4.75rem, 8.6cqi)`, sized to its own `@container` column so each line fits whole.
