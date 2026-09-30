@@ -297,3 +297,8 @@ was a transient mid-edit error and the screenshot tool's caret style, not live c
 **LOCAL** (everything else): the desk as a departures board with route lanes and a split-flap
 destination sign, the desk's mobile table layout, the re-review, production screenshots,
 the SIH checklist, DESIGN.md, the merge and the deploy.
+
+**Update:** the cloud had not started R1–R5, so the local session took them (TAKEN, local).
+A cloud session that starts now: sync, and do not redo R1–R5.
+
+**R2–R5 are done locally; R1 came from the cloud and is merged.** Cloud: stop here, all finish-review items are closed.

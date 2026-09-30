@@ -22,7 +22,7 @@ export function ChainBadge({ chain, named = false, className = "" }: { chain: st
       <span
         title={traced ? `${chainName(chain)}: traced` : `${chainName(chain)}: recognised and screened, not traced`}
         className={`type-mono inline-flex h-6 min-w-10 shrink-0 items-center justify-center px-1.5 text-micro leading-none font-bold ${
-          traced ? "rule-box bg-paper-3 text-ink" : "rule-box bg-transparent text-ink-soft"
+          traced ? "rounded-md rule-box bg-paper-3 text-ink" : "rounded-md rule-box bg-transparent text-ink-soft"
         }`}
       >
         {chainCode(chain)}

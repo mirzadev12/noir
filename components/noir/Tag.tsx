@@ -21,8 +21,8 @@ const TONE = {
   solid: "border border-ink bg-ink text-on-light",
   quiet: "hair-box bg-paper text-ink-soft",
   prohibit: "rule-box-prohibit bg-prohibit text-on-ink",
-  ok: "border-2 border-ok bg-paper text-ok",
-  wait: "border-2 border-wait bg-paper text-wait",
+  ok: "border border-ok bg-transparent text-ok",
+  wait: "border border-wait bg-transparent text-wait",
 } as const;
 
 export function Tag({

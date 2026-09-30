@@ -155,9 +155,8 @@ export function IntakeBox({ variant = "rail", redirectTo }: { variant?: "hero" |
             {hero ? (
               <>
                 {" "}
-                <Link href="/desk" className="inline-flex items-center gap-1.5 font-bold">
-                  See them on the desk
-                  <Icon name="arrow-right" size="sm" />
+                <Link href="/desk" className="font-bold">
+                  See them on the desk <Icon name="arrow-right" size="sm" className="inline-block align-[-0.1em]" />
                 </Link>
               </>
             ) : null}

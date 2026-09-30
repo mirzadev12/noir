@@ -6,7 +6,7 @@ import { Hero } from "@/components/landing/Hero";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { ManyToOne } from "@/components/landing/ManyToOne";
 import { recordedDesk } from "@/components/landing/recorded";
-import { Heading, Icon, Page, Section, Table, Tag, Text } from "@/components/noir";
+import { Heading, Icon, Page, Section, Tag, Text } from "@/components/noir";
 import { landingFigures, landingRoute } from "@/lib/landing";
 import { count, utc, utcDay } from "@/lib/noir-format";
 import { walletCounts } from "@/lib/noir-view";
@@ -99,59 +99,17 @@ export default async function Landing() {
           ) : null}
 
           <Section title="What NOIR can name" note="Counted from the files and lists in the repository when this site was built. Nothing here is typed in.">
-            <Table
-              caption="What NOIR can name, counted from its data"
-              columns={[{ label: "What it can name" }, { label: "Counted from" }]}
-              rows={[
-                {
-                  key: "vasps",
-                  cells: [
-                    <span key="s">
-                      <b className="type-mono">{count(f.registry.vasps)}</b> VASPs, across {count(f.registry.chains)} chains: TRON, Ethereum and Polygon.
-                    </span>,
-                    "The exchange wallets and deposit addresses in data/",
-                  ],
-                },
-                {
-                  key: "deposits",
-                  cells: [
-                    <span key="s">
-                      <b className="type-mono">{count(f.registry.depositAddresses)}</b> customer deposit addresses, derived from <b className="type-mono">{count(f.registry.seedWallets)}</b> tagged
-                      exchange wallets.
-                    </span>,
-                    "data/deposit-addresses.json, data/eth/, data/polygon/",
-                  ],
-                },
-                {
-                  key: "le",
-                  cells: [
-                    <span key="s">
-                      <b className="type-mono">{count(f.registry.leChannels)}</b> law-enforcement channels, each read from the exchange’s own page.
-                    </span>,
-                    "data/le-contacts.json",
-                  ],
-                },
-                {
-                  key: "ofac",
-                  cells: [
-                    <span key="s">
-                      <b className="type-mono">{count(f.ofac.total)}</b> OFAC addresses screened, on every chain.
-                    </span>,
-                    `data/risk-lists.json and data/sanctions-multichain.json${f.ofac.published ? `, list of ${utcDay(f.ofac.published)}` : ""}`,
-                  ],
-                },
-                {
-                  key: "caps",
-                  cells: [
-                    <span key="s">
-                      <b className="type-mono">{count(f.coverage.built)}</b> of <b className="type-mono">{count(f.coverage.total)}</b> capabilities built; {count(f.coverage.partial)} partial and{" "}
-                      {count(f.coverage.notBuilt)} not built, each set out on the Method page.
-                    </span>,
-                    "lib/coverage.ts",
-                  ],
-                },
-              ]}
-            />
+            <p className="max-w-prose text-lead text-ink-soft">
+              NOIR can name <strong className="type-mono font-bold text-ink">{count(f.registry.vasps)}</strong> VASPs across TRON, Ethereum and Polygon, from <strong className="type-mono font-bold text-ink">{count(f.registry.depositAddresses)}</strong> customer
+              deposit addresses derived from <strong className="type-mono font-bold text-ink">{count(f.registry.seedWallets)}</strong> tagged exchange wallets. It holds the law-enforcement channel of <strong className="type-mono font-bold text-ink">{count(f.registry.leChannels)}</strong> of
+              them, read from each exchange&rsquo;s own page, and screens every wallet against <strong className="type-mono font-bold text-ink">{count(f.ofac.total)}</strong> OFAC-listed addresses
+              {f.ofac.published ? ` (list of ${utcDay(f.ofac.published)})` : ""}. Of its {count(f.coverage.total)} capabilities, <strong className="type-mono font-bold text-ink">{count(f.coverage.built)}</strong> are built,{" "}
+              {count(f.coverage.partial)} partial and {count(f.coverage.notBuilt)} not yet built; the Method page sets out each gap.
+            </p>
+            <p className="mt-4 text-small text-ink-faint">
+              Sources: data/deposit-addresses.json, data/eth/, data/polygon/, data/le-contacts.json, data/risk-lists.json,
+              data/sanctions-multichain.json, lib/coverage.ts.
+            </p>
           </Section>
 
           <Section title="What NOIR does not say">

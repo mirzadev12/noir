@@ -107,7 +107,7 @@ test("status order: sent first, then any answer, and only valid days", async () 
   const patch = (b) => requests.PATCH(req("/api/desk/requests", "PATCH", { id: requestId, ...b }));
   assert.equal((await patch({ status: "frozen" })).status, 422, "no answer before it was sent");
   assert.equal((await patch({ status: "sent", on: "29-09-2026" })).status, 422, "the day is YYYY-MM-DD");
-  const sent = await patch({ status: "sent", on: "2026-09-29", reference: "LE-2026-88231", note: "Through the portal." });
+  const sent = await patch({ status: "sent", on: new Date().toISOString().slice(0, 10), reference: "LE-2026-88231", note: "Through the portal." });
   assert.equal(sent.status, 200);
   assert.equal((await patch({ status: "sent" })).status, 422, "already sent");
   assert.equal((await patch({ status: "acknowledged" })).status, 200);

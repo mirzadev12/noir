@@ -66,7 +66,7 @@
      Nothing in the product is set below --text-micro (12px). The working
      screens use fixed rem sizes that step at breakpoints (--size-* in :root),
      never with the viewport; only the landing headline (--text-display) is fluid. */
-  --text-micro: 0.75rem;
+  --text-micro: 0.8125rem;
   --text-micro--line-height: 1.35;
   --text-small: 0.875rem;
   --text-small--line-height: 1.5;
@@ -94,7 +94,7 @@
   --container-prose: 42rem; /* widest a paragraph runs */
   --container-letter: 56rem; /* the request letter's measure on screen */
 
-  --radius-control: 0.75rem; /* square corners. One number rounds every control. */
+  --radius-control: 0.75rem; /* one number rounds every control, panel and sign */
 }
 
 /* Values that change at a breakpoint, and values no utility reads directly. */
@@ -106,7 +106,7 @@
   --size-sign: 3rem; /* a VASP's name on its destination sign: 48px on a phone */
   --size-figure: 1.5rem;
   --size-display: min(4.75rem, 8.6cqi); /* the landing headline only: sized to its own column (an @container), so each line fits whole */
-  --rule-heavy: 1px; /* the black rule: signs, table heads, boxed controls */
+  --rule-heavy: 1px; /* the strong hairline: table heads, section rules, boxed controls */
   --rule-hair: 1px; /* the grey rule: table rows, dividers */
   --rule-focus: 3px; /* the focus ring */
   --icon-stroke: 2px; /* every icon's line, at every size (non-scaling stroke) */
@@ -442,6 +442,14 @@
 @media (prefers-reduced-motion: reduce) {
   .lane-pulse {
     display: none;
+  }
+  /* Their delays are not motion tokens, so without this the content would wait
+     hidden for its delay: under reduced motion it is simply there. */
+  .flap-in,
+  .rise,
+  .route-arrive,
+  .breathe {
+    animation: none;
   }
 }
 

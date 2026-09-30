@@ -27,21 +27,24 @@ code, docs, the UI or the deck.
 | Route | Job |
 | --- | --- |
 | `/` | Landing: paste a wallet or a list, both directions in a line, a recorded route, the counted figures |
-| `/desk` | The yellow sign names the next VASP to write to; every VASP as a row; pending, unreadable, screened-only, unrouted and failed wallets below; the intake |
+| `/desk` | The follow-up clock, then the sign naming the next VASP to write to; every VASP on a departures board with filters and search; accounts that link cases; which wallets have sent USDT since they were read; pending, unreadable, screened-only, unrouted and failed wallets; the intake |
 | `/vasp/[name]` | One VASP: its wallets in both directions, its FIU-IND line and LE channel, the asks, the request and its status history |
 | `/vasp/[name]/request` | The consolidated request as a print-ready A4 letter, and its JSON package |
-| `/wallet/[address]?chain=` | One filed wallet: funders, the wallet, the outbound VASP, the route line, typologies, leads, OFAC, provenance |
+| `/wallet/[address]?chain=` | One filed wallet: funders, the wallet, the outbound VASP, the route line, typologies, leads, OFAC, movement since it was read, provenance |
 | `/cases` | Every case reference with its wallets, the VASPs reached and its requests |
 | `/requests` | Register of requests drafted, what each VASP did, and how VASPs answered |
 | `/registry` | Every VASP NOIR can attribute to, across TRON, Ethereum and Polygon |
-| `/method` | The SIH26182 checklist from `lib/coverage.ts`, how attribution works, the truth rules |
+| `/method` | The coverage list from `lib/coverage.ts` (NOIR's own capability names), how attribution works, the truth rules |
 
 ## Visual world (summary; the brief is authoritative)
 
-Wayfinding signage. White ground, sign-black ink, signal-yellow destination fields as the
-only colour at scale, route blue for links and actions. Archivo (heavy, for signs) and
-JetBrains Mono (addresses, figures). Square corners, 2px black rules, arrows as structure.
-No shadows, no gradients, no cards-grid, no dark theme.
+A dark, precise console (the user's pin of 29 Sep, night; DESIGN.md records it as built).
+Near-black ground, raised panels, white type in Manrope, JetBrains Mono for addresses and
+figures, one electric-blue accent (a gradient only on the landing headline, a glow only on
+the product board and the destination sign), light-blue links, green/amber/red status,
+hairline borders, rounded controls, the sidebar on every screen. The desk is a departures
+board. The request letter is always a white paper sheet. The site never names the
+hackathon, the problem statement or any other project, and asks for no officer ID.
 
 ## Standing rules
 

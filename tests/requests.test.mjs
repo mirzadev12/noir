@@ -84,3 +84,16 @@ test("the request package is machine-readable, carries no statute and says SAHYO
   assert.equal(pkg.accounts[0].wallet, TRON_A);
   assert.equal(JSON.stringify(pkg).match(/Section|BNSS|CrPC|PMLA/), null);
 });
+
+test("a status date can be neither before the step it follows nor in the future", () => {
+  const desk = deskWith(true);
+  const { request } = draftRequest(desk, "CoinDCX", ["kyc"], OFFICER, "2026-09-10T10:00:00.000Z", id);
+  const later = "2026-09-20T10:00:00.000Z";
+  const before = changeStatus(request, { status: "sent", on: "2026-09-02" }, OFFICER, later);
+  assert.equal(before.ok, false);
+  assert.match(before.error, /before/i);
+  assert.equal(changeStatus(request, { status: "sent", on: "2026-09-21" }, OFFICER, later).ok, false);
+  assert.equal(changeStatus(request, { status: "sent", on: "2026-09-12" }, OFFICER, later).ok, true);
+  assert.equal(changeStatus(request, { status: "frozen", on: "2026-09-11" }, OFFICER, later).ok, false);
+  assert.equal(changeStatus(request, { status: "frozen", on: "2026-09-14" }, OFFICER, later).ok, true);
+});

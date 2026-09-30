@@ -26,14 +26,14 @@ VASP is listed with **FIU-IND**, and where its **law-enforcement channel** is.
 | Route | What it is |
 | --- | --- |
 | `/` | The argument. What NOIR does in plain words and as four stages on a route line; a paste box that files to the desk; a real recorded route; the figures, counted from `data/` at build time. |
-| `/desk` | Home. The sign names the next VASP to write to; every VASP is a row (wallets out and in, cases, USDT each way, FIU-IND mark where listed, request status, "N filed since request"). Beneath: OFAC flags, what is being read (refreshing every 3 seconds), what could not be read, what routed to no VASP, wallets on other chains, failures. The intake (paste, CSV, case reference) is beside it. |
+| `/desk` | Home. **Follow up** first: requests past their expected answer, freezes about to lapse, preservation windows closing, each quoting the exchange's own published note. Then the sign naming the next VASP to write to, OFAC flags, and every VASP on a **departures board** (wallets out and in, cases, USDT each way, FIU-IND mark, request status) with stage filters and search. **Accounts that link cases** lists customer accounts reached from more than one case. **Moved since it was read** asks the chains, each time the desk opens, whether any wallet it has read has sent USDT since, and says how much and where (moved, not moved, or not checked: never two of them). Beneath: what is being read, what could not be read, what routed nowhere, other chains, failures. The intake is beside it. |
 | `/vasp/[name]` | One VASP: its wallets by direction with case, account, USDT, evidence in words and tier, and transaction links; the addressee, FIU-IND sentence (only where listed) and law-enforcement channel; the asks (a freeze only where an account is known); **Draft one request**; and the request's status history as stops on a line with a form to record the next status. |
 | `/vasp/[name]/request` | The request as an A4 letter: letterhead, To, Subject, numbered paragraphs, asks, the wallet table, a **blank legal-basis line**, signature block and seal box; every page ends with the reference and "Page X of Y". Print and "Request package (JSON)" on screen. |
-| `/wallet/[address]?chain=` | One filed wallet: an overview, a signpost (funders, the wallet, the outbound VASP), the route line, typologies observed, funders, explorer-tag leads (verbatim, never an attribution), OFAC listing, provenance, **Read again** and **Take off the desk**. |
+| `/wallet/[address]?chain=` | One filed wallet: an overview, a signpost (funders, the wallet, the outbound VASP), the route line, typologies observed, funders, explorer-tag leads (verbatim, never an attribution), OFAC listing, whether it has sent USDT since it was read, provenance, **Read again** and **Take off the desk**. |
 | `/cases` | Every case reference with its wallets, the VASPs they reach and the status of its requests. |
 | `/requests` | The register (VASP, asks, wallets, status, sent and answered, reference, letter) and how VASPs answered, always stating how many requests it counts. |
 | `/registry` | Every VASP NOIR can attribute to across TRON, Ethereum and Polygon: chains, seed wallets, deposit addresses, FIU-IND listing, whether a law-enforcement channel was found. |
-| `/method` | The SIH26182 checklist from `lib/coverage.ts` with its gaps, how attribution decides in each direction, what the evidence words mean, and the truth rules. |
+| `/method` | The coverage list from `lib/coverage.ts` (each capability built, partial or not built, with its gap), how attribution decides in each direction, what the evidence words mean, and the truth rules. |
 
 A search box on every screen opens a wallet address or a VASP by name.
 
@@ -60,7 +60,9 @@ DEMO_MODE=true npx next start
 
 `DEMO_MODE=true` answers from recorded real cases in `data/` by **exact address match**, and never invents an
 answer for an address it does not hold. Records answered this way carry the badge **Recorded**, and show the
-moment the chain was read. These wallets attribute offline; file them on the desk to populate it:
+moment the chain was read. An empty desk in demo mode offers **Load the recorded cases**, which files the wallets
+below under three sample case references in one step (`lib/recorded-cases.ts`); the wallets and what NOIR says
+about them are real, the case references are samples. They attribute offline; to file them by hand:
 
 ```
 TDii6vao7xyWg2rKPbCPWVRpSmne8xcqYx  TJjc21brTnnmKhiYHQuBD9Pxpfy7BwXHYQ  TXq2kpXz13Z16b2Fjq58NerQTmU7gkkGex
@@ -140,9 +142,20 @@ curl -X POST localhost:3000/api/desk/requests -H "content-type: application/json
 
 The chain-reading routes the desk is built on are also served: `POST /api/trace`, `GET /api/trace/[address]`,
 `GET /api/payers/[address]`, `GET /api/wallet/[address]`, `GET /api/tx/[hash]`, `GET /api/issuer/[address]`,
-`GET /api/screen/[address]`, `GET /api/health`, and the shared case file and audit log at `/api/cases` and
+`GET /api/screen/[address]`, `GET /api/health`, `POST /api/watch` (has each of these wallets sent USDT since a given
+moment: moved, still, or unchecked), and the shared case file and audit log at `/api/cases` and
 `/api/audit` (`?format=jsonl` returns the audit log exactly as written; check it with
 `node scripts/verify-audit.mjs`).
+
+## Deploy (Render)
+
+`render.yaml` is a Render Blueprint for one web service named `noir`. In the Render dashboard of the
+account you deploy from, choose **New → Blueprint**, connect this repository and pick the branch. Then, under
+the service's **Environment**, add `TRONGRID_API_KEY` (free at trongrid.io; without it TRON reads are
+rate-limited and those wallets show as could not be read) and, optionally, `BLOCKSCOUT_API_KEY`.
+`DEMO_MODE` is on in the blueprint, so the recorded wallets above answer instantly; every other wallet is
+read live. The free plan's disk is not kept, so the desk starts empty after each deploy or sleep; attach a
+disk and set `NOIR_STATE_DIR` to keep it. `GET /api/health` says how the deployment is set up.
 
 ## What NOIR will not say
 

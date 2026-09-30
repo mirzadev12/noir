@@ -25,8 +25,8 @@ import { Heading } from "./Type";
 const TONE = {
   signal: "on-ink rounded-control bg-paper-2 text-on-ink glow",
   ink: "on-ink rounded-control hair-box bg-paper-2 text-on-ink",
-  paper: "rule-box bg-paper text-ink",
-  prohibit: "on-ink bg-prohibit text-on-ink",
+  paper: "rounded-control rule-box bg-paper text-ink",
+  prohibit: "on-ink rounded-control bg-prohibit text-on-ink",
 } as const;
 
 export function Sign({

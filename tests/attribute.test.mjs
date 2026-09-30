@@ -158,8 +158,25 @@ test("the route runs from the wallet to the account along the largest share", as
   ]);
 });
 
-test("typologies are the trace's own flags, verbatim", async () => {
+test("typologies are the trace's own flags, as sentences", async () => {
   const t = { ...trace([], []), riskFlags: [{ code: "SHORT_DWELL", reason: "Forwarded within 4 minutes", atAddress: W }] };
   const r = await attributeWallet(W, "tron", deps(t, payers()));
-  assert.deepEqual(r.typologies, [{ code: "SHORT_DWELL", reason: "Forwarded within 4 minutes", at: W }]);
+  assert.deepEqual(r.typologies, [{ code: "SHORT_DWELL", reason: "Forwarded within 4 minutes.", at: W }]);
+});
+
+test("typologies keep what was observed and drop the interpretation", async () => {
+  const t = {
+    ...trace([], []),
+    riskFlags: [
+      { code: "SHORT_DWELL", reason: "Funds forwarded within 2 minutes of receipt — indicates automated laundering, not manual movement.", atAddress: W },
+      { code: "ROUND_AMOUNTS", reason: "Round-figure transfer of 5,000 USDT suggests structured layering rather than ordinary payment activity.", atAddress: W },
+      { code: "PEEL_CHAIN", reason: "Peel-chain pattern: 4 small withdrawals against a largest transfer of 900 USDT — the bulk moves on while fractions are shaved off.", atAddress: W },
+    ],
+  };
+  const r = await attributeWallet(W, "tron", deps(t, payers()));
+  assert.deepEqual(r.typologies.map((x) => x.reason), [
+    "Funds forwarded within 2 minutes of receipt.",
+    "Round-figure transfer of 5,000 USDT.",
+    "Peel-chain pattern: 4 small withdrawals against a largest transfer of 900 USDT.",
+  ]);
 });
