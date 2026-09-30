@@ -75,7 +75,7 @@ export function PendingList({ entries }: { entries: DeskEntry[] }) {
   if (entries.length === 0) return null;
   const rows: TableRow[] = entries.map((e, i) => ({
     key: e.id,
-    cells: [<WalletLink key="w" wallet={e.wallet} chain={e.chain} />, cases(e), <Tag key="s" tone={i === 0 ? "solid" : "quiet"}>{i === 0 ? "Reading now" : "Waiting"}</Tag>],
+    cells: [<WalletLink key="w" wallet={e.wallet} chain={e.chain} short />, cases(e), <Tag key="s" tone={i === 0 ? "solid" : "quiet"}>{i === 0 ? "Reading now" : "Waiting"}</Tag>],
   }));
   return (
     <Section
@@ -93,7 +93,7 @@ export function UnreadableList({ entries }: { entries: DeskEntry[] }) {
   const rows: TableRow[] = entries.map((e) => ({
     key: e.id,
     cells: [
-      <WalletLink key="w" wallet={e.wallet} chain={e.chain} />,
+      <WalletLink key="w" wallet={e.wallet} chain={e.chain} short />,
       cases(e),
       <span key="t" className="text-small text-ink-soft">
         {retryLine(e, MAX_READ_ATTEMPTS)}
@@ -119,7 +119,7 @@ export function ScreenedList({ entries }: { entries: DeskEntry[] }) {
     return {
       key: e.id,
       cells: [
-        <WalletLink key="w" wallet={e.wallet} chain={e.chain} />,
+        <WalletLink key="w" wallet={e.wallet} chain={e.chain} short />,
         cases(e),
         listing ? (
           <span key="o" className="inline-flex min-w-0 flex-col items-start gap-1">
@@ -150,7 +150,7 @@ export function UnroutedList({ entries }: { entries: DeskEntry[] }) {
   const rows: TableRow[] = entries.map((e) => ({
     key: e.id,
     cells: [
-      <WalletLink key="w" wallet={e.wallet} chain={e.chain} />,
+      <WalletLink key="w" wallet={e.wallet} chain={e.chain} short />,
       cases(e),
       <span key="y" className="inline-flex min-w-0 flex-col items-start gap-1">
         <OfacTag entry={e} />
@@ -175,7 +175,7 @@ export function FailedList({ entries }: { entries: DeskEntry[] }) {
   const rows: TableRow[] = entries.map((e) => ({
     key: e.id,
     cells: [
-      <WalletLink key="w" wallet={e.wallet} chain={e.chain} />,
+      <WalletLink key="w" wallet={e.wallet} chain={e.chain} short />,
       cases(e),
       <span key="e" className="text-small">
         {e.error ?? "Attribution failed."}

@@ -57,7 +57,7 @@ export function Mono({
   );
   if (!copy || typeof children !== "string") return value;
   return (
-    <span className="inline-flex min-w-0 max-w-full flex-wrap items-baseline gap-x-2">
+    <span className="inline-flex min-w-0 max-w-full items-baseline gap-x-2">
       {value}
       <CopyButton value={children} />
     </span>

@@ -14,7 +14,7 @@
 
 import { RouteLink, Section, Table, Tag, Text, type TableRow } from "@/components/noir";
 import type { DeskEntry, RoutedWallet, VaspRow } from "@/lib/desk-types";
-import { amount, evidenceWord, tierName, txHref } from "@/lib/noir-format";
+import { amount, evidenceWord, shortAddress, tierName, txHref } from "@/lib/noir-format";
 import { Mono } from "@/components/noir";
 import { OfacTag } from "./DeskLists";
 import { WalletLink } from "./WalletLink";
@@ -42,16 +42,21 @@ function Evidence({ w }: { w: RoutedWallet }) {
   );
 }
 
+/** A transaction hash shortened from the middle; the whole hash is in its title, on the explorer and on the letter. */
+const shortHash = (hash: string) => (hash.length > 20 ? `${hash.slice(0, 10)}…${hash.slice(-6)}` : hash);
+
 function Transactions({ w }: { w: RoutedWallet }) {
   if (w.txHashes.length === 0) return <span className="text-small text-ink-soft">None recorded</span>;
   const link = (hash: string) => {
     const href = txHref(w.chain, hash);
     return href ? (
-      <RouteLink key={hash} href={href} external mono>
-        {hash}
+      <RouteLink key={hash} href={href} external mono title={hash} className="whitespace-nowrap">
+        {shortHash(hash)}
       </RouteLink>
     ) : (
-      <Mono key={hash}>{hash}</Mono>
+      <Mono key={hash} title={hash}>
+        {shortHash(hash)}
+      </Mono>
     );
   };
   const [first, ...rest] = w.txHashes;
@@ -78,8 +83,8 @@ export function VaspWallets({ row, entries }: { row: VaspRow; entries: Record<st
       <WalletCell key="w" w={w} entries={entries} />,
       cases(w),
       w.account ? (
-        <RouteLink key="a" href={explorerHref(w.chain, w.account) ?? "#"} external mono copy={w.account}>
-          {w.account}
+        <RouteLink key="a" href={explorerHref(w.chain, w.account) ?? "#"} external mono copy={w.account} title={w.account} className="whitespace-nowrap">
+          {shortAddress(w.account)}
         </RouteLink>
       ) : null,
       <span key="u" className="type-mono font-bold">
