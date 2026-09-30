@@ -127,6 +127,9 @@ export default function MethodPage() {
             </li>
           ))}
         </ul>
+        <Text className="mt-8">
+          Every write to the desk is logged in a chain that can be re-checked. <RouteLink href="/audit">Open the audit log</RouteLink>
+        </Text>
         <Notice className="mt-10">Counts on this page are computed from lib/coverage.ts and the label files when the site is built.</Notice>
       </Section>
     </Page>
