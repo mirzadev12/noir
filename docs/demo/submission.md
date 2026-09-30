@@ -19,7 +19,7 @@ then WHAT IT RUNS ON. Every figure in it was counted from `data/` and the code t
 565 deposit addresses, 14 law-enforcement channels, 1,043 OFAC-listed addresses of the list of 18 Sep 2026, 18
 capabilities of which 13 are built, 4 partial and 1 not built, 282 tests). Recount them before changing any.
 
-### Short version, 1,376 characters
+### Short version, 1,407 characters
 
 NOIR names the exchange an investigator should write to about an unknown crypto wallet, in both directions, and drafts one request per exchange for every case that leads there.
 
