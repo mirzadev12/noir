@@ -116,7 +116,7 @@ export default async function RequestsPage() {
 
       <Section
         title="How VASPs answered"
-        note={`Counted from the ${noun(requests.length, "request")} recorded on this desk. A few requests are not a measure of an exchange; read these as a log, not a ranking.`}
+        note={requests.length ? `Counted from the ${noun(requests.length, "request")} recorded on this desk. A few requests are not a measure of an exchange; read these as a log, not a ranking.` : undefined}
       >
         {responses.length === 0 ? (
           <Text tone="soft">0 requests are recorded, so there is nothing to count yet.</Text>

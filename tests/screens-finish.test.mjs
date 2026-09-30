@@ -26,3 +26,9 @@ test("a copy button stays beside its value instead of wrapping onto a line of it
     assert.doesNotMatch(read(p), /inline-flex min-w-0 max-w-full flex-wrap items-baseline gap-x-2/, p);
   }
 });
+
+test("a stacked table row does not indent its first cell, and an empty register does not count zero twice", () => {
+  const css = read("app/globals.css");
+  assert.match(css, /\.noir-table td,\s*\.noir-table td:first-child \{\s*border: 0;/);
+  assert.match(read("app/requests/page.tsx"), /note=\{requests\.length \? `Counted from/);
+});
